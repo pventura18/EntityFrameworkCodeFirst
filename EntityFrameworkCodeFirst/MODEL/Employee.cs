@@ -23,8 +23,11 @@ namespace EntityFrameworkCodeFirst.MODEL
         [StringLength(100)]
         public string email { get; set; }
 
-        //public int reportsTo { get; set; }
+        public int? reportsTo { get; set; }
         [StringLength(50)]
         public string jobTitle { get; set; }
+
+        [ForeignKey("reportsTo")]
+        public Employee ReportsToEmployee { get; set; }
     }
 }
