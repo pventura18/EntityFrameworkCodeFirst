@@ -30,7 +30,7 @@ namespace EntityFrameworkCodeFirst.MODEL
         public string postalCode { get; set; }
         [StringLength(10)]
         public string territory { get; set; }
-
+        [StringLength(10)]
         public ICollection<Employee> employees { get; set; }
 
     }
