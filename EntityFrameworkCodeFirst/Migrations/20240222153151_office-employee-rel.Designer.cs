@@ -3,14 +3,16 @@ using System;
 using EntityFrameworkCodeFirst.MODEL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EntityFrameworkCodeFirst.Migrations
 {
     [DbContext(typeof(BusinessDBContext))]
-    partial class BusinessDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240222153151_office-employee-rel")]
+    partial class officeemployeerel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,11 +51,16 @@ namespace EntityFrameworkCodeFirst.Migrations
                         .HasMaxLength(50);
 
                     b.Property<string>("officeCode")
+                        .IsRequired()
+                        .HasColumnType("varchar(10) CHARACTER SET utf8mb4")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("officeCode1")
                         .HasColumnType("varchar(10) CHARACTER SET utf8mb4");
 
                     b.HasKey("employeeNumber");
 
-                    b.HasIndex("officeCode");
+                    b.HasIndex("officeCode1");
 
                     b.ToTable("employees");
                 });
@@ -181,7 +188,7 @@ namespace EntityFrameworkCodeFirst.Migrations
                 {
                     b.HasOne("EntityFrameworkCodeFirst.MODEL.Office", null)
                         .WithMany("employees")
-                        .HasForeignKey("officeCode");
+                        .HasForeignKey("officeCode1");
                 });
 
             modelBuilder.Entity("EntityFrameworkCodeFirst.MODEL.Product", b =>

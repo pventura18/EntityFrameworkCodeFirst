@@ -22,8 +22,7 @@ namespace EntityFrameworkCodeFirst.MODEL
         public string extension { get; set; }
         [StringLength(100)]
         public string email { get; set; }
-        [StringLength(10)]
-        public string officeCode { get; set; }
+
         //public int reportsTo { get; set; }
         [StringLength(50)]
         public string jobTitle { get; set; }
