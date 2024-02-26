@@ -29,5 +29,7 @@ namespace EntityFrameworkCodeFirst.MODEL
 
         [ForeignKey("reportsTo")]
         public Employee ReportsToEmployee { get; set; }
+        [Column(TypeName = "salesRepEmployeeNumber")]
+        public ICollection<Customer> customers { get; set; }
     }
 }

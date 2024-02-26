@@ -3,14 +3,16 @@ using System;
 using EntityFrameworkCodeFirst.MODEL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EntityFrameworkCodeFirst.Migrations
 {
     [DbContext(typeof(BusinessDBContext))]
-    partial class BusinessDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240222161707_customers")]
+    partial class customers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -183,40 +185,6 @@ namespace EntityFrameworkCodeFirst.Migrations
                     b.ToTable("offices");
                 });
 
-            modelBuilder.Entity("EntityFrameworkCodeFirst.MODEL.Orders", b =>
-                {
-                    b.Property<int>("orderNumber")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("comments")
-                        .IsRequired()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<int?>("customerNumber")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("orderDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("requiredDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("shippedDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("status")
-                        .IsRequired()
-                        .HasColumnType("varchar(15) CHARACTER SET utf8mb4")
-                        .HasMaxLength(15);
-
-                    b.HasKey("orderNumber");
-
-                    b.HasIndex("customerNumber");
-
-                    b.ToTable("orders");
-                });
-
             modelBuilder.Entity("EntityFrameworkCodeFirst.MODEL.Product", b =>
                 {
                     b.Property<string>("productCode")
@@ -301,13 +269,6 @@ namespace EntityFrameworkCodeFirst.Migrations
                     b.HasOne("EntityFrameworkCodeFirst.MODEL.Employee", "ReportsToEmployee")
                         .WithMany()
                         .HasForeignKey("reportsTo");
-                });
-
-            modelBuilder.Entity("EntityFrameworkCodeFirst.MODEL.Orders", b =>
-                {
-                    b.HasOne("EntityFrameworkCodeFirst.MODEL.Customer", null)
-                        .WithMany("orders")
-                        .HasForeignKey("customerNumber");
                 });
 
             modelBuilder.Entity("EntityFrameworkCodeFirst.MODEL.Product", b =>
