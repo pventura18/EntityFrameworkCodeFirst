@@ -8,17 +8,20 @@ using System.Threading.Tasks;
 
 namespace EntityFrameworkCodeFirst.MODEL
 {
-    [Table("productlines")]
-    public class ProductLine
+    [Table("ProductLines")]
+    public class ProductLines
     {
         [Key]
         [StringLength(50)]
-        public string productLine { get; set; }
-        [StringLength(4000)]
-        public string textDescription { get; set; }
-        public string htmlDescription { get; set; }
-        public byte[] image { get; set; }
+        public string ProductLine { get; set; }
 
-        public ICollection<Product> products { get; set; }
+        [StringLength(4000)]
+        public string TextDescription { get; set; }
+
+        [Column(TypeName = "MEDIUMTEXT")]
+        public string HtmlDescription { get; set; }
+
+        [Column(TypeName = "MEDIUMBLOB")]
+        public byte[]? Imatge { get; set; }
     }
 }
