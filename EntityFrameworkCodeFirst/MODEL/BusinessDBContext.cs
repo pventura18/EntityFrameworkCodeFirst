@@ -22,6 +22,6 @@ namespace EntityFrameworkCodeFirst.MODEL
             }
         }
 
-        public DbSet<ProductLines> ProductLines { get; set; }
+        public DbSet<ProductLine> ProductLines { get; set; }
     }
 }

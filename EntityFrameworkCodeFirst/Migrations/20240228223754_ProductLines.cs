@@ -8,24 +8,24 @@ namespace EntityFrameworkCodeFirst.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "ProductLines",
+                name: "productlines",
                 columns: table => new
                 {
-                    ProductLine = table.Column<string>(maxLength: 50, nullable: false),
-                    TextDescription = table.Column<string>(maxLength: 4000, nullable: false),
-                    HtmlDescription = table.Column<string>(type: "MEDIUMTEXT", nullable: false),
-                    Imatge = table.Column<byte[]>(type: "MEDIUMBLOB", nullable: true)
+                    productLine = table.Column<string>(type: "varchar(50)", nullable: false),
+                    textDescription = table.Column<string>(type: "varchar(4000)", nullable: true),
+                    htmlDescription = table.Column<string>(type: "mediumtext", nullable: true),
+                    image = table.Column<byte[]>(type: "mediumblob", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductLines", x => x.ProductLine);
+                    table.PrimaryKey("PK_productlines", x => x.productLine);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ProductLines");
+                name: "productlines");
         }
     }
 }
