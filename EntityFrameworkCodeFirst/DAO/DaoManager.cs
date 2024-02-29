@@ -10,6 +10,15 @@ namespace EntityFrameworkCodeFirst.DAO
 {
     public class DaoManager : IDAO
     {
+        private string EMPLOYEES_FILE = "EMPLOYEES.csv";
+        private string CUSTOMERS_FILE = "CUSTOMERS.csv";
+        private string OFFICES_FILE = "OFFICES.csv";
+        private string ORDERDETAILS_FILE = "ORDERDETAILS.csv";
+        private string ORDERS_FILE = "ORDERS.csv";
+        private string PAYMENTS_FILE = "PAYMENTS.csv";
+        private string PRODUCTLINES_FILE = "PRODUCTLINES.csv";
+        private string PRODUCTS_FILE = "PRODUCTS.csv";
+
         private MODEL.BusinessDBContext context = null;
 
         public DaoManager(MODEL.BusinessDBContext context)
@@ -31,7 +40,7 @@ namespace EntityFrameworkCodeFirst.DAO
 
         public void AddProductLine()
         {
-            using(StreamReader reader = new StreamReader("PRODUCTLINES.csv"))
+            using(StreamReader reader = new StreamReader(ORDERDETAILS_FILE))
             {
                 reader.ReadLine();
                 string line = reader.ReadLine();
@@ -43,10 +52,45 @@ namespace EntityFrameworkCodeFirst.DAO
                     productLine.textDescription = data[1];
                     productLine.htmlDescription = data[2];
                     productLine.image = data[3];
+
                     AddProductLineEntry(productLine);
+
                     line = reader.ReadLine();
                 }
             }
+        }
+
+        public void AddProducts()
+        {
+            using(StreamReader reader = new StreamReader(PRODUCTS_FILE))
+            {
+                reader.ReadLine();
+                string line = reader.ReadLine();
+                while(line != null)
+                {
+                    string[] data = line.Split(',');
+                    Product product = new Product();
+                    product.productCode = data[0];
+                    product.productName = data[1];
+                    product.productLine = data[2];
+                    product.productScale = data[3];
+                    product.productVendor = data[4];
+                    product.productDescription = data[5];
+                    product.quantityInStock = short.Parse(data[6]);
+                    product.BuyPrice = double.Parse(data[7]);
+                    product.MSRP = double.Parse(data[8]);
+
+                    AddProductsEntry(product);
+
+                    line = reader.ReadLine();
+                }
+            }
+        }
+
+        public void AddProductsEntry(Product product)
+        {
+            context.Products.Add(product);
+            context.SaveChanges();
         }
 
         public void AddProductLineEntry(ProductLine productLine)
@@ -57,7 +101,7 @@ namespace EntityFrameworkCodeFirst.DAO
 
         public void AddCustomers()
         {
-            throw new NotImplementedException();
+            
         }
 
         public void AddCustomersEntry(Customer customer)
@@ -115,14 +159,6 @@ namespace EntityFrameworkCodeFirst.DAO
             throw new NotImplementedException();
         }
 
-        public void AddProducts()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddProductsEntry(Product product)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
