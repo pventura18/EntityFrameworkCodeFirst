@@ -29,6 +29,7 @@ namespace EntityFrameworkCodeFirst
             DaoFactory daoFactory = new DaoFactory();
             manager = daoFactory.GetDaoManager(context);
             manager.AddProductLine();
+            manager.AddProducts();
         }
     }
 }
