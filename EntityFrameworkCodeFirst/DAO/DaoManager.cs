@@ -1,6 +1,7 @@
 ﻿using EntityFrameworkCodeFirst.MODEL;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,16 +10,49 @@ namespace EntityFrameworkCodeFirst.DAO
 {
     public class DaoManager : IDAO
     {
+        private MODEL.BusinessDBContext context = null;
+
+        public DaoManager(MODEL.BusinessDBContext context)
+        {
+            this.context = context;
+        }
+
         public void ImportCsvFiles()
         {
-            AddCustomers();
-            AddEmployees();
-            AddOffices();
-            AddOrderDetails();
-            AddOrders();
-            AddPayments();
             AddProductLine();
             AddProducts();
+            AddOffices();
+            AddEmployees();
+            AddCustomers();
+            AddPayments();
+            AddOrders();
+            AddOrderDetails();
+        }
+
+        public void AddProductLine()
+        {
+            using(StreamReader reader = new StreamReader("PRODUCTLINES.csv"))
+            {
+                reader.ReadLine();
+                string line = reader.ReadLine();
+                while(line != null)
+                {
+                    string[] data = line.Split(',');
+                    ProductLine productLine = new ProductLine();
+                    productLine.productLine = data[0];
+                    productLine.textDescription = data[1];
+                    productLine.htmlDescription = data[2];
+                    productLine.image = data[3];
+                    AddProductLineEntry(productLine);
+                    line = reader.ReadLine();
+                }
+            }
+        }
+
+        public void AddProductLineEntry(ProductLine productLine)
+        {
+            context.ProductLines.Add(productLine);
+            context.SaveChanges();
         }
 
         public void AddCustomers()
@@ -77,16 +111,6 @@ namespace EntityFrameworkCodeFirst.DAO
         }
 
         public void AddPaymentsEntry(Payment payment)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddProductLine()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddProductLineEntry(ProductLine productLine)
         {
             throw new NotImplementedException();
         }

@@ -9,9 +9,9 @@ namespace EntityFrameworkCodeFirst.DAO
     public class DaoFactory
     {
 
-        public IDAO GetDaoManager()
+        public IDAO GetDaoManager(MODEL.BusinessDBContext context)
         {
-            return new DaoManager();
+            return new DaoManager(context);
         }
 
     }

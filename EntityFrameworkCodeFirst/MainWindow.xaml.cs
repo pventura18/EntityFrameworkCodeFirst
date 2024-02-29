@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EntityFrameworkCodeFirst.DAO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,14 @@ namespace EntityFrameworkCodeFirst
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MODEL.BusinessDBContext context = new MODEL.BusinessDBContext();
+        private IDAO manager;
         public MainWindow()
         {
             InitializeComponent();
+            DaoFactory daoFactory = new DaoFactory();
+            manager = daoFactory.GetDaoManager(context);
+            manager.AddProductLine();
         }
     }
 }
