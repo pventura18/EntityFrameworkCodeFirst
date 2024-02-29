@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EntityFrameworkCodeFirst.Migrations
 {
     [DbContext(typeof(BusinessDBContext))]
-    [Migration("20240228234035_Customers")]
+    [Migration("20240229000450_Customers")]
     partial class Customers
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,9 +24,6 @@ namespace EntityFrameworkCodeFirst.Migrations
                     b.Property<int>("customerNumber")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    b.Property<decimal?>("CreditLimit")
-                        .HasColumnType("decimal(10,2)");
 
                     b.Property<string>("addressLine1")
                         .IsRequired()
@@ -50,6 +47,9 @@ namespace EntityFrameworkCodeFirst.Migrations
                     b.Property<string>("country")
                         .IsRequired()
                         .HasColumnType("varchar(50)");
+
+                    b.Property<decimal?>("creditLimit")
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<string>("customerName")
                         .IsRequired()
@@ -219,7 +219,7 @@ namespace EntityFrameworkCodeFirst.Migrations
 
             modelBuilder.Entity("EntityFrameworkCodeFirst.MODEL.Customer", b =>
                 {
-                    b.HasOne("EntityFrameworkCodeFirst.MODEL.Employee", "Employee")
+                    b.HasOne("EntityFrameworkCodeFirst.MODEL.Employee", "employee")
                         .WithMany()
                         .HasForeignKey("salesRepEmployeeNumber");
                 });

@@ -24,7 +24,7 @@ namespace EntityFrameworkCodeFirst.Migrations
                     postalCode = table.Column<string>(type: "varchar(15)", nullable: true),
                     country = table.Column<string>(type: "varchar(50)", nullable: false),
                     salesRepEmployeeNumber = table.Column<int>(nullable: true),
-                    CreditLimit = table.Column<decimal>(type: "decimal(10,2)", nullable: true)
+                    creditLimit = table.Column<decimal>(type: "decimal(10,2)", nullable: true)
                 },
                 constraints: table =>
                 {

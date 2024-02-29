@@ -14,31 +14,43 @@ namespace EntityFrameworkCodeFirst.MODEL
     {
         [Key]
         public int customerNumber { get; set; }
+
         [Column(TypeName = "varchar(50)")]
         public string customerName { get; set; }
+
         [Column(TypeName = "varchar(50)")]
         public string contactLastName { get; set; }
+
         [Column(TypeName = "varchar(50)")]
         public string contactFirstName { get; set; }
+
         [Column(TypeName = "varchar(50)")]
         public string phone { get; set; }
+
         [Column(TypeName = "varchar(50)")]
         public string addressLine1 { get; set; }
+
         [Column(TypeName = "varchar(50)")]
         public string? addressLine2 { get; set; }
+
         [Column(TypeName = "varchar(50)")]
         public string city { get; set; }
+
         [Column(TypeName = "varchar(50)")]
         public string? state { get; set; }
+
         [Column(TypeName = "varchar(15)")]
         public string? postalCode { get; set; }
+
         [Column(TypeName = "varchar(50)")]
         public string country { get; set; }
-        [ForeignKey("Employee")]
-        public int? salesRepEmployeeNumber { get; set; }
-        [Column(TypeName = "decimal(10,2)")]
-        public decimal? CreditLimit { get; set; }
 
-        public Employee Employee { get; set; }
+        [ForeignKey("employee")]
+        public int? salesRepEmployeeNumber { get; set; }
+
+        [Column(TypeName = "decimal(10,2)")]
+        public decimal? creditLimit { get; set; }
+
+        public Employee employee { get; set; }
     }
 }

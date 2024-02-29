@@ -10,6 +10,22 @@
   <ItemGroup>
     <Compile Remove="Migrations\20240228231019_Employees.cs" />
     <Compile Remove="Migrations\20240228231019_Employees.Designer.cs" />
+    <Compile Remove="Migrations\20240228234035_Customers.cs" />
+    <Compile Remove="Migrations\20240228234035_Customers.Designer.cs" />
+    <Compile Remove="Migrations\20240228234326_Payments.cs" />
+    <Compile Remove="Migrations\20240228234326_Payments.Designer.cs" />
+    <Compile Remove="Migrations\20240228234447_Payments.cs" />
+    <Compile Remove="Migrations\20240228234447_Payments.Designer.cs" />
+    <Compile Remove="Migrations\20240228234842_Orders.cs" />
+    <Compile Remove="Migrations\20240228234842_Orders.Designer.cs" />
+    <Compile Remove="Migrations\20240228235024_Orders.cs" />
+    <Compile Remove="Migrations\20240228235024_Orders.Designer.cs" />
+    <Compile Remove="Migrations\20240228235115_Orders.cs" />
+    <Compile Remove="Migrations\20240228235115_Orders.Designer.cs" />
+    <Compile Remove="Migrations\20240228235213_Orders.cs" />
+    <Compile Remove="Migrations\20240228235213_Orders.Designer.cs" />
+    <Compile Remove="Migrations\20240228235815_CustomerFix.cs" />
+    <Compile Remove="Migrations\20240228235815_CustomerFix.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
