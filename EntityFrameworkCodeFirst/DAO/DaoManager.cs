@@ -1,10 +1,12 @@
 ﻿using EntityFrameworkCodeFirst.MODEL;
+using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Shapes;
 
 namespace EntityFrameworkCodeFirst.DAO
 {
@@ -40,13 +42,15 @@ namespace EntityFrameworkCodeFirst.DAO
 
         public void AddProductLine()
         {
-            using(StreamReader reader = new StreamReader(ORDERDETAILS_FILE))
+            using(TextFieldParser parser = new TextFieldParser(PRODUCTLINES_FILE))
             {
-                reader.ReadLine();
-                string line = reader.ReadLine();
-                while(line != null)
+                parser.ReadLine();
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(",");
+                parser.HasFieldsEnclosedInQuotes = true;
+                while(!parser.EndOfData)
                 {
-                    string[] data = line.Split(',');
+                    string[] data = parser.ReadFields();
                     ProductLine productLine = new ProductLine();
                     productLine.productLine = data[0];
                     productLine.textDescription = data[1];
@@ -54,21 +58,28 @@ namespace EntityFrameworkCodeFirst.DAO
                     productLine.image = data[3];
 
                     AddProductLineEntry(productLine);
-
-                    line = reader.ReadLine();
                 }
             }
         }
 
+        public void AddProductLineEntry(ProductLine productLine)
+        {
+            context.ProductLines.Add(productLine);
+            context.SaveChanges();
+        }
+
         public void AddProducts()
         {
-            using(StreamReader reader = new StreamReader(PRODUCTS_FILE))
+            using (TextFieldParser parser = new TextFieldParser(PRODUCTS_FILE))
             {
-                reader.ReadLine();
-                string line = reader.ReadLine();
-                while(line != null)
+                parser.ReadLine();
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(",");
+                parser.HasFieldsEnclosedInQuotes = true;
+
+                while (!parser.EndOfData)
                 {
-                    string[] data = line.Split(',');
+                    string[] data = parser.ReadFields();
                     Product product = new Product();
                     product.productCode = data[0];
                     product.productName = data[1];
@@ -76,27 +87,30 @@ namespace EntityFrameworkCodeFirst.DAO
                     product.productScale = data[3];
                     product.productVendor = data[4];
                     product.productDescription = data[5];
-                    product.quantityInStock = short.Parse(data[6]);
-                    product.BuyPrice = double.Parse(data[7]);
-                    product.MSRP = double.Parse(data[8]);
+                    product.quantityInStock = Convert.ToInt16(data[6]);
+                    product.BuyPrice = Convert.ToDouble(data[7]);
+                    product.MSRP = Convert.ToDouble(data[8]);
 
                     AddProductsEntry(product);
-
-                    line = reader.ReadLine();
                 }
             }
         }
 
         public void AddProductsEntry(Product product)
         {
+            product.ProductLines = context.ProductLines.Find(product.productLine);
             context.Products.Add(product);
             context.SaveChanges();
         }
 
-        public void AddProductLineEntry(ProductLine productLine)
+        public void AddOffices()
         {
-            context.ProductLines.Add(productLine);
-            context.SaveChanges();
+            throw new NotImplementedException();
+        }
+
+        public void AddOfficesEntry(Office office)
+        {
+            throw new NotImplementedException();
         }
 
         public void AddCustomers()
@@ -119,15 +133,7 @@ namespace EntityFrameworkCodeFirst.DAO
             throw new NotImplementedException();
         }
 
-        public void AddOffices()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddOfficesEntry(Office office)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public void AddOrderDetails()
         {
@@ -158,7 +164,5 @@ namespace EntityFrameworkCodeFirst.DAO
         {
             throw new NotImplementedException();
         }
-
-        
     }
 }
