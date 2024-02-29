@@ -8,23 +8,23 @@ namespace EntityFrameworkCodeFirst.DAO
 {
     public interface IDAO
     {
-        void AddProductLine(MODEL.ProductLine productLine);
-        void AddProducts(MODEL.Product product);
-        void AddOffices(MODEL.Office office);
-        void AddEmployees(MODEL.Employee employee);
-        void AddCustomers(MODEL.Customer customer);
-        void AddPayments(MODEL.Payment payment);
-        void AddOrders(MODEL.Order order);
-        void AddOrderDetails(MODEL.OrderDetail orderDetail);
+        void AddProductLine();
+        void AddProducts();
+        void AddOffices();
+        void AddEmployees();
+        void AddCustomers();
+        void AddPayments();
+        void AddOrders();
+        void AddOrderDetails();
 
-        void AddProductLineEntry();
-        void AddProductsEntry();
-        void AddOfficesEntry();
-        void AddEmployeesEntry();
-        void AddCustomersEntry();
-        void AddPaymentsEntry();
-        void AddOrdersEntry();
-        void AddOrderDetailsEntry();
+        void AddProductLineEntry(MODEL.ProductLine productLine);
+        void AddProductsEntry(MODEL.Product product);
+        void AddOfficesEntry(MODEL.Office office);
+        void AddEmployeesEntry(MODEL.Employee employee);
+        void AddCustomersEntry(MODEL.Customer customer);
+        void AddPaymentsEntry(MODEL.Payment payment);
+        void AddOrdersEntry(MODEL.Order order);
+        void AddOrderDetailsEntry(MODEL.OrderDetail orderDetail);
 
         void ImportCsvFiles();
     }
