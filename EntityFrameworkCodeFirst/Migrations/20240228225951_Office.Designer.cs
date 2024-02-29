@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EntityFrameworkCodeFirst.Migrations
 {
     [DbContext(typeof(BusinessDBContext))]
-    [Migration("20240219175935_offices-added")]
-    partial class officesadded
+    [Migration("20240228225951_Office")]
+    partial class Office
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,48 +22,37 @@ namespace EntityFrameworkCodeFirst.Migrations
             modelBuilder.Entity("EntityFrameworkCodeFirst.MODEL.Office", b =>
                 {
                     b.Property<string>("officeCode")
-                        .HasColumnType("varchar(10) CHARACTER SET utf8mb4")
-                        .HasMaxLength(10);
+                        .HasColumnType("varchar(10)");
 
                     b.Property<string>("addressLine1")
                         .IsRequired()
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
-                        .HasMaxLength(50);
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("addressLine2")
-                        .IsRequired()
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
-                        .HasMaxLength(50);
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("city")
                         .IsRequired()
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
-                        .HasMaxLength(50);
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("country")
                         .IsRequired()
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
-                        .HasMaxLength(50);
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("phone")
                         .IsRequired()
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
-                        .HasMaxLength(50);
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("postalCode")
                         .IsRequired()
-                        .HasColumnType("varchar(15) CHARACTER SET utf8mb4")
-                        .HasMaxLength(15);
+                        .HasColumnType("varchar(15)");
 
                     b.Property<string>("state")
-                        .IsRequired()
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
-                        .HasMaxLength(50);
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("territory")
                         .IsRequired()
-                        .HasColumnType("varchar(10) CHARACTER SET utf8mb4")
-                        .HasMaxLength(10);
+                        .HasColumnType("varchar(10)");
 
                     b.HasKey("officeCode");
 
@@ -73,39 +62,36 @@ namespace EntityFrameworkCodeFirst.Migrations
             modelBuilder.Entity("EntityFrameworkCodeFirst.MODEL.Product", b =>
                 {
                     b.Property<string>("productCode")
-                        .HasColumnType("varchar(15) CHARACTER SET utf8mb4")
-                        .HasMaxLength(15);
+                        .HasColumnType("varchar(15)");
+
+                    b.Property<decimal>("BuyPrice")
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<decimal>("MSRP")
-                        .HasColumnType("decimal(10, 2)");
-
-                    b.Property<decimal>("buyPrice")
-                        .HasColumnType("decimal(10, 2)");
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<string>("productDescription")
                         .IsRequired()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("text");
 
                     b.Property<string>("productLine")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4");
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("productName")
                         .IsRequired()
-                        .HasColumnType("varchar(70) CHARACTER SET utf8mb4")
-                        .HasMaxLength(70);
+                        .HasColumnType("varchar(70)");
 
                     b.Property<string>("productScale")
                         .IsRequired()
-                        .HasColumnType("varchar(10) CHARACTER SET utf8mb4")
-                        .HasMaxLength(10);
+                        .HasColumnType("varchar(10)");
 
                     b.Property<string>("productVendor")
                         .IsRequired()
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
-                        .HasMaxLength(50);
+                        .HasColumnType("varchar(50)");
 
                     b.Property<short>("quantityInStock")
-                        .HasColumnType("smallint");
+                        .HasColumnType("smallint(6)");
 
                     b.HasKey("productCode");
 
@@ -117,21 +103,16 @@ namespace EntityFrameworkCodeFirst.Migrations
             modelBuilder.Entity("EntityFrameworkCodeFirst.MODEL.ProductLine", b =>
                 {
                     b.Property<string>("productLine")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
-                        .HasMaxLength(50);
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("htmlDescription")
-                        .IsRequired()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("mediumtext");
 
                     b.Property<byte[]>("image")
-                        .IsRequired()
-                        .HasColumnType("longblob");
+                        .HasColumnType("mediumblob");
 
                     b.Property<string>("textDescription")
-                        .IsRequired()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4")
-                        .HasMaxLength(4000);
+                        .HasColumnType("varchar(4000)");
 
                     b.HasKey("productLine");
 
@@ -140,9 +121,11 @@ namespace EntityFrameworkCodeFirst.Migrations
 
             modelBuilder.Entity("EntityFrameworkCodeFirst.MODEL.Product", b =>
                 {
-                    b.HasOne("EntityFrameworkCodeFirst.MODEL.ProductLine", null)
-                        .WithMany("products")
-                        .HasForeignKey("productLine");
+                    b.HasOne("EntityFrameworkCodeFirst.MODEL.ProductLine", "ProductLines")
+                        .WithMany()
+                        .HasForeignKey("productLine")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -26,6 +26,9 @@ namespace EntityFrameworkCodeFirst.MODEL
         public DbSet<Product> Products { get; set; }
         public DbSet<Office> Offices { get; set; }
         public DbSet<Employee> Employees { get; set; }
-
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Payment> Payment { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
     }
 }

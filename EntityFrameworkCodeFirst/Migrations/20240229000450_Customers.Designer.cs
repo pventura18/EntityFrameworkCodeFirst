@@ -3,14 +3,16 @@ using System;
 using EntityFrameworkCodeFirst.MODEL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EntityFrameworkCodeFirst.Migrations
 {
     [DbContext(typeof(BusinessDBContext))]
-    partial class BusinessDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240229000450_Customers")]
+    partial class Customers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -155,83 +157,6 @@ namespace EntityFrameworkCodeFirst.Migrations
                     b.ToTable("offices");
                 });
 
-            modelBuilder.Entity("EntityFrameworkCodeFirst.MODEL.Order", b =>
-                {
-                    b.Property<int>("orderNumber")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("comments")
-                        .HasColumnType("text");
-
-                    b.Property<int>("customerNumber")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("orderDate")
-                        .HasColumnType("date");
-
-                    b.Property<DateTime>("requiredDate")
-                        .HasColumnType("date");
-
-                    b.Property<DateTime?>("shippedDate")
-                        .HasColumnType("date");
-
-                    b.Property<string>("status")
-                        .IsRequired()
-                        .HasColumnType("varchar(15)");
-
-                    b.HasKey("orderNumber");
-
-                    b.HasIndex("customerNumber");
-
-                    b.ToTable("orders");
-                });
-
-            modelBuilder.Entity("EntityFrameworkCodeFirst.MODEL.OrderDetail", b =>
-                {
-                    b.Property<int>("orderNumber")
-                        .HasColumnType("int");
-
-                    b.Property<short>("orderLineNumber")
-                        .HasColumnType("smallint(6)");
-
-                    b.Property<decimal>("priceEach")
-                        .HasColumnType("decimal(10,2)");
-
-                    b.Property<string>("productCode")
-                        .IsRequired()
-                        .HasColumnType("varchar(15)");
-
-                    b.Property<int>("quantityOrdered")
-                        .HasColumnType("int");
-
-                    b.HasKey("orderNumber");
-
-                    b.HasIndex("productCode");
-
-                    b.ToTable("orderdetails");
-                });
-
-            modelBuilder.Entity("EntityFrameworkCodeFirst.MODEL.Payment", b =>
-                {
-                    b.Property<int>("customerNumber")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("amount")
-                        .HasColumnType("decimal(10,2)");
-
-                    b.Property<string>("checkNumber")
-                        .IsRequired()
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<DateTime>("paymentDate")
-                        .HasColumnType("date");
-
-                    b.HasKey("customerNumber");
-
-                    b.ToTable("payments");
-                });
-
             modelBuilder.Entity("EntityFrameworkCodeFirst.MODEL.Product", b =>
                 {
                     b.Property<string>("productCode")
@@ -310,39 +235,6 @@ namespace EntityFrameworkCodeFirst.Migrations
                     b.HasOne("EntityFrameworkCodeFirst.MODEL.Employee", "ReportsToRef")
                         .WithMany()
                         .HasForeignKey("reportsTo");
-                });
-
-            modelBuilder.Entity("EntityFrameworkCodeFirst.MODEL.Order", b =>
-                {
-                    b.HasOne("EntityFrameworkCodeFirst.MODEL.Customer", "customer")
-                        .WithMany()
-                        .HasForeignKey("customerNumber")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("EntityFrameworkCodeFirst.MODEL.OrderDetail", b =>
-                {
-                    b.HasOne("EntityFrameworkCodeFirst.MODEL.Order", "order")
-                        .WithMany()
-                        .HasForeignKey("orderNumber")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EntityFrameworkCodeFirst.MODEL.Product", "product")
-                        .WithMany()
-                        .HasForeignKey("productCode")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("EntityFrameworkCodeFirst.MODEL.Payment", b =>
-                {
-                    b.HasOne("EntityFrameworkCodeFirst.MODEL.Customer", "customer")
-                        .WithMany()
-                        .HasForeignKey("customerNumber")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("EntityFrameworkCodeFirst.MODEL.Product", b =>
