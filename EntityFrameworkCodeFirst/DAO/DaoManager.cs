@@ -304,16 +304,34 @@ namespace EntityFrameworkCodeFirst.DAO
 
         public void AddOrderDetails()
         {
-            throw new NotImplementedException();
+            using (TextFieldParser parser = new TextFieldParser(ORDERDETAILS_FILE))
+            {
+                parser.ReadLine();
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(",");
+                parser.HasFieldsEnclosedInQuotes = true;
+
+                while (!parser.EndOfData)
+                {
+                    string[] data = parser.ReadFields();
+                    OrderDetail orderDetail = new OrderDetail();
+                    orderDetail.orderNumber = Convert.ToInt16(data[0]);
+                    orderDetail.productCode = data[1];
+                    orderDetail.quantityOrdered = Convert.ToInt16(data[2]);
+                    orderDetail.priceEach = Convert.ToDouble(data[3]);
+                    orderDetail.orderLineNumber = Convert.ToInt16(data[4]);
+
+                    AddOrderDetailsEntry(orderDetail);
+                }
+            }
         }
 
         public void AddOrderDetailsEntry(OrderDetail orderDetail)
         {
-            throw new NotImplementedException();
+            orderDetail.order = context.Orders.Find(orderDetail.orderNumber);
+            orderDetail.product = context.Products.Find(orderDetail.productCode);
+            context.OrderDetails.Add(orderDetail);
+            context.SaveChanges();
         }
-
-        
-
-        
     }
 }
