@@ -137,27 +137,90 @@ namespace EntityFrameworkCodeFirst.DAO
             context.SaveChanges();
         }
 
-        public void AddCustomers()
-        {
-            
-        }
-
-        public void AddCustomersEntry(Customer customer)
-        {
-            throw new NotImplementedException();
-        }
-
         public void AddEmployees()
         {
-            throw new NotImplementedException();
+            using (TextFieldParser parser = new TextFieldParser(EMPLOYEES_FILE))
+            {
+                parser.ReadLine();
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(",");
+                parser.HasFieldsEnclosedInQuotes = true;
+
+                while (!parser.EndOfData)
+                {
+                    string[] data = parser.ReadFields();
+                    Employee employee = new Employee();
+                    employee.employeeNumber = Convert.ToInt16(data[0]);
+                    employee.lastName = data[1];
+                    employee.firstName = data[2];
+                    employee.extension = data[3];
+                    employee.email = data[4];
+                    employee.officeCode = data[5];
+
+                    if (data[6].Equals("NULL"))
+                    {
+                        employee.reportsTo = null;
+                    }
+                    else
+                    {
+
+                        employee.reportsTo = Convert.ToInt16(data[6]);
+                    }
+
+                    employee.jobTitle = data[7];
+
+                    AddEmployeesEntry(employee);
+                }
+            }
         }
 
         public void AddEmployeesEntry(Employee employee)
         {
-            throw new NotImplementedException();
+            employee.offices = context.Offices.Find(employee.officeCode);
+            employee.ReportsToRef = context.Employees.Find(employee.reportsTo);
+            context.Employees.Add(employee);
+            context.SaveChanges();
         }
 
-        
+        public void AddCustomers()
+        {
+            using (TextFieldParser parser = new TextFieldParser(CUSTOMERS_FILE))
+            {
+                parser.ReadLine();
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(",");
+                parser.HasFieldsEnclosedInQuotes = true;
+
+                while (!parser.EndOfData)
+                {
+                    string[] data = parser.ReadFields();
+                    Customer customer = new Customer();
+                    customer.customerNumber = Convert.ToInt16(data[0]);
+                    customer.customerName = data[1];
+                    customer.contactLastName = data[2];
+                    customer.contactFirstName = data[3];
+                    customer.phone = data[4];
+                    customer.addressLine1 = data[5];
+                    customer.addressLine2 = data[6];
+                    customer.city = data[7];
+                    customer.state = data[8];
+                    customer.postalCode = data[9];
+                    customer.country = data[10];
+                    customer.salesRepEmployeeNumber = Convert.ToInt16(data[11]);
+                    customer.creditLimit = Convert.ToDecimal(data[12]);
+
+                    AddCustomersEntry(customer);
+                }
+            }
+        }
+
+        public void AddCustomersEntry(Customer customer)
+        {
+            customer.employee = context.Employees.Find(customer.salesRepEmployeeNumber);
+
+            context.Customers.Add(customer);
+            context.SaveChanges();
+        }
 
         public void AddOrderDetails()
         {
