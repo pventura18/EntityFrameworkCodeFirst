@@ -30,5 +30,11 @@ namespace EntityFrameworkCodeFirst.MODEL
         public DbSet<Payment> Payment { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Payment>().HasKey(o => new {o.customerNumber, o.checkNumber });
+            modelBuilder.Entity<OrderDetail>().HasKey(o => new { o.orderNumber, o.productCode });
+        }
     }
 }
