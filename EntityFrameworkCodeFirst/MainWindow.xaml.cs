@@ -33,7 +33,8 @@ namespace EntityFrameworkCodeFirst
             //manager.AddOffices();
             //manager.AddEmployees();
             //manager.AddCustomers();
-            manager.AddPayments();
+            //manager.AddPayments();
+            manager.AddOrders();
         }
     }
 }

@@ -223,6 +223,14 @@ namespace EntityFrameworkCodeFirst.DAO
             }
         }
 
+        public void AddCustomersEntry(Customer customer)
+        {
+            customer.employee = context.Employees.Find(customer.salesRepEmployeeNumber);
+
+            context.Customers.Add(customer);
+            context.SaveChanges();
+        }
+
         public void AddPayments()
         {
             using (TextFieldParser parser = new TextFieldParser(PAYMENTS_FILE))
@@ -253,11 +261,44 @@ namespace EntityFrameworkCodeFirst.DAO
             context.SaveChanges();
         }
 
-        public void AddCustomersEntry(Customer customer)
+        public void AddOrders()
         {
-            customer.employee = context.Employees.Find(customer.salesRepEmployeeNumber);
+            using (TextFieldParser parser = new TextFieldParser(ORDERS_FILE))
+            {
+                parser.ReadLine();
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(",");
+                parser.HasFieldsEnclosedInQuotes = true;
 
-            context.Customers.Add(customer);
+                while (!parser.EndOfData)
+                {
+                    string[] data = parser.ReadFields();
+                    Order order = new Order();
+                    order.orderNumber = Convert.ToInt16(data[0]);
+                    order.orderDate = Convert.ToDateTime(data[1]);
+                    order.requiredDate = Convert.ToDateTime(data[2]);
+                    if (data[3].Equals("NULL"))
+                    {
+                        order.shippedDate = null;
+                    }
+                    else
+                    {
+                        order.shippedDate = Convert.ToDateTime(data[3]);
+                    }
+                    order.status = data[4];
+                    order.comments = data[5];
+                    order.customerNumber = Convert.ToInt16(data[6]);
+
+                    AddOrdersEntry(order);
+                }
+            }
+        
+        }
+
+        public void AddOrdersEntry(Order order)
+        {
+            order.customer = context.Customers.Find(order.customerNumber);
+            context.Orders.Add(order);
             context.SaveChanges();
         }
 
@@ -271,15 +312,7 @@ namespace EntityFrameworkCodeFirst.DAO
             throw new NotImplementedException();
         }
 
-        public void AddOrders()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddOrdersEntry(Order order)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         
     }
