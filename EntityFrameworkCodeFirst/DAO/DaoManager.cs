@@ -105,12 +105,36 @@ namespace EntityFrameworkCodeFirst.DAO
 
         public void AddOffices()
         {
-            throw new NotImplementedException();
+            using (TextFieldParser parser = new TextFieldParser(OFFICES_FILE))
+            {
+                parser.ReadLine();
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(",");
+                parser.HasFieldsEnclosedInQuotes = true;
+
+                while (!parser.EndOfData)
+                {
+                    string[] data = parser.ReadFields();
+                    Office office = new Office();
+                    office.officeCode = data[0];
+                    office.city = data[1];
+                    office.phone = data[2];
+                    office.addressLine1 = data[3];
+                    office.addressLine2 = data[4];
+                    office.state = data[5];
+                    office.country = data[6];
+                    office.postalCode = data[7];
+                    office.territory = data[8];
+
+                    AddOfficesEntry(office);
+                }
+            }
         }
 
         public void AddOfficesEntry(Office office)
         {
-            throw new NotImplementedException();
+            context.Offices.Add(office);
+            context.SaveChanges();
         }
 
         public void AddCustomers()
