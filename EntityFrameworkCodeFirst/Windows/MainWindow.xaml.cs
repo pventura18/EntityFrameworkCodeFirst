@@ -28,20 +28,14 @@ namespace EntityFrameworkCodeFirst.Windows
             InitializeComponent();
             DaoFactory daoFactory = new DaoFactory();
             manager = daoFactory.GetDaoManager(context);
-            manager.AddProductLine();
-            manager.AddProducts();
-            manager.AddOffices();
-            manager.AddEmployees();
-            manager.AddCustomers();
-            manager.AddPayments();
-            manager.AddOrders();
-            manager.AddOrderDetails();
-        }
-
-        private void btnCustomers_Click(object sender, RoutedEventArgs e)
-        {
-            WNDCustomer wndCustomer = new WNDCustomer();
-            wndCustomer.Show();
+            //manager.AddProductLine();
+            //manager.AddProducts();
+            //manager.AddOffices();
+            //manager.AddEmployees();
+            //manager.AddCustomers();
+            //manager.AddPayments();
+            //manager.AddOrders();
+            //manager.AddOrderDetails();
         }
     }
 }
