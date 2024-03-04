@@ -31,5 +31,6 @@ namespace EntityFrameworkCodeFirst.DAO
 
         List<Customer> GetCustomers(char inicial);
         object GetSpentCustomers();
+        object GetCustomerEmployeeLocation();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using EntityFrameworkCodeFirst.MODEL;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
@@ -343,20 +344,15 @@ namespace EntityFrameworkCodeFirst.DAO
 
         public List<Customer> GetCustomers(char inicial)
         {
-            List<Customer> lstCustomers = null;
+            IQueryable<Customer> query = context.Customers;
+
             if (inicial != '*')
             {
-                lstCustomers = context.Customers.Where(c => c.customerName.StartsWith(inicial.ToString())).ToList();
+                query = query.Where(c => c.customerName.StartsWith(inicial.ToString()));
             }
-            else
-            {
-                lstCustomers = context.Customers.ToList();
-            }
-            foreach(Customer c in lstCustomers)
-            {
-                c.employee = context.Employees.Find(c.salesRepEmployeeNumber);
-            }
-            return lstCustomers;
+
+            return query.Include(c => c.employee)
+                        .ToList();
         }
 
         public object GetSpentCustomers()
@@ -376,6 +372,23 @@ namespace EntityFrameworkCodeFirst.DAO
             .ToList();
 
             return query.ToList();
+        }
+
+        public object GetCustomerEmployeeLocation()
+        {
+            return context.Orders
+            .Include(o => o.customer) 
+            .Include(o => o.customer.employee) 
+            .Include(o => o.customer.employee.offices) 
+            .Select(o => new
+            {
+                OrderNumber = o.orderNumber,
+                CustomerName = o.customer.customerName,
+                EmployeeName = $"{o.customer.employee.firstName} {o.customer.employee.lastName}",
+                OfficeCity = o.customer.employee.offices.city,
+                OfficeLocation = $"{o.customer.employee.offices.addressLine1}, {o.customer.employee.offices.city}, {o.customer.employee.offices.country}"
+            })
+            .ToList();
         }
     }
 }
