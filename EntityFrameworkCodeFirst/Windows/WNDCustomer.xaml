@@ -6,7 +6,36 @@
         xmlns:local="clr-namespace:EntityFrameworkCodeFirst.Windows"
         mc:Ignorable="d"
         Title="WNDCustomer" Height="450" Width="800">
-    <Grid>
-        
+    <Grid Background="DarkSlateGray">
+        <DockPanel Grid.Column="2" Background="Beige" Margin="10,10,10,10">
+            <DockPanel DockPanel.Dock="Top">
+                <Button Content="Search / Filter" Name="btnFilter"  Click="btnFilter_Click"  DockPanel.Dock="Right" Margin="10"/>
+                <ComboBox Name="cbLetter" Margin="10,5,10,5" DockPanel.Dock="Right"/>
+                <TextBlock Text="Filter by letter:" DockPanel.Dock="Right" Margin="5,10,05,5"/>
+
+
+
+                <TextBlock DockPanel.Dock="Left"/>
+            </DockPanel>
+            <ListView DockPanel.Dock="Top" x:Name="lvCustomers" HorizontalAlignment="Center">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Id" Width="50" DisplayMemberBinding="{Binding customerNumber}"/>
+                        <GridViewColumn Header="Customer Name" Width="200" DisplayMemberBinding="{Binding customerName}"/>
+                        <GridViewColumn Header="Contact Last Name" Width="200" DisplayMemberBinding="{Binding contactLastName}"/>
+                        <GridViewColumn Header="Contact Firs Name" Width="200" DisplayMemberBinding="{Binding contactLastName}"/>
+                        <GridViewColumn Header="Phone" Width="200" DisplayMemberBinding="{Binding phone}"/>
+                        <GridViewColumn Header="Address Line 1" Width="200" DisplayMemberBinding="{Binding addressLine1}"/>
+                        <GridViewColumn Header="Address Line 2" Width="200" DisplayMemberBinding="{Binding addressLine2}"/>
+                        <GridViewColumn Header="City" Width="200" DisplayMemberBinding="{Binding city}"/>
+                        <GridViewColumn Header="State" Width="200" DisplayMemberBinding="{Binding state}"/>
+                        <GridViewColumn Header="Postal Code" Width="200" DisplayMemberBinding="{Binding postalCode}"/>
+                        <GridViewColumn Header="Country" Width="200" DisplayMemberBinding="{Binding country}"/>
+                        <GridViewColumn Header="Employee" Width="200" DisplayMemberBinding="{Binding employee.firstName}"/>
+                        <GridViewColumn Header="Credit Limit" Width="200" DisplayMemberBinding="{Binding creditLimit}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </DockPanel>
     </Grid>
 </Window>

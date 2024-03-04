@@ -19,7 +19,7 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button Content="Button 1" Grid.Column="0" Grid.Row="0" Margin="10"/>
+        <Button Content="Customers" Grid.Column="0" Grid.Row="0" Margin="10" Name="btnCustomers" Click="btnCustomers_Click"/>
         <Button Content="Button 2" Grid.Column="1" Grid.Row="0" Margin="10"/>
         <Button Content="Button 3" Grid.Column="0" Grid.Row="1" Margin="10"/>
         <Button Content="Button 4" Grid.Column="1" Grid.Row="1" Margin="10"/>

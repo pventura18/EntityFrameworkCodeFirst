@@ -340,5 +340,23 @@ namespace EntityFrameworkCodeFirst.DAO
             context.Payment.Add(payment);
             context.SaveChanges();
         }
+
+        public List<Customer> GetCustomers(char inicial)
+        {
+            List<Customer> lstCustomers = null;
+            if (inicial != '*')
+            {
+                lstCustomers = context.Customers.Where(c => c.customerName.StartsWith(inicial.ToString())).ToList();
+            }
+            else
+            {
+                lstCustomers = context.Customers.ToList();
+            }
+            foreach(Customer c in lstCustomers)
+            {
+                c.employee = context.Employees.Find(c.salesRepEmployeeNumber);
+            }
+            return lstCustomers;
+        }
     }
 }

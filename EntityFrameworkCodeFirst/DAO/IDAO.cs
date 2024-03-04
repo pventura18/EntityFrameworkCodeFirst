@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EntityFrameworkCodeFirst.MODEL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,5 +28,7 @@ namespace EntityFrameworkCodeFirst.DAO
         void AddOrderDetailsEntry(MODEL.OrderDetail orderDetail);
 
         void ImportCsvFiles();
+
+        List<Customer> GetCustomers(char inicial);
     }
 }
