@@ -12,6 +12,7 @@ namespace EntityFrameworkCodeFirst.MODEL
     [Table("orderdetails")]
     public class OrderDetail
     {
+        [Key]
         [ForeignKey("order")]
         public int orderNumber { get; set; }
         [ForeignKey("product")]
