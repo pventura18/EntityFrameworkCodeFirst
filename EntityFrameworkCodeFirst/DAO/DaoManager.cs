@@ -358,5 +358,24 @@ namespace EntityFrameworkCodeFirst.DAO
             }
             return lstCustomers;
         }
+
+        public object GetSpentCustomers()
+        {
+            var query = context.Customers
+            .Join(context.Payment,
+                  c => c.customerNumber,
+                  p => p.customerNumber,
+                  (c, p) => new { Customer = c, Payment = p })
+            .GroupBy(cp => new { cp.Customer.customerNumber, cp.Customer.customerName })
+            .Select(g => new
+            {
+                CustomerNumber = g.Key.customerNumber,
+                CustomerName = g.Key.customerName,
+                Total = g.Sum(cp => cp.Payment.amount)
+            })
+            .ToList();
+
+            return query.ToList();
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using EntityFrameworkCodeFirst.DAO;
+using EntityFrameworkCodeFirst.Migrations;
 using EntityFrameworkCodeFirst.MODEL;
 using System;
 using System.Collections.Generic;

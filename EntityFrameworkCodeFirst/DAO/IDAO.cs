@@ -30,5 +30,6 @@ namespace EntityFrameworkCodeFirst.DAO
         void ImportCsvFiles();
 
         List<Customer> GetCustomers(char inicial);
+        object GetSpentCustomers();
     }
 }

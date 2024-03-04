@@ -44,5 +44,11 @@ namespace EntityFrameworkCodeFirst.Windows
             wndCustomers.ShowDialog();
 
         }
+
+        private void btnAmountSpent_Click(object sender, RoutedEventArgs e)
+        {
+            WNDSpentCustomer spentCustomer = new WNDSpentCustomer(manager);
+            spentCustomer.ShowDialog();
+        }
     }
 }
