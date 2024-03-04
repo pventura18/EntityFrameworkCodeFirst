@@ -28,6 +28,7 @@ namespace EntityFrameworkCodeFirst.Windows
             InitializeComponent();
             DaoFactory daoFactory = new DaoFactory();
             manager = daoFactory.GetDaoManager(context);
+<<<<<<< HEAD:EntityFrameworkCodeFirst/Windows/MainWindow.xaml.cs
             //manager.ImportCsvFiles();
         }
 
@@ -35,6 +36,16 @@ namespace EntityFrameworkCodeFirst.Windows
         {
             WNDCustomers wndCustomers = new WNDCustomers();
             wndCustomers.Show();
+=======
+            manager.AddProductLine();
+            manager.AddProducts();
+            manager.AddOffices();
+            manager.AddEmployees();
+            manager.AddCustomers();
+            manager.AddPayments();
+            manager.AddOrders();
+            manager.AddOrderDetails();
+>>>>>>> origin/master:EntityFrameworkCodeFirst/MainWindow.xaml.cs
         }
     }
 }

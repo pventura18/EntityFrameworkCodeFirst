@@ -116,7 +116,11 @@ namespace EntityFrameworkCodeFirst.DAO
                 while (!parser.EndOfData)
                 {
                     string[] data = parser.ReadFields();
+<<<<<<< HEAD
                     Office office = new MODEL.Office();
+=======
+                    Office office = new Office();
+>>>>>>> origin/master
                     office.officeCode = data[0];
                     office.city = data[1];
                     office.phone = data[2];
@@ -127,60 +131,27 @@ namespace EntityFrameworkCodeFirst.DAO
                     office.postalCode = data[7];
                     office.territory = data[8];
 
+<<<<<<< HEAD
                     AddOfficesEntry(office);
                 }
             }
+=======
+
+                     AddOfficesEntry(office);
+                }
+            }
+
+>>>>>>> origin/master
         }
 
         public void AddOfficesEntry(Office office)
         {
             context.Offices.Add(office);
             context.SaveChanges();
-        }
+<<<<<<< HEAD
+=======
 
-        public void AddEmployees()
-        {
-            using (TextFieldParser parser = new TextFieldParser(EMPLOYEES_FILE))
-            {
-                parser.ReadLine();
-                parser.TextFieldType = FieldType.Delimited;
-                parser.SetDelimiters(",");
-                parser.HasFieldsEnclosedInQuotes = true;
-
-                while (!parser.EndOfData)
-                {
-                    string[] data = parser.ReadFields();
-                    Employee employee = new Employee();
-                    employee.employeeNumber = Convert.ToInt16(data[0]);
-                    employee.lastName = data[1];
-                    employee.firstName = data[2];
-                    employee.extension = data[3];
-                    employee.email = data[4];
-                    employee.officeCode = data[5];
-
-                    if (data[6].Equals("NULL"))
-                    {
-                        employee.reportsTo = null;
-                    }
-                    else
-                    {
-
-                        employee.reportsTo = Convert.ToInt16(data[6]);
-                    }
-
-                    employee.jobTitle = data[7];
-
-                    AddEmployeesEntry(employee);
-                }
-            }
-        }
-
-        public void AddEmployeesEntry(Employee employee)
-        {
-            employee.offices = context.Offices.Find(employee.officeCode);
-            employee.ReportsToRef = context.Employees.Find(employee.reportsTo);
-            context.Employees.Add(employee);
-            context.SaveChanges();
+            
         }
 
         public void AddCustomers()
@@ -229,6 +200,167 @@ namespace EntityFrameworkCodeFirst.DAO
 
             context.Customers.Add(customer);
             context.SaveChanges();
+>>>>>>> origin/master
+        }
+
+        public void AddEmployees()
+        {
+            using (TextFieldParser parser = new TextFieldParser(EMPLOYEES_FILE))
+            {
+                parser.ReadLine();
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(",");
+                parser.HasFieldsEnclosedInQuotes = true;
+
+                while (!parser.EndOfData)
+                {
+                    string[] data = parser.ReadFields();
+                    Employee employee = new Employee();
+                    employee.employeeNumber = Convert.ToInt16(data[0]);
+                    employee.lastName = data[1];
+                    employee.firstName = data[2];
+                    employee.extension = data[3];
+                    employee.email = data[4];
+                    employee.officeCode = data[5];
+
+                    if (data[6].Equals("NULL"))
+                    {
+                        employee.reportsTo = null;
+                    }
+                    else
+                    {
+
+                        employee.reportsTo = Convert.ToInt16(data[6]);
+                    }
+
+                    employee.jobTitle = data[7];
+
+                    AddEmployeesEntry(employee);
+                }
+<<<<<<< HEAD
+            }
+=======
+
+            }
+
+>>>>>>> origin/master
+        }
+
+        public void AddEmployeesEntry(Employee employee)
+        {
+            employee.offices = context.Offices.Find(employee.officeCode);
+            employee.ReportsToRef = context.Employees.Find(employee.reportsTo);
+            context.Employees.Add(employee);
+            context.SaveChanges();
+        }
+
+        public void AddCustomers()
+        {
+<<<<<<< HEAD
+            using (TextFieldParser parser = new TextFieldParser(CUSTOMERS_FILE))
+=======
+            using (TextFieldParser parser = new TextFieldParser(ORDERDETAILS_FILE))
+>>>>>>> origin/master
+            {
+                parser.ReadLine();
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(",");
+                parser.HasFieldsEnclosedInQuotes = true;
+
+                while (!parser.EndOfData)
+                {
+                    string[] data = parser.ReadFields();
+<<<<<<< HEAD
+                    Customer customer = new Customer();
+                    customer.customerNumber = Convert.ToInt16(data[0]);
+                    customer.customerName = data[1];
+                    customer.contactLastName = data[2];
+                    customer.contactFirstName = data[3];
+                    customer.phone = data[4];
+                    customer.addressLine1 = data[5];
+                    customer.addressLine2 = data[6];
+                    customer.city = data[7];
+                    customer.state = data[8];
+                    customer.postalCode = data[9];
+                    customer.country = data[10];
+                    if (data[11].Equals("NULL"))
+                    {
+                        customer.salesRepEmployeeNumber = null;
+                    }
+                    else
+                    {
+
+                        customer.salesRepEmployeeNumber = Convert.ToInt16(data[11]);
+                    }
+                    customer.creditLimit = Convert.ToDecimal(data[12]);
+
+                    AddCustomersEntry(customer);
+=======
+                    OrderDetail orderDetail = new OrderDetail();
+                    orderDetail.orderNumber = Convert.ToInt16(data[0]);
+                    orderDetail.productCode = data[1];
+                    orderDetail.quantityOrdered = Convert.ToInt16(data[2]);
+                    orderDetail.priceEach = Convert.ToDouble(data[3]);
+                    orderDetail.orderLineNumber = Convert.ToInt16(data[4]);
+
+                    AddOrderDetailsEntry(orderDetail);
+>>>>>>> origin/master
+                }
+            }
+        }
+
+        public void AddCustomersEntry(Customer customer)
+        {
+<<<<<<< HEAD
+            customer.employee = context.Employees.Find(customer.salesRepEmployeeNumber);
+
+            context.Customers.Add(customer);
+=======
+            orderDetail.order = context.Orders.Find(orderDetail.orderNumber);
+            orderDetail.product = context.Products.Find(orderDetail.productCode);
+            context.OrderDetails.Add(orderDetail);
+            context.SaveChanges();
+        }
+
+        public void AddOrders()
+        {
+            using (TextFieldParser parser = new TextFieldParser(ORDERS_FILE))
+            {
+                parser.ReadLine();
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(",");
+                parser.HasFieldsEnclosedInQuotes = true;
+
+                while (!parser.EndOfData)
+                {
+                    string[] data = parser.ReadFields();
+                    Order order = new Order();
+                    order.orderNumber = Convert.ToInt16(data[0]);
+                    order.orderDate = Convert.ToDateTime(data[1]);
+                    order.requiredDate = Convert.ToDateTime(data[2]);
+                    if (data[3].Equals("NULL"))
+                    {
+                        order.shippedDate = null;
+                    }
+                    else
+                    {
+                        order.shippedDate = Convert.ToDateTime(data[3]);
+                    }
+                    order.status = data[4];
+                    order.comments = data[5];
+                    order.customerNumber = Convert.ToInt16(data[6]);
+
+                    AddOrdersEntry(order);
+                }
+            }
+        }
+
+        public void AddOrdersEntry(Order order)
+        {
+            order.customer = context.Customers.Find(order.customerNumber);
+            context.Orders.Add(order);
+>>>>>>> origin/master
+            context.SaveChanges();
         }
 
         public void AddPayments()
@@ -252,6 +384,10 @@ namespace EntityFrameworkCodeFirst.DAO
                     AddPaymentsEntry(payment);
                 }
             }
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
         }
 
         public void AddPaymentsEntry(Payment payment)
@@ -259,6 +395,7 @@ namespace EntityFrameworkCodeFirst.DAO
             payment.customer = context.Customers.Find(payment.customerNumber);
             context.Payment.Add(payment);
             context.SaveChanges();
+<<<<<<< HEAD
         }
 
         public void AddOrders()
@@ -332,6 +469,8 @@ namespace EntityFrameworkCodeFirst.DAO
             orderDetail.product = context.Products.Find(orderDetail.productCode);
             context.OrderDetails.Add(orderDetail);
             context.SaveChanges();
+=======
+>>>>>>> origin/master
         }
     }
 }
