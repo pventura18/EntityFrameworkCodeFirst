@@ -17,7 +17,7 @@
                         <GridViewColumn Header="Office City" Width="100" DisplayMemberBinding="{Binding OfficeCity}" />
                         <GridViewColumn Header="Office Location"  Width="300" DisplayMemberBinding="{Binding OfficeLocation}" />
                     </GridView>
-                </ListView.View> 103 10298
+                </ListView.View>
             </ListView>
         </DockPanel>
     </Grid>
