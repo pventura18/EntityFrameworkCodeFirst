@@ -37,5 +37,11 @@ namespace EntityFrameworkCodeFirst.Windows
             manager.AddOrders();
             manager.AddOrderDetails();
         }
+
+        private void btnCustomers_Click(object sender, RoutedEventArgs e)
+        {
+            WNDCustomer wndCustomer = new WNDCustomer();
+            wndCustomer.Show();
+        }
     }
 }
