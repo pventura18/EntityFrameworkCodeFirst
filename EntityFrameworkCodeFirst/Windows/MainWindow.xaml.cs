@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace EntityFrameworkCodeFirst
+namespace EntityFrameworkCodeFirst.Windows
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -36,6 +36,12 @@ namespace EntityFrameworkCodeFirst
             manager.AddPayments();
             manager.AddOrders();
             manager.AddOrderDetails();
+        }
+
+        private void btnCustomers_Click(object sender, RoutedEventArgs e)
+        {
+            WNDCustomer wndCustomer = new WNDCustomer();
+            wndCustomer.Show();
         }
     }
 }
