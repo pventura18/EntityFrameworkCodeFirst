@@ -143,54 +143,202 @@ namespace EntityFrameworkCodeFirst.DAO
 
         public void AddCustomers()
         {
-            
+            using (TextFieldParser parser = new TextFieldParser(CUSTOMERS_FILE))
+            {
+                parser.ReadLine();
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(",");
+                parser.HasFieldsEnclosedInQuotes = true;
+
+                while (!parser.EndOfData)
+                {
+                    string[] data = parser.ReadFields();
+                    Customer customer = new Customer();
+                    customer.customerNumber = Convert.ToInt16(data[0]);
+                    customer.customerName = data[1];
+                    customer.contactLastName = data[2];
+                    customer.contactFirstName = data[3];
+                    customer.phone = data[4];
+                    customer.addressLine1 = data[5];
+                    customer.addressLine2 = data[6];
+                    customer.city = data[7];
+                    customer.state = data[8];
+                    customer.postalCode = data[9];
+                    customer.country = data[10];
+                    if (data[11].Equals("NULL"))
+                    {
+                        customer.salesRepEmployeeNumber = null;
+                    }
+                    else
+                    {
+
+                        customer.salesRepEmployeeNumber = Convert.ToInt16(data[11]);
+                    }
+                    customer.creditLimit = Convert.ToDecimal(data[12]);
+
+                    AddCustomersEntry(customer);
+                }
+            }
         }
 
         public void AddCustomersEntry(Customer customer)
         {
-            throw new NotImplementedException();
+            customer.employee = context.Employees.Find(customer.salesRepEmployeeNumber);
+
+            context.Customers.Add(customer);
+            context.SaveChanges();
         }
 
         public void AddEmployees()
         {
-            throw new NotImplementedException();
+            using (TextFieldParser parser = new TextFieldParser(EMPLOYEES_FILE))
+            {
+                parser.ReadLine();
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(",");
+                parser.HasFieldsEnclosedInQuotes = true;
+
+                while (!parser.EndOfData)
+                {
+                    string[] data = parser.ReadFields();
+                    Employee employee = new Employee();
+                    employee.employeeNumber = Convert.ToInt16(data[0]);
+                    employee.lastName = data[1];
+                    employee.firstName = data[2];
+                    employee.extension = data[3];
+                    employee.email = data[4];
+                    employee.officeCode = data[5];
+
+                    if (data[6].Equals("NULL"))
+                    {
+                        employee.reportsTo = null;
+                    }
+                    else
+                    {
+
+                        employee.reportsTo = Convert.ToInt16(data[6]);
+                    }
+
+                    employee.jobTitle = data[7];
+
+                    AddEmployeesEntry(employee);
+                }
+
+            }
+
         }
 
         public void AddEmployeesEntry(Employee employee)
         {
-            throw new NotImplementedException();
+            employee.offices = context.Offices.Find(employee.officeCode);
+            employee.ReportsToRef = context.Employees.Find(employee.reportsTo);
+            context.Employees.Add(employee);
+            context.SaveChanges();
         }
 
         
 
         public void AddOrderDetails()
         {
-            throw new NotImplementedException();
+            using (TextFieldParser parser = new TextFieldParser(ORDERDETAILS_FILE))
+            {
+                parser.ReadLine();
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(",");
+                parser.HasFieldsEnclosedInQuotes = true;
+
+                while (!parser.EndOfData)
+                {
+                    string[] data = parser.ReadFields();
+                    OrderDetail orderDetail = new OrderDetail();
+                    orderDetail.orderNumber = Convert.ToInt16(data[0]);
+                    orderDetail.productCode = data[1];
+                    orderDetail.quantityOrdered = Convert.ToInt16(data[2]);
+                    orderDetail.priceEach = Convert.ToDouble(data[3]);
+                    orderDetail.orderLineNumber = Convert.ToInt16(data[4]);
+
+                    AddOrderDetailsEntry(orderDetail);
+                }
+            }
         }
 
         public void AddOrderDetailsEntry(OrderDetail orderDetail)
         {
-            throw new NotImplementedException();
+            orderDetail.order = context.Orders.Find(orderDetail.orderNumber);
+            orderDetail.product = context.Products.Find(orderDetail.productCode);
+            context.OrderDetails.Add(orderDetail);
+            context.SaveChanges();
         }
 
         public void AddOrders()
         {
-            throw new NotImplementedException();
+            using (TextFieldParser parser = new TextFieldParser(ORDERS_FILE))
+            {
+                parser.ReadLine();
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(",");
+                parser.HasFieldsEnclosedInQuotes = true;
+
+                while (!parser.EndOfData)
+                {
+                    string[] data = parser.ReadFields();
+                    Order order = new Order();
+                    order.orderNumber = Convert.ToInt16(data[0]);
+                    order.orderDate = Convert.ToDateTime(data[1]);
+                    order.requiredDate = Convert.ToDateTime(data[2]);
+                    if (data[3].Equals("NULL"))
+                    {
+                        order.shippedDate = null;
+                    }
+                    else
+                    {
+                        order.shippedDate = Convert.ToDateTime(data[3]);
+                    }
+                    order.status = data[4];
+                    order.comments = data[5];
+                    order.customerNumber = Convert.ToInt16(data[6]);
+
+                    AddOrdersEntry(order);
+                }
+            }
         }
 
         public void AddOrdersEntry(Order order)
         {
-            throw new NotImplementedException();
+            order.customer = context.Customers.Find(order.customerNumber);
+            context.Orders.Add(order);
+            context.SaveChanges();
         }
 
         public void AddPayments()
         {
-            throw new NotImplementedException();
+            using (TextFieldParser parser = new TextFieldParser(PAYMENTS_FILE))
+            {
+                parser.ReadLine();
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(",");
+                parser.HasFieldsEnclosedInQuotes = true;
+
+                while (!parser.EndOfData)
+                {
+                    string[] data = parser.ReadFields();
+                    Payment payment = new Payment();
+                    payment.customerNumber = Convert.ToInt16(data[0]);
+                    payment.checkNumber = data[1];
+                    payment.paymentDate = Convert.ToDateTime(data[2]);
+                    payment.amount = Convert.ToDouble(data[3]);
+
+                    AddPaymentsEntry(payment);
+                }
+            }
+
         }
 
         public void AddPaymentsEntry(Payment payment)
         {
-            throw new NotImplementedException();
+            payment.customer = context.Customers.Find(payment.customerNumber);
+            context.Payment.Add(payment);
+            context.SaveChanges();
         }
     }
 }
