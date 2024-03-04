@@ -30,6 +30,12 @@ namespace EntityFrameworkCodeFirst
             manager = daoFactory.GetDaoManager(context);
             manager.AddProductLine();
             manager.AddProducts();
+            manager.AddOffices();
+            manager.AddEmployees();
+            manager.AddCustomers();
+            manager.AddPayments();
+            manager.AddOrders();
+            manager.AddOrderDetails();
         }
     }
 }
