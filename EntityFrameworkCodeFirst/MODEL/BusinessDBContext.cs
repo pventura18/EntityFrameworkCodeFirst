@@ -33,7 +33,11 @@ namespace EntityFrameworkCodeFirst.MODEL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+<<<<<<< HEAD
+            modelBuilder.Entity<Payment>().HasKey(o => new {o.customerNumber, o.checkNumber });
+=======
             modelBuilder.Entity<Payment>().HasKey(o => new { o.customerNumber, o.checkNumber });
+>>>>>>> origin/master
             modelBuilder.Entity<OrderDetail>().HasKey(o => new { o.orderNumber, o.productCode });
         }
     }
