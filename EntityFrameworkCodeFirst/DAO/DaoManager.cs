@@ -1,5 +1,4 @@
-﻿
-using EntityFrameworkCodeFirst.MODEL;
+﻿using EntityFrameworkCodeFirst.MODEL;
 using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
@@ -116,11 +115,7 @@ namespace EntityFrameworkCodeFirst.DAO
                 while (!parser.EndOfData)
                 {
                     string[] data = parser.ReadFields();
-<<<<<<< HEAD
-                    Office office = new MODEL.Office();
-=======
                     Office office = new Office();
->>>>>>> origin/master
                     office.officeCode = data[0];
                     office.city = data[1];
                     office.phone = data[2];
@@ -131,25 +126,17 @@ namespace EntityFrameworkCodeFirst.DAO
                     office.postalCode = data[7];
                     office.territory = data[8];
 
-<<<<<<< HEAD
-                    AddOfficesEntry(office);
-                }
-            }
-=======
 
                      AddOfficesEntry(office);
                 }
             }
 
->>>>>>> origin/master
         }
 
         public void AddOfficesEntry(Office office)
         {
             context.Offices.Add(office);
             context.SaveChanges();
-<<<<<<< HEAD
-=======
 
             
         }
@@ -200,7 +187,6 @@ namespace EntityFrameworkCodeFirst.DAO
 
             context.Customers.Add(customer);
             context.SaveChanges();
->>>>>>> origin/master
         }
 
         public void AddEmployees()
@@ -237,13 +223,9 @@ namespace EntityFrameworkCodeFirst.DAO
 
                     AddEmployeesEntry(employee);
                 }
-<<<<<<< HEAD
-            }
-=======
 
             }
 
->>>>>>> origin/master
         }
 
         public void AddEmployeesEntry(Employee employee)
@@ -254,190 +236,7 @@ namespace EntityFrameworkCodeFirst.DAO
             context.SaveChanges();
         }
 
-        public void AddCustomers()
-        {
-<<<<<<< HEAD
-            using (TextFieldParser parser = new TextFieldParser(CUSTOMERS_FILE))
-=======
-            using (TextFieldParser parser = new TextFieldParser(ORDERDETAILS_FILE))
->>>>>>> origin/master
-            {
-                parser.ReadLine();
-                parser.TextFieldType = FieldType.Delimited;
-                parser.SetDelimiters(",");
-                parser.HasFieldsEnclosedInQuotes = true;
-
-                while (!parser.EndOfData)
-                {
-                    string[] data = parser.ReadFields();
-<<<<<<< HEAD
-                    Customer customer = new Customer();
-                    customer.customerNumber = Convert.ToInt16(data[0]);
-                    customer.customerName = data[1];
-                    customer.contactLastName = data[2];
-                    customer.contactFirstName = data[3];
-                    customer.phone = data[4];
-                    customer.addressLine1 = data[5];
-                    customer.addressLine2 = data[6];
-                    customer.city = data[7];
-                    customer.state = data[8];
-                    customer.postalCode = data[9];
-                    customer.country = data[10];
-                    if (data[11].Equals("NULL"))
-                    {
-                        customer.salesRepEmployeeNumber = null;
-                    }
-                    else
-                    {
-
-                        customer.salesRepEmployeeNumber = Convert.ToInt16(data[11]);
-                    }
-                    customer.creditLimit = Convert.ToDecimal(data[12]);
-
-                    AddCustomersEntry(customer);
-=======
-                    OrderDetail orderDetail = new OrderDetail();
-                    orderDetail.orderNumber = Convert.ToInt16(data[0]);
-                    orderDetail.productCode = data[1];
-                    orderDetail.quantityOrdered = Convert.ToInt16(data[2]);
-                    orderDetail.priceEach = Convert.ToDouble(data[3]);
-                    orderDetail.orderLineNumber = Convert.ToInt16(data[4]);
-
-                    AddOrderDetailsEntry(orderDetail);
->>>>>>> origin/master
-                }
-            }
-        }
-
-        public void AddCustomersEntry(Customer customer)
-        {
-<<<<<<< HEAD
-            customer.employee = context.Employees.Find(customer.salesRepEmployeeNumber);
-
-            context.Customers.Add(customer);
-=======
-            orderDetail.order = context.Orders.Find(orderDetail.orderNumber);
-            orderDetail.product = context.Products.Find(orderDetail.productCode);
-            context.OrderDetails.Add(orderDetail);
-            context.SaveChanges();
-        }
-
-        public void AddOrders()
-        {
-            using (TextFieldParser parser = new TextFieldParser(ORDERS_FILE))
-            {
-                parser.ReadLine();
-                parser.TextFieldType = FieldType.Delimited;
-                parser.SetDelimiters(",");
-                parser.HasFieldsEnclosedInQuotes = true;
-
-                while (!parser.EndOfData)
-                {
-                    string[] data = parser.ReadFields();
-                    Order order = new Order();
-                    order.orderNumber = Convert.ToInt16(data[0]);
-                    order.orderDate = Convert.ToDateTime(data[1]);
-                    order.requiredDate = Convert.ToDateTime(data[2]);
-                    if (data[3].Equals("NULL"))
-                    {
-                        order.shippedDate = null;
-                    }
-                    else
-                    {
-                        order.shippedDate = Convert.ToDateTime(data[3]);
-                    }
-                    order.status = data[4];
-                    order.comments = data[5];
-                    order.customerNumber = Convert.ToInt16(data[6]);
-
-                    AddOrdersEntry(order);
-                }
-            }
-        }
-
-        public void AddOrdersEntry(Order order)
-        {
-            order.customer = context.Customers.Find(order.customerNumber);
-            context.Orders.Add(order);
->>>>>>> origin/master
-            context.SaveChanges();
-        }
-
-        public void AddPayments()
-        {
-            using (TextFieldParser parser = new TextFieldParser(PAYMENTS_FILE))
-            {
-                parser.ReadLine();
-                parser.TextFieldType = FieldType.Delimited;
-                parser.SetDelimiters(",");
-                parser.HasFieldsEnclosedInQuotes = true;
-
-                while (!parser.EndOfData)
-                {
-                    string[] data = parser.ReadFields();
-                    Payment payment = new Payment();
-                    payment.customerNumber = Convert.ToInt16(data[0]);
-                    payment.checkNumber = data[1];
-                    payment.paymentDate = Convert.ToDateTime(data[2]);
-                    payment.amount = Convert.ToDouble(data[3]);
-
-                    AddPaymentsEntry(payment);
-                }
-            }
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
-        }
-
-        public void AddPaymentsEntry(Payment payment)
-        {
-            payment.customer = context.Customers.Find(payment.customerNumber);
-            context.Payment.Add(payment);
-            context.SaveChanges();
-<<<<<<< HEAD
-        }
-
-        public void AddOrders()
-        {
-            using (TextFieldParser parser = new TextFieldParser(ORDERS_FILE))
-            {
-                parser.ReadLine();
-                parser.TextFieldType = FieldType.Delimited;
-                parser.SetDelimiters(",");
-                parser.HasFieldsEnclosedInQuotes = true;
-
-                while (!parser.EndOfData)
-                {
-                    string[] data = parser.ReadFields();
-                    Order order = new Order();
-                    order.orderNumber = Convert.ToInt16(data[0]);
-                    order.orderDate = Convert.ToDateTime(data[1]);
-                    order.requiredDate = Convert.ToDateTime(data[2]);
-                    if (data[3].Equals("NULL"))
-                    {
-                        order.shippedDate = null;
-                    }
-                    else
-                    {
-                        order.shippedDate = Convert.ToDateTime(data[3]);
-                    }
-                    order.status = data[4];
-                    order.comments = data[5];
-                    order.customerNumber = Convert.ToInt16(data[6]);
-
-                    AddOrdersEntry(order);
-                }
-            }
         
-        }
-
-        public void AddOrdersEntry(Order order)
-        {
-            order.customer = context.Customers.Find(order.customerNumber);
-            context.Orders.Add(order);
-            context.SaveChanges();
-        }
 
         public void AddOrderDetails()
         {
@@ -469,8 +268,77 @@ namespace EntityFrameworkCodeFirst.DAO
             orderDetail.product = context.Products.Find(orderDetail.productCode);
             context.OrderDetails.Add(orderDetail);
             context.SaveChanges();
-=======
->>>>>>> origin/master
+        }
+
+        public void AddOrders()
+        {
+            using (TextFieldParser parser = new TextFieldParser(ORDERS_FILE))
+            {
+                parser.ReadLine();
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(",");
+                parser.HasFieldsEnclosedInQuotes = true;
+
+                while (!parser.EndOfData)
+                {
+                    string[] data = parser.ReadFields();
+                    Order order = new Order();
+                    order.orderNumber = Convert.ToInt16(data[0]);
+                    order.orderDate = Convert.ToDateTime(data[1]);
+                    order.requiredDate = Convert.ToDateTime(data[2]);
+                    if (data[3].Equals("NULL"))
+                    {
+                        order.shippedDate = null;
+                    }
+                    else
+                    {
+                        order.shippedDate = Convert.ToDateTime(data[3]);
+                    }
+                    order.status = data[4];
+                    order.comments = data[5];
+                    order.customerNumber = Convert.ToInt16(data[6]);
+
+                    AddOrdersEntry(order);
+                }
+            }
+        }
+
+        public void AddOrdersEntry(Order order)
+        {
+            order.customer = context.Customers.Find(order.customerNumber);
+            context.Orders.Add(order);
+            context.SaveChanges();
+        }
+
+        public void AddPayments()
+        {
+            using (TextFieldParser parser = new TextFieldParser(PAYMENTS_FILE))
+            {
+                parser.ReadLine();
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(",");
+                parser.HasFieldsEnclosedInQuotes = true;
+
+                while (!parser.EndOfData)
+                {
+                    string[] data = parser.ReadFields();
+                    Payment payment = new Payment();
+                    payment.customerNumber = Convert.ToInt16(data[0]);
+                    payment.checkNumber = data[1];
+                    payment.paymentDate = Convert.ToDateTime(data[2]);
+                    payment.amount = Convert.ToDouble(data[3]);
+
+                    AddPaymentsEntry(payment);
+                }
+            }
+
+        }
+
+        public void AddPaymentsEntry(Payment payment)
+        {
+            payment.customer = context.Customers.Find(payment.customerNumber);
+            context.Payment.Add(payment);
+            context.SaveChanges();
         }
     }
 }

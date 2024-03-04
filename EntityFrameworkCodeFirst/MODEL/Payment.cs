@@ -13,6 +13,7 @@ namespace EntityFrameworkCodeFirst.MODEL
     public class Payment
     {
         [Key]
+        [ForeignKey("customer")]
         public int customerNumber { get; set; }
         [Column(TypeName = "varchar(50)")]
         public string checkNumber { get; set; }

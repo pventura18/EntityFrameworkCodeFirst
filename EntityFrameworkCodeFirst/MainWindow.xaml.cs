@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace EntityFrameworkCodeFirst.Windows
+namespace EntityFrameworkCodeFirst
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -28,15 +28,6 @@ namespace EntityFrameworkCodeFirst.Windows
             InitializeComponent();
             DaoFactory daoFactory = new DaoFactory();
             manager = daoFactory.GetDaoManager(context);
-<<<<<<< HEAD:EntityFrameworkCodeFirst/Windows/MainWindow.xaml.cs
-            //manager.ImportCsvFiles();
-        }
-
-        private void btnCustomers_Click(object sender, RoutedEventArgs e)
-        {
-            WNDCustomers wndCustomers = new WNDCustomers();
-            wndCustomers.Show();
-=======
             manager.AddProductLine();
             manager.AddProducts();
             manager.AddOffices();
@@ -45,7 +36,6 @@ namespace EntityFrameworkCodeFirst.Windows
             manager.AddPayments();
             manager.AddOrders();
             manager.AddOrderDetails();
->>>>>>> origin/master:EntityFrameworkCodeFirst/MainWindow.xaml.cs
         }
     }
 }
