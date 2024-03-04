@@ -37,5 +37,24 @@ namespace EntityFrameworkCodeFirst.Windows
             //manager.AddOrders();
             //manager.AddOrderDetails();
         }
+
+        private void btnCustomers_Click(object sender, RoutedEventArgs e)
+        {
+            WNDCustomer wndCustomers = new WNDCustomer(manager);
+            wndCustomers.ShowDialog();
+
+        }
+
+        private void btnAmountSpent_Click(object sender, RoutedEventArgs e)
+        {
+            WNDSpentCustomer spentCustomer = new WNDSpentCustomer(manager);
+            spentCustomer.ShowDialog();
+        }
+
+        private void btnCustomerEmployeeLocation_Click(object sender, RoutedEventArgs e)
+        {
+            WNDCustomerEmployeeLocation customerEmployeeLocation = new WNDCustomerEmployeeLocation(manager);
+            customerEmployeeLocation.ShowDialog();
+        }
     }
 }

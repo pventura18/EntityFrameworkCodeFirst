@@ -1,4 +1,5 @@
 ﻿using EntityFrameworkCodeFirst.MODEL;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
@@ -339,6 +340,55 @@ namespace EntityFrameworkCodeFirst.DAO
             payment.customer = context.Customers.Find(payment.customerNumber);
             context.Payment.Add(payment);
             context.SaveChanges();
+        }
+
+        public List<Customer> GetCustomers(char inicial)
+        {
+            IQueryable<Customer> query = context.Customers;
+
+            if (inicial != '*')
+            {
+                query = query.Where(c => c.customerName.StartsWith(inicial.ToString()));
+            }
+
+            return query.Include(c => c.employee)
+                        .ToList();
+        }
+
+        public object GetSpentCustomers()
+        {
+            var query = context.Customers
+            .Join(context.Payment,
+                  c => c.customerNumber,
+                  p => p.customerNumber,
+                  (c, p) => new { Customer = c, Payment = p })
+            .GroupBy(cp => new { cp.Customer.customerNumber, cp.Customer.customerName })
+            .Select(g => new
+            {
+                CustomerNumber = g.Key.customerNumber,
+                CustomerName = g.Key.customerName,
+                Total = g.Sum(cp => cp.Payment.amount)
+            })
+            .ToList();
+
+            return query.ToList();
+        }
+
+        public object GetCustomerEmployeeLocation()
+        {
+            return context.Orders
+            .Include(o => o.customer) 
+            .Include(o => o.customer.employee) 
+            .Include(o => o.customer.employee.offices) 
+            .Select(o => new
+            {
+                OrderNumber = o.orderNumber,
+                CustomerName = o.customer.customerName,
+                EmployeeName = $"{o.customer.employee.firstName} {o.customer.employee.lastName}",
+                OfficeCity = o.customer.employee.offices.city,
+                OfficeLocation = $"{o.customer.employee.offices.addressLine1}, {o.customer.employee.offices.city}, {o.customer.employee.offices.country}"
+            })
+            .ToList();
         }
     }
 }
