@@ -1,5 +1,6 @@
 ﻿using EntityFrameworkCodeFirst.MODEL;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,11 +30,12 @@ namespace EntityFrameworkCodeFirst.DAO
 
         void ImportCsvFiles();
 
-        List<Customer> GetCustomers(char inicial);
-        object GetSpentCustomers();
-        object GetCustomerEmployeeLocation();
-
-        List<Product> GetProducts(ProductFields productField, bool ascending);
-        object GetPriceOfOrders();
+        IEnumerable GetCustomers(char inicial);
+        IEnumerable GetSpentCustomers();
+        IEnumerable GetCustomerEmployeeLocation();
+        IEnumerable GetProducts(ProductFields productField, bool ascending);
+        IEnumerable GetPriceOfOrders();
+        IEnumerable GetDetailsOrder(int orderNumber);
+        IEnumerable GetOrdersNumbers();
     }
 }

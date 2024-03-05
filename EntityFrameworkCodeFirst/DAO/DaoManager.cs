@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic.FileIO;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -342,7 +343,7 @@ namespace EntityFrameworkCodeFirst.DAO
             context.SaveChanges();
         }
 
-        public List<Customer> GetCustomers(char inicial)
+        public IEnumerable GetCustomers(char inicial)
         {
             IQueryable<Customer> query = context.Customers;
 
@@ -355,7 +356,7 @@ namespace EntityFrameworkCodeFirst.DAO
                         .ToList();
         }
 
-        public object GetSpentCustomers()
+        public IEnumerable GetSpentCustomers()
         {
             var query = context.Customers
             .Join(context.Payment,
@@ -374,7 +375,7 @@ namespace EntityFrameworkCodeFirst.DAO
             return query.ToList();
         }
 
-        public object GetCustomerEmployeeLocation()
+        public IEnumerable GetCustomerEmployeeLocation()
         {
             return context.Orders
             .Include(o => o.customer) 
@@ -391,7 +392,7 @@ namespace EntityFrameworkCodeFirst.DAO
             .ToList();
         }
 
-        public List<Product> GetProducts(ProductFields productField, bool ascending)
+        public IEnumerable GetProducts(ProductFields productField, bool ascending)
         {
             IQueryable<Product> query = context.Products;
 
@@ -429,7 +430,7 @@ namespace EntityFrameworkCodeFirst.DAO
             return query.ToList();
         }
 
-        public object GetPriceOfOrders()
+        public IEnumerable GetPriceOfOrders()
         {
             return context.OrderDetails
                 .GroupBy(od => od.orderNumber)
@@ -440,6 +441,29 @@ namespace EntityFrameworkCodeFirst.DAO
                 })
                 .OrderBy(result => result.TotalPrice)
                 .ToList();
+        }
+
+        public IEnumerable  GetDetailsOrder(int orderNumber)
+        {
+            return context.OrderDetails
+            .Where(od => od.orderNumber == orderNumber)
+            .Join(context.Products,
+                  od => od.productCode,
+                  p => p.productCode,
+                  (od, p) => new
+                  {
+                      OrderNumber = od.orderNumber,
+                      ProductName = p.productName,
+                      QuantityOrdered = od.quantityOrdered,
+                      PriceEach = od.priceEach,
+                      TotalPrice = od.quantityOrdered * (decimal)od.priceEach
+                  })
+            .ToList<object>();
+        }
+
+        public IEnumerable GetOrdersNumbers()
+        {
+            return context.Orders.Select(order => order.orderNumber).ToList();
         }
     }
 }
