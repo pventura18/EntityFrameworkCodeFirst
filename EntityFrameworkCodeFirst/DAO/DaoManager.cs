@@ -390,5 +390,43 @@ namespace EntityFrameworkCodeFirst.DAO
             })
             .ToList();
         }
+
+        public List<Product> GetProducts(ProductFields productField, bool ascending)
+        {
+            IQueryable<Product> query = context.Products;
+
+            switch (productField)
+            {
+                case ProductFields.ProductCode:
+                    query = ascending ? query.OrderBy(p => p.productCode) : query.OrderByDescending(p => p.productCode);
+                    break;
+                case ProductFields.ProductName:
+                    query = ascending ? query.OrderBy(p => p.productName) : query.OrderByDescending(p => p.productName);
+                    break;
+                case ProductFields.ProductLine:
+                    query = ascending ? query.OrderBy(p => p.productLine) : query.OrderByDescending(p => p.productLine);
+                    break;
+                case ProductFields.ProductScale:
+                    query = ascending ? query.OrderBy(p => p.productScale) : query.OrderByDescending(p => p.productScale);
+                    break;
+                case ProductFields.ProductVendor:
+                    query = ascending ? query.OrderBy(p => p.productVendor) : query.OrderByDescending(p => p.productVendor);
+                    break;
+                case ProductFields.ProductDescription:
+                    query = ascending ? query.OrderBy(p => p.productDescription) : query.OrderByDescending(p => p.productDescription);
+                    break;
+                case ProductFields.QuantityInStock:
+                    query = ascending ? query.OrderBy(p => p.quantityInStock) : query.OrderByDescending(p => p.quantityInStock);
+                    break;
+                case ProductFields.BuyPrice:
+                    query = ascending ? query.OrderBy(p => p.BuyPrice) : query.OrderByDescending(p => p.BuyPrice);
+                    break;
+                case ProductFields.MSRP:
+                    query = ascending ? query.OrderBy(p => p.MSRP) : query.OrderByDescending(p => p.MSRP);
+                    break;
+            }
+
+            return query.ToList();
+        }
     }
 }
