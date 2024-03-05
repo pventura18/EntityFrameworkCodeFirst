@@ -465,5 +465,26 @@ namespace EntityFrameworkCodeFirst.DAO
         {
             return context.OrderDetails.Select(od => od.orderNumber).Distinct().ToList();
         }
+
+        public List<Customer> GetCustomers()
+        {
+            return context.Customers.ToList();
+        }
+
+        public List<Product> GetProducts()
+        {
+            return context.Products.ToList();
+        }
+
+        public void AddSpecialPrice(Customer customer, Product product, decimal price)
+        {
+            SpecialPriceList specialPriceList = new SpecialPriceList();
+            specialPriceList.customerId = customer.customerNumber;
+            specialPriceList.productCode = product.productCode;
+            specialPriceList.price = price;
+
+            context.SpecialPriceList.Add(specialPriceList);
+            context.SaveChanges();
+        }
     }
 }

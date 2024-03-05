@@ -10,7 +10,6 @@ namespace EntityFrameworkCodeFirst.DAO
 {
     public interface IDAO
     {
-        void AddProductLine();
         void AddProducts();
         void AddOffices();
         void AddEmployees();
@@ -37,5 +36,8 @@ namespace EntityFrameworkCodeFirst.DAO
         IEnumerable GetPriceOfOrders();
         IEnumerable GetDetailsOrder(int orderNumber);
         IEnumerable GetOrdersNumbers();
+        List<Customer> GetCustomers();
+        List<Product> GetProducts();
+        void AddSpecialPrice(Customer customer, Product product, decimal price);
     }
 }
