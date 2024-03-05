@@ -463,7 +463,7 @@ namespace EntityFrameworkCodeFirst.DAO
 
         public IEnumerable GetOrdersNumbers()
         {
-            return context.Orders.Select(order => order.orderNumber).ToList();
+            return context.OrderDetails.Select(od => od.orderNumber).Distinct().ToList();
         }
     }
 }
