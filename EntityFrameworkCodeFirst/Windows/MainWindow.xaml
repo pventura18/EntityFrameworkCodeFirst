@@ -23,7 +23,7 @@
         <Button Content="Amount spent by customer" Grid.Column="1" Grid.Row="0" Margin="10" Name="btnAmountSpent" Click="btnAmountSpent_Click"/>
         <Button Content="Order bu customer, Employee and Location" Grid.Column="0" Grid.Row="1" Margin="10" Name="btnCustomerEmployeeLocation" Click="btnCustomerEmployeeLocation_Click"/>
         <Button Content="Products" Grid.Column="1" Grid.Row="1" Margin="10" Name="btnProducts" Click="btnProducts_Click"/>
-        <Button Content="Button 5" Grid.Column="0" Grid.Row="2" Margin="10"/>
+        <Button Content="Total price or orders" Grid.Column="0" Grid.Row="2" Margin="10" Name="btnPriceOrders" Click="btnPriceOrders_Click"/>
         <Button Content="Button 6" Grid.Column="1" Grid.Row="2" Margin="10"/>
         <Button Content="Button 7" Grid.Column="0" Grid.Row="3" Margin="10"/>
         <Button Content="Button 8" Grid.Column="1" Grid.Row="3" Margin="10"/>
