@@ -1,4 +1,5 @@
 ﻿using EntityFrameworkCodeFirst.DAO;
+using EntityFrameworkCodeFirst.MODEL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,26 @@ namespace EntityFrameworkCodeFirst.Windows
             InitializeComponent();
             DaoFactory daoFactory = new DaoFactory();
             manager = daoFactory.GetDaoManager(context);
-            manager.ImportCsvFiles();
+            //manager.ImportCsvFiles();
+            List<Customer> customers = manager.GetCustomers();
+            List<Product> products = manager.GetProducts();
+
+            for(int i = 0; i < 10; i++)
+            {
+                Random r = new Random();
+                int indexCustomer = r.Next(customers.Count);
+                int indexProduct1 = r.Next(products.Count);
+                int indexProduct2 = r.Next(products.Count);
+
+                manager.AddSpecialPrice(customers[indexCustomer], products[indexProduct1], GetRandomPrice());
+                manager.AddSpecialPrice(customers[indexCustomer], products[indexProduct2], GetRandomPrice());
+            }
+        }
+
+        private static decimal GetRandomPrice()
+        {
+            Random rand = new Random();
+            return Math.Round((decimal)rand.NextDouble() * 10000, 2);
         }
 
         private void btnCustomers_Click(object sender, RoutedEventArgs e)
