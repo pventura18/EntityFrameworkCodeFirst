@@ -1,7 +1,7 @@
 ﻿using EntityFrameworkCodeFirst.DAO;
-using EntityFrameworkCodeFirst.Migrations;
 using EntityFrameworkCodeFirst.MODEL;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,35 +18,23 @@ using System.Windows.Shapes;
 namespace EntityFrameworkCodeFirst.Windows
 {
     /// <summary>
-    /// Lógica de interacción para WNDCustomer.xaml
+    /// Lógica de interacción para WNDDetailsOrder.xaml
     /// </summary>
-    public partial class WNDCustomer : Window
+    public partial class WNDDetailsOrder : Window
     {
         IDAO manager;
-        public WNDCustomer(IDAO manager)
+        public WNDDetailsOrder(IDAO manager)
         {
             InitializeComponent();
-            cbLetter.ItemsSource = GenerateLetters();
-            cbLetter.SelectedIndex = 0;
-            lvCustomers.ItemsSource = manager.GetCustomers('*');
             this.manager = manager;
-        }
-        private List<Char> GenerateLetters()
-        {
-            List<Char> letters = new List<Char>();
-            letters.Add('*');
-            for (char c = 'A'; c <= 'Z'; c++)
-            {
-                letters.Add(c);
-            }
-            return letters;
+            cbOrders.ItemsSource = manager.GetOrdersNumbers();
+            cbOrders.SelectedIndex = 0;
+            lvDetailsOrder.ItemsSource = manager.GetDetailsOrder((int)cbOrders.SelectedValue);
         }
 
         private void btnFilter_Click(object sender, RoutedEventArgs e)
         {
-            lvCustomers.ItemsSource = manager.GetCustomers((char)cbLetter.SelectedItem);
+            lvDetailsOrder.ItemsSource = manager.GetDetailsOrder((int)cbOrders.SelectedValue);
         }
-
-
     }
 }
