@@ -428,5 +428,18 @@ namespace EntityFrameworkCodeFirst.DAO
 
             return query.ToList();
         }
+
+        public object GetPriceOfOrders()
+        {
+            return context.OrderDetails
+                .GroupBy(od => od.orderNumber)
+                .Select(g => new
+                {
+                    OrderNumber = g.Key,
+                    TotalPrice = g.Sum(od => od.quantityOrdered * od.priceEach)
+                })
+                .OrderBy(result => result.TotalPrice)
+                .ToList();
+        }
     }
 }

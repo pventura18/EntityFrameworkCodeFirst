@@ -62,5 +62,11 @@ namespace EntityFrameworkCodeFirst.Windows
             WNDProducts wndProducts = new WNDProducts(manager);
             wndProducts.ShowDialog();
         }
+
+        private void btnPriceOrders_Click(object sender, RoutedEventArgs e)
+        {
+            WNDPriceOfOrders wndPriceOfOrders = new WNDPriceOfOrders(manager);
+            wndPriceOfOrders.ShowDialog();
+        }
     }
 }

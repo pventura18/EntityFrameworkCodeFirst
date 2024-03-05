@@ -34,5 +34,6 @@ namespace EntityFrameworkCodeFirst.DAO
         object GetCustomerEmployeeLocation();
 
         List<Product> GetProducts(ProductFields productField, bool ascending);
+        object GetPriceOfOrders();
     }
 }
