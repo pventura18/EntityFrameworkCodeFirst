@@ -28,14 +28,7 @@ namespace EntityFrameworkCodeFirst.Windows
             InitializeComponent();
             DaoFactory daoFactory = new DaoFactory();
             manager = daoFactory.GetDaoManager(context);
-            //manager.AddProductLine();
-            //manager.AddProducts();
-            //manager.AddOffices();
-            //manager.AddEmployees();
-            //manager.AddCustomers();
-            //manager.AddPayments();
-            //manager.AddOrders();
-            //manager.AddOrderDetails();
+            manager.ImportCsvFiles();
         }
 
         private void btnCustomers_Click(object sender, RoutedEventArgs e)
