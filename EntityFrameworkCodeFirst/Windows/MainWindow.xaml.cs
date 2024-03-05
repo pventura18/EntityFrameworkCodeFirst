@@ -56,5 +56,11 @@ namespace EntityFrameworkCodeFirst.Windows
             WNDCustomerEmployeeLocation customerEmployeeLocation = new WNDCustomerEmployeeLocation(manager);
             customerEmployeeLocation.ShowDialog();
         }
+
+        private void btnProducts_Click(object sender, RoutedEventArgs e)
+        {
+            WNDProducts wndProducts = new WNDProducts(manager);
+            wndProducts.ShowDialog();
+        }
     }
 }
