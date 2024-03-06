@@ -238,13 +238,16 @@ namespace EntityFrameworkCodeFirst.DAO
             context.SaveChanges();
         }
 
-        
+
 
         public void AddOrderDetails()
         {
+            List<OrderDetail> orderDetailsBatch = new List<OrderDetail>();
+            int batchSize = 1000; // Adjust batch size according to your needs
+
             using (TextFieldParser parser = new TextFieldParser(ORDERDETAILS_FILE))
             {
-                parser.ReadLine();
+                parser.ReadLine(); // Skip header
                 parser.TextFieldType = FieldType.Delimited;
                 parser.SetDelimiters(",");
                 parser.HasFieldsEnclosedInQuotes = true;
@@ -259,16 +262,41 @@ namespace EntityFrameworkCodeFirst.DAO
                     orderDetail.priceEach = Convert.ToDouble(data[3]);
                     orderDetail.orderLineNumber = Convert.ToInt16(data[4]);
 
-                    AddOrderDetailsEntry(orderDetail);
+                    orderDetailsBatch.Add(orderDetail);
+
+                    if (orderDetailsBatch.Count >= batchSize)
+                    {
+                        AddOrderDetailsBatch(orderDetailsBatch);
+                        orderDetailsBatch.Clear();
+                    }
+                }
+
+                // Insert any remaining order details
+                if (orderDetailsBatch.Count > 0)
+                {
+                    AddOrderDetailsBatch(orderDetailsBatch);
                 }
             }
         }
 
-        public void AddOrderDetailsEntry(OrderDetail orderDetail)
+        public void AddOrderDetailsBatch(List<OrderDetail> orderDetails)
         {
-            orderDetail.order = context.Orders.Find(orderDetail.orderNumber);
-            orderDetail.product = context.Products.Find(orderDetail.productCode);
-            context.OrderDetails.Add(orderDetail);
+            // Get distinct order numbers and product codes
+            var orderNumbers = orderDetails.Select(od => od.orderNumber).Distinct().ToList();
+            var productCodes = orderDetails.Select(od => od.productCode).Distinct().ToList();
+
+            // Query database to get necessary orders and products in batches
+            var orders = context.Orders.Where(o => orderNumbers.Contains(o.orderNumber)).ToList();
+            var products = context.Products.Where(p => productCodes.Contains(p.productCode)).ToList();
+
+            // Assign orders and products to order details
+            foreach (var orderDetail in orderDetails)
+            {
+                orderDetail.order = orders.FirstOrDefault(o => o.orderNumber == orderDetail.orderNumber);
+                orderDetail.product = products.FirstOrDefault(p => p.productCode == orderDetail.productCode);
+            }
+
+            context.OrderDetails.AddRange(orderDetails);
             context.SaveChanges();
         }
 
@@ -637,6 +665,11 @@ namespace EntityFrameworkCodeFirst.DAO
                 .ToList();
 
             return countriesFiltred;
+        }
+
+        public void AddOrderDetailsEntry(OrderDetail orderDetail)
+        {
+            throw new NotImplementedException();
         }
     }
 }
