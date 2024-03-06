@@ -17,15 +17,15 @@
         <ListView Grid.Row="1" x:Name="lvEmployeesOffices" HorizontalAlignment="Center">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="employeeNumber" Width="200" DisplayMemberBinding="{Binding employeeNumber}"/>
-                    <GridViewColumn Header="employeeName" Width="200" DisplayMemberBinding="{Binding employeeName}"/>
-                    <GridViewColumn Header="employeeExtension" Width="200" DisplayMemberBinding="{Binding employeeExtension}"/>
-                    <GridViewColumn Header="employeeEmail" Width="200" DisplayMemberBinding="{Binding employeeEmail}"/>
-                    <GridViewColumn Header="employeeOfficeCode" Width="200" DisplayMemberBinding="{Binding employeeOfficeCode}"/>
-                    <GridViewColumn Header="employeeReportsTo" Width="200" DisplayMemberBinding="{Binding employeeReportsTo}"/>
-                    <GridViewColumn Header="employeeJobTitle" Width="200" DisplayMemberBinding="{Binding employeeJobTitle}"/>
-                    <GridViewColumn Header="officeCity" Width="200" DisplayMemberBinding="{Binding officeCity}"/>
-                    <GridViewColumn Header="officeLocation" Width="200" DisplayMemberBinding="{Binding officeLocation}"/>
+                    <GridViewColumn Header="Employee Number" Width="200" DisplayMemberBinding="{Binding employeeNumber}"/>
+                    <GridViewColumn Header="Employee Name" Width="200" DisplayMemberBinding="{Binding employeeName}"/>
+                    <GridViewColumn Header="Employee Extension" Width="200" DisplayMemberBinding="{Binding employeeExtension}"/>
+                    <GridViewColumn Header="Employee Email" Width="200" DisplayMemberBinding="{Binding employeeEmail}"/>
+                    <GridViewColumn Header="Employee Office Code" Width="200" DisplayMemberBinding="{Binding employeeOfficeCode}"/>
+                    <GridViewColumn Header="Reports To" Width="200" DisplayMemberBinding="{Binding employeeReportsTo}"/>
+                    <GridViewColumn Header="Employee Job Title" Width="200" DisplayMemberBinding="{Binding employeeJobTitle}"/>
+                    <GridViewColumn Header="Office City" Width="200" DisplayMemberBinding="{Binding officeCity}"/>
+                    <GridViewColumn Header="Office Location" Width="200" DisplayMemberBinding="{Binding officeLocation}"/>
                 </GridView>
             </ListView.View>
         </ListView>
