@@ -45,7 +45,7 @@
         <Button Content="Get Employees x Office" Grid.Column="1" Grid.Row="3" Margin="10" Name="btnemployeesOffice" Click="btnemployeesOffice_Click"
                 Background="#007acc" Foreground="White" BorderBrush="#007acc" BorderThickness="2"
                 Padding="10,5" FontSize="16"/>
-        <Button Content="PaymentsOfCustomers" Grid.Column="0" Grid.Row="4" Margin="10" Name="btnPaymentsCustomers" Click="btnPaymentsCustomers_Click"
+        <Button Content="Payments Of Customers" Grid.Column="0" Grid.Row="4" Margin="10" Name="btnPaymentsCustomers" Click="btnPaymentsCustomers_Click"
                 Background="#007acc" Foreground="White" BorderBrush="#007acc" BorderThickness="2"
                 Padding="10,5" FontSize="16"/>
         <Button Content="Employee Querys" Grid.Column="1" Grid.Row="4" Margin="10" Name="btnEmployeeQuery" Click="btnEmployeeQuery_Click"

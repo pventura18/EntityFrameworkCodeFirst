@@ -8,6 +8,7 @@
         Title="WNDSpentCustomer" Height="450" Width="800">
     <Grid Background="DarkSlateGray">
         <DockPanel Background="Beige" Margin="10,10,10,10">
+            <TextBlock Text="Amout spent by customer" DockPanel.Dock="Top" Margin="10,10" FontSize="20"/>
             <ListView x:Name="lvCustomerSpent" Margin="20">
 
                 <ListView.View>

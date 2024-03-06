@@ -11,10 +11,13 @@
             <RowDefinition/>
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal">
-            <Label Content="Office Country : " HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" FontSize="15" FontWeight="Bold"/>
-            <ComboBox x:Name="cmbOfficeCountry" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="30" Margin="10" SelectionChanged="cmbOfficeCountry_SelectionChanged"/>
-        </StackPanel>
+        <DockPanel>
+            <TextBlock Text="Filter offices by country" DockPanel.Dock="Top" Margin="10,10" FontSize="20"/>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Office Country : " HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" FontSize="15" FontWeight="Bold"/>
+                <ComboBox x:Name="cmbOfficeCountry" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Height="30" Margin="10" SelectionChanged="cmbOfficeCountry_SelectionChanged"/>
+            </StackPanel>
+        </DockPanel>
         <ListView Grid.Row="1" x:Name="lvOfficeCountry" HorizontalAlignment="Center">
             <ListView.View>
                 <GridView>

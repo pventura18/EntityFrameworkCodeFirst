@@ -126,7 +126,7 @@ namespace EntityFrameworkCodeFirst.Windows
 
         private void btnEmployeeOficeRelated_Click(object sender, RoutedEventArgs e)
         {
-            WNDCustomerEmployesEntities wndEmployeeOfficeRelated = new WNDCustomerEmployesEntities(manager);
+            WNDEmployeeJoinOffice wndEmployeeOfficeRelated = new WNDEmployeeJoinOffice(manager);
             wndEmployeeOfficeRelated.ShowDialog();
 
         }

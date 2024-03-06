@@ -8,6 +8,7 @@
         Title="WNDProducts" Height="450" Width="800">
     <Grid Background="DarkSlateGray">
         <DockPanel Grid.Column="2" Background="Beige" Margin="10,10,10,10">
+            <TextBlock Text="Products ordered by diferent fields" DockPanel.Dock="Top" Margin="10,10" FontSize="20"/>
             <DockPanel DockPanel.Dock="Top">
                 <Button Content="Search / Filter" Name="btnFilter"  Click="btnFilter_Click"  DockPanel.Dock="Right" Margin="10"/>
                 <ComboBox Name="cbField" Margin="10,5,10,5" DockPanel.Dock="Right"/>

@@ -8,6 +8,7 @@
         Title="WNDPriceOfOrders" Height="450" Width="800">
     <Grid Background="DarkSlateGray">
         <DockPanel Background="Beige" Margin="10,10,10,10">
+            <TextBlock Text="Total price of an order" DockPanel.Dock="Top" Margin="10,10" FontSize="20"/>
             <ListView x:Name="lvOrderPrice" Margin="20">
 
                 <ListView.View>

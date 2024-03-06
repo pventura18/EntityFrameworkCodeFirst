@@ -9,6 +9,7 @@
     <Grid Background="DarkSlateGray">
         <DockPanel Grid.Column="2" Background="Beige" Margin="10,10,10,10">
             <DockPanel DockPanel.Dock="Top">
+                <TextBlock Text="Customers filtered by first letter" DockPanel.Dock="Top" Margin="10,10" FontSize="20"/>
                 <Button Content="Search / Filter" Name="btnFilter"  Click="btnFilter_Click"  DockPanel.Dock="Right" Margin="10"/>
                 <ComboBox Name="cbLetter" Margin="10,5,10,5" DockPanel.Dock="Right"/>
                 <TextBlock Text="Filter by letter:" DockPanel.Dock="Right" Margin="5,10,05,5"/>
