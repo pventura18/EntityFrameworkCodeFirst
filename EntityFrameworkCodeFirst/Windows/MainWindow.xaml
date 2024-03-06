@@ -6,31 +6,64 @@
         xmlns:local="clr-namespace:EntityFrameworkCodeFirst"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Grid Background="#f0f0f0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Button Content="Customers" Grid.Column="0" Grid.Row="0" Margin="10" Name="btnCustomers" Click="btnCustomers_Click"/>
-        <Button Content="Amount spent by customer" Grid.Column="1" Grid.Row="0" Margin="10" Name="btnAmountSpent" Click="btnAmountSpent_Click"/>
-        <Button Content="Order bu customer, Employee and Location" Grid.Column="0" Grid.Row="1" Margin="10" Name="btnCustomerEmployeeLocation" Click="btnCustomerEmployeeLocation_Click"/>
-        <Button Content="Products" Grid.Column="1" Grid.Row="1" Margin="10" Name="btnProducts" Click="btnProducts_Click"/>
-        <Button Content="Total price or orders" Grid.Column="0" Grid.Row="2" Margin="10" Name="btnPriceOrders" Click="btnPriceOrders_Click"/>
-        <Button Content="Details of each order" Grid.Column="1" Grid.Row="2" Margin="10" Name="btnDetailsOrder" Click="btnDetailsOrder_Click"/>
-        <Button Content="Shipped Status" Grid.Column="0" Grid.Row="3" Margin="10" Name="btnShippedStatus" Click="btnShippedStatus_Click"/>
-        <Button Content="Get Employees x Office" Grid.Column="1" Grid.Row="3" Margin="10" Name="btnemployeesOffice" Click="btnemployeesOffice_Click"/>
-        <Button Content="PaymentsOfCustomers" Grid.Column="0" Grid.Row="4" Margin="10" Name="btnPaymentsCustomers" Click="btnPaymentsCustomers_Click"/>
-        <Button Content="Employee Querys" Grid.Column="1" Grid.Row="4" Margin="10" Name="btnEmployeeQuery" Click="btnEmployeeQuery_Click"/>
-        <Button Content="Employes offices related" Grid.Column="0" Grid.Row="5" Margin="10" Name="btnEmployeeOficeRelated" Click="btnEmployeeOficeRelated_Click"/>
-        <Button Content="Filter Office x Country" Grid.Column="1" Grid.Row="5" Margin="10" Name="btnCountryOffice" Click="btnCountryOffice_Click"/>
 
+        <!-- Buttons with decoration -->
+        <Button Content="Customers" Grid.Column="0" Grid.Row="0" Margin="10" Name="btnCustomers" Click="btnCustomers_Click"
+                Background="#007acc" Foreground="White" BorderBrush="#007acc" BorderThickness="2"
+                Padding="10,5" FontSize="16"/>
+        <Button Content="Amount spent by customer" Grid.Column="1" Grid.Row="0" Margin="10" Name="btnAmountSpent" Click="btnAmountSpent_Click"
+                Background="#007acc" Foreground="White" BorderBrush="#007acc" BorderThickness="2"
+                Padding="10,5" FontSize="16"/>
+        <Button Content="Order by customer, Employee and Location" Grid.Column="0" Grid.Row="1" Margin="10" Name="btnCustomerEmployeeLocation" Click="btnCustomerEmployeeLocation_Click"
+                Background="#007acc" Foreground="White" BorderBrush="#007acc" BorderThickness="2"
+                Padding="10,5" FontSize="16"/>
+        <Button Content="Products" Grid.Column="1" Grid.Row="1" Margin="10" Name="btnProducts" Click="btnProducts_Click"
+                Background="#007acc" Foreground="White" BorderBrush="#007acc" BorderThickness="2"
+                Padding="10,5" FontSize="16"/>
+        <Button Content="Total price or orders" Grid.Column="0" Grid.Row="2" Margin="10" Name="btnPriceOrders" Click="btnPriceOrders_Click"
+                Background="#007acc" Foreground="White" BorderBrush="#007acc" BorderThickness="2"
+                Padding="10,5" FontSize="16"/>
+        <Button Content="Details of each order" Grid.Column="1" Grid.Row="2" Margin="10" Name="btnDetailsOrder" Click="btnDetailsOrder_Click"
+                Background="#007acc" Foreground="White" BorderBrush="#007acc" BorderThickness="2"
+                Padding="10,5" FontSize="16"/>
+        <Button Content="Shipped Status" Grid.Column="0" Grid.Row="3" Margin="10" Name="btnShippedStatus" Click="btnShippedStatus_Click"
+                Background="#007acc" Foreground="White" BorderBrush="#007acc" BorderThickness="2"
+                Padding="10,5" FontSize="16"/>
+        <Button Content="Get Employees x Office" Grid.Column="1" Grid.Row="3" Margin="10" Name="btnemployeesOffice" Click="btnemployeesOffice_Click"
+                Background="#007acc" Foreground="White" BorderBrush="#007acc" BorderThickness="2"
+                Padding="10,5" FontSize="16"/>
+        <Button Content="PaymentsOfCustomers" Grid.Column="0" Grid.Row="4" Margin="10" Name="btnPaymentsCustomers" Click="btnPaymentsCustomers_Click"
+                Background="#007acc" Foreground="White" BorderBrush="#007acc" BorderThickness="2"
+                Padding="10,5" FontSize="16"/>
+        <Button Content="Employee Querys" Grid.Column="1" Grid.Row="4" Margin="10" Name="btnEmployeeQuery" Click="btnEmployeeQuery_Click"
+                Background="#007acc" Foreground="White" BorderBrush="#007acc" BorderThickness="2"
+                Padding="10,5" FontSize="16"/>
+        <Button Content="Employes offices related" Grid.Column="0" Grid.Row="5" Margin="10" Name="btnEmployeeOficeRelated" Click="btnEmployeeOficeRelated_Click"
+                Background="#007acc" Foreground="White" BorderBrush="#007acc" BorderThickness="2"
+                Padding="10,5" FontSize="16"/>
+        <Button Content="Filter Office x Country" Grid.Column="1" Grid.Row="5" Margin="10" Name="btnCountryOffice" Click="btnCountryOffice_Click"
+                Background="#007acc" Foreground="White" BorderBrush="#007acc" BorderThickness="2"
+                Padding="10,5" FontSize="16"/>
+
+        <!-- Add decorations between rows -->
+        <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" BorderBrush="#007acc" BorderThickness="0,0,0,2"/>
+        <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" BorderBrush="#007acc" BorderThickness="0,0,0,2"/>
+        <Border Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" BorderBrush="#007acc" BorderThickness="0,0,0,2"/>
+        <Border Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" BorderBrush="#007acc" BorderThickness="0,0,0,2"/>
+        <Border Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" BorderBrush="#007acc" BorderThickness="0,0,0,2"/>
+        <Border Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" BorderBrush="#007acc" BorderThickness="0,0,0,2"/>
     </Grid>
 </Window>

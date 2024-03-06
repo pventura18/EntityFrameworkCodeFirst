@@ -30,20 +30,20 @@ namespace EntityFrameworkCodeFirst.Windows
             DaoFactory daoFactory = new DaoFactory();
             manager = daoFactory.GetDaoManager(context);
 
-            manager.ImportCsvFiles();
-            List<Customer> customers = manager.GetCustomers();
-            List<Product> products = manager.GetProducts();
+            //manager.ImportCsvFiles();
+            //List<Customer> customers = manager.GetCustomers();
+            //List<Product> products = manager.GetProducts();
 
-            for (int i = 0; i < 10; i++)
-            {
-                Random r = new Random();
-                int indexCustomer = r.Next(customers.Count);
-                int indexProduct1 = r.Next(products.Count);
-                int indexProduct2 = r.Next(products.Count);
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    Random r = new Random();
+            //    int indexCustomer = r.Next(customers.Count);
+            //    int indexProduct1 = r.Next(products.Count);
+            //    int indexProduct2 = r.Next(products.Count);
 
-                manager.AddSpecialPrice(customers[indexCustomer], products[indexProduct1], GetRandomPrice());
-                manager.AddSpecialPrice(customers[indexCustomer], products[indexProduct2], GetRandomPrice());
-            }
+            //    manager.AddSpecialPrice(customers[indexCustomer], products[indexProduct1], GetRandomPrice());
+            //    manager.AddSpecialPrice(customers[indexCustomer], products[indexProduct2], GetRandomPrice());
+            //}
         }
 
         private static decimal GetRandomPrice()

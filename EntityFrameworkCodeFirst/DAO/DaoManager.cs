@@ -740,7 +740,6 @@ namespace EntityFrameworkCodeFirst.DAO
 
 
             return countries;
-
         }
 
         public IEnumerable GetOfficesByCountries(string country)

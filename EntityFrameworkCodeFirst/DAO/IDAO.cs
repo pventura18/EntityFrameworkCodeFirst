@@ -28,26 +28,18 @@ namespace EntityFrameworkCodeFirst.DAO
         IEnumerable GetDetailsOrder(int orderNumber);
         IEnumerable GetOrdersNumbers();
         IEnumerable GetShippedOrders(string status);
-
-        IEnumerable GetEmployeesByOffice(string? v);
+        IEnumerable GetEmployeesByOffice(string office);
         IEnumerable GetOffices();
-
         IEnumerable GetJobTittles();
-
         IEnumerable GetEmployees();
-
         IEnumerable GetEmployesByJobTittle(string jobTittle); 
-
         IEnumerable GetEmployeesByAscendingNumber();
         IEnumerable GetEmployeesByDescendingNumber();
         IEnumerable GetEmployeesEntities();
         List<Customer> GetCustomers();
         List<Product> GetProducts();
-
         List<String> GetCountry();
-
         IEnumerable GetOfficesByCountries(string country);
-       
         IEnumerable GetCustomerPayments();
         void AddSpecialPrice(Customer customer, Product product, decimal price);
     }
