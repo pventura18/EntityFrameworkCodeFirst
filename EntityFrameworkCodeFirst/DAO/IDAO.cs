@@ -17,7 +17,6 @@ namespace EntityFrameworkCodeFirst.DAO
         void AddPayments();
         void AddOrders();
         void AddOrderDetails();
-
         void ImportCsvFiles();
 
         IEnumerable GetCustomers(char inicial);
@@ -36,11 +35,11 @@ namespace EntityFrameworkCodeFirst.DAO
         IEnumerable GetEmployeesByAscendingNumber();
         IEnumerable GetEmployeesByDescendingNumber();
         IEnumerable GetEmployeesJoinOffices();
-        List<Customer> GetCustomers();
-        List<Product> GetProducts();
         List<String> GetCountry();
         IEnumerable GetOfficesByCountries(string country);
         IEnumerable GetCustomerPayments();
+        List<Customer> GetCustomers();
+        List<Product> GetProducts();
         void AddSpecialPrice(Customer customer, Product product, decimal price);
     }
 }

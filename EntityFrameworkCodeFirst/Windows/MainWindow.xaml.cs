@@ -31,6 +31,8 @@ namespace EntityFrameworkCodeFirst.Windows
             manager = daoFactory.GetDaoManager(context);
 
             manager.ImportCsvFiles();
+
+
             List<Customer> customers = manager.GetCustomers();
             List<Product> products = manager.GetProducts();
 
