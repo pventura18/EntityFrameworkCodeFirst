@@ -288,6 +288,7 @@ namespace EntityFrameworkCodeFirst.DAO
                     order.orderNumber = Convert.ToInt16(data[0]);
                     order.orderDate = Convert.ToDateTime(data[1]);
                     order.requiredDate = Convert.ToDateTime(data[2]);
+                    //Afegir lo mateix de null en el apartat de coments tambe
                     if (data[3].Equals("NULL"))
                     {
                         order.shippedDate = null;
@@ -301,6 +302,7 @@ namespace EntityFrameworkCodeFirst.DAO
                     order.customerNumber = Convert.ToInt16(data[6]);
 
                     AddOrdersEntry(order);
+
                 }
             }
         }
@@ -464,6 +466,49 @@ namespace EntityFrameworkCodeFirst.DAO
         public IEnumerable GetOrdersNumbers()
         {
             return context.OrderDetails.Select(od => od.orderNumber).Distinct().ToList();
+        }
+
+        public IEnumerable GetShippedOrders(string status)
+        {
+            var ordersWithSelectedStatus = context.Orders
+                .Where(o => o.status == status)
+                .OrderBy(o => o.orderDate)
+                .ToList();
+            return ordersWithSelectedStatus;
+
+
+        }
+
+        public IEnumerable GetEmployeesByOffice(string office)
+        {
+            var employeeOffice = context.Offices
+                .Where(o => o.city == office)
+                .Join(context.Employees,
+                    o => o.officeCode,
+                    employee => employee.officeCode,
+                    (o, employee) => new
+                    {
+                        employeeNumber = employee.employeeNumber,
+                        employeeName = $"{employee.firstName}",
+                        emloyeeLastName= employee.lastName,
+                        employeeExtension= employee.extension,
+                        employeeEmail= employee.email,
+                        employeeOfficeCode= employee.officeCode,
+                        employeeReportsTo= employee.reportsTo,
+                        employeeJobTitle = employee.jobTitle
+                    }
+                    )
+                .ToList();
+
+            return employeeOffice;
+            
+        }
+
+        public IEnumerable GetOffices()
+        {
+            var officesNames= context.Offices.Select(o => o.city).ToList(); 
+            return officesNames;
+            
         }
     }
 }

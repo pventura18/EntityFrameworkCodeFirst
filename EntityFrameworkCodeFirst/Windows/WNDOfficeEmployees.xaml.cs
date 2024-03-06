@@ -1,4 +1,5 @@
 ﻿using EntityFrameworkCodeFirst.DAO;
+using EntityFrameworkCodeFirst.Migrations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,27 +17,30 @@ using System.Windows.Shapes;
 namespace EntityFrameworkCodeFirst.Windows
 {
     /// <summary>
-    /// Interaction logic for WNDShippedOrders.xaml
+    /// Interaction logic for WNDOfficeEmployees.xaml
     /// </summary>
-    public partial class WNDShippedOrders : Window
+    public partial class WNDOfficeEmployees : Window
     {
         IDAO manager;
-        public WNDShippedOrders(DAO.IDAO manager)
+        public WNDOfficeEmployees(IDAO manager)
         {
             InitializeComponent();
             this.manager = manager;
-            List<String>lstStatus= new List<string>();
-            lstStatus.Add("Shipped");
-            lstStatus.Add("In Process");
-            lstStatus.Add("Cancelled");
-            cbOrderDetails.ItemsSource = lstStatus;
-               
+            cbOffices.ItemsSource = manager.GetOffices();
+            lvEmployees.SelectedIndex = 0;
+
 
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            lvOrderShipped.ItemsSource = manager.GetShippedOrders((string)cbOrderDetails.SelectedValue);
+            
+
+        }
+
+        private void cbOffices_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            lvEmployees.ItemsSource = manager.GetEmployeesByOffice((string)cbOffices.SelectedValue);
 
         }
     }

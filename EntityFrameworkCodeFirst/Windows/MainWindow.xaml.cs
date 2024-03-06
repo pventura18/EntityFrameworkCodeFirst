@@ -77,5 +77,11 @@ namespace EntityFrameworkCodeFirst.Windows
             wndShippedOrders.ShowDialog();
 
         }
+
+        private void btnemployeesOffice_Click(object sender, RoutedEventArgs e)
+        {
+            WNDOfficeEmployees wndOfficeEmployees = new WNDOfficeEmployees(manager);
+            wndOfficeEmployees.ShowDialog();
+        }
     }
 }

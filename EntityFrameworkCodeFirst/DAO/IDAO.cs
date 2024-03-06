@@ -37,5 +37,9 @@ namespace EntityFrameworkCodeFirst.DAO
         IEnumerable GetPriceOfOrders();
         IEnumerable GetDetailsOrder(int orderNumber);
         IEnumerable GetOrdersNumbers();
+        IEnumerable GetShippedOrders(string status);
+
+        IEnumerable GetEmployeesByOffice(string? v);
+        IEnumerable GetOffices();
     }
 }
