@@ -22,6 +22,7 @@ namespace EntityFrameworkCodeFirst.DAO
         private string PAYMENTS_FILE = "PAYMENTS.csv";
         private string PRODUCTLINES_FILE = "PRODUCTLINES.csv";
         private string PRODUCTS_FILE = "PRODUCTS.csv";
+        private int BATCH_SIZE = 1000;
 
         private MODEL.BusinessDBContext context = null;
 
@@ -44,13 +45,16 @@ namespace EntityFrameworkCodeFirst.DAO
 
         public void AddProductLine()
         {
-            using(TextFieldParser parser = new TextFieldParser(PRODUCTLINES_FILE))
+            List<ProductLine> productLinesBatch = new List<ProductLine>();
+
+            using (TextFieldParser parser = new TextFieldParser(PRODUCTLINES_FILE))
             {
                 parser.ReadLine();
                 parser.TextFieldType = FieldType.Delimited;
                 parser.SetDelimiters(",");
                 parser.HasFieldsEnclosedInQuotes = true;
-                while(!parser.EndOfData)
+
+                while (!parser.EndOfData)
                 {
                     string[] data = parser.ReadFields();
                     ProductLine productLine = new ProductLine();
@@ -59,19 +63,33 @@ namespace EntityFrameworkCodeFirst.DAO
                     productLine.htmlDescription = data[2];
                     productLine.image = data[3];
 
-                    AddProductLineEntry(productLine);
+                    productLinesBatch.Add(productLine);
+
+                    if (productLinesBatch.Count >= BATCH_SIZE)
+                    {
+                        AddProductLinesBatch(productLinesBatch);
+                        productLinesBatch.Clear();
+                    }
+                }
+
+                if (productLinesBatch.Count > 0)
+                {
+                    AddProductLinesBatch(productLinesBatch);
                 }
             }
         }
 
-        public void AddProductLineEntry(ProductLine productLine)
+        public void AddProductLinesBatch(List<ProductLine> productLines)
         {
-            context.ProductLines.Add(productLine);
+            context.ProductLines.AddRange(productLines);
             context.SaveChanges();
         }
 
+
         public void AddProducts()
         {
+            List<Product> productsBatch = new List<Product>();
+
             using (TextFieldParser parser = new TextFieldParser(PRODUCTS_FILE))
             {
                 parser.ReadLine();
@@ -93,23 +111,41 @@ namespace EntityFrameworkCodeFirst.DAO
                     product.BuyPrice = Convert.ToDouble(data[7]);
                     product.MSRP = Convert.ToDouble(data[8]);
 
-                    AddProductsEntry(product);
+                    productsBatch.Add(product);
+
+                    if (productsBatch.Count >= BATCH_SIZE)
+                    {
+                        AddProductsBatch(productsBatch);
+                        productsBatch.Clear();
+                    }
+                }
+
+                if (productsBatch.Count > 0)
+                {
+                    AddProductsBatch(productsBatch);
                 }
             }
         }
 
-        public void AddProductsEntry(Product product)
+        public void AddProductsBatch(List<Product> products)
         {
-            product.ProductLines = context.ProductLines.Find(product.productLine);
-            context.Products.Add(product);
+            foreach (Product product in products)
+            {
+                product.ProductLines = context.ProductLines.Find(product.productLine);
+            }
+
+            context.Products.AddRange(products);
             context.SaveChanges();
         }
 
+
         public void AddOffices()
         {
+            List<Office> officesBatch = new List<Office>();
+
             using (TextFieldParser parser = new TextFieldParser(OFFICES_FILE))
             {
-                parser.ReadLine();
+                parser.ReadLine(); 
                 parser.TextFieldType = FieldType.Delimited;
                 parser.SetDelimiters(",");
                 parser.HasFieldsEnclosedInQuotes = true;
@@ -128,23 +164,32 @@ namespace EntityFrameworkCodeFirst.DAO
                     office.postalCode = data[7];
                     office.territory = data[8];
 
+                    officesBatch.Add(office);
 
-                     AddOfficesEntry(office);
+                    if (officesBatch.Count >= BATCH_SIZE)
+                    {
+                        AddOfficesBatch(officesBatch);
+                        officesBatch.Clear();
+                    }
+                }
+
+                if (officesBatch.Count > 0)
+                {
+                    AddOfficesBatch(officesBatch);
                 }
             }
-
         }
 
-        public void AddOfficesEntry(Office office)
+        public void AddOfficesBatch(List<Office> offices)
         {
-            context.Offices.Add(office);
+            context.Offices.AddRange(offices);
             context.SaveChanges();
-
-            
         }
 
         public void AddCustomers()
         {
+            List<Customer> customersBatch = new List<Customer>();
+
             using (TextFieldParser parser = new TextFieldParser(CUSTOMERS_FILE))
             {
                 parser.ReadLine();
@@ -167,32 +212,54 @@ namespace EntityFrameworkCodeFirst.DAO
                     customer.state = data[8];
                     customer.postalCode = data[9];
                     customer.country = data[10];
-                    if (data[11].Equals("NULL"))
+
+                    if (data[11] == "NULL")
                     {
                         customer.salesRepEmployeeNumber = null;
                     }
                     else
                     {
-
                         customer.salesRepEmployeeNumber = Convert.ToInt16(data[11]);
                     }
+
                     customer.creditLimit = Convert.ToDecimal(data[12]);
 
-                    AddCustomersEntry(customer);
+                    customersBatch.Add(customer);
+
+                    if (customersBatch.Count >= BATCH_SIZE)
+                    {
+                        AddCustomersBatch(customersBatch);
+                        customersBatch.Clear();
+                    }
+                }
+
+                if (customersBatch.Count > 0)
+                {
+                    AddCustomersBatch(customersBatch);
                 }
             }
         }
 
-        public void AddCustomersEntry(Customer customer)
+        public void AddCustomersBatch(List<Customer> customers)
         {
-            customer.employee = context.Employees.Find(customer.salesRepEmployeeNumber);
 
-            context.Customers.Add(customer);
+            foreach (Customer customer in customers)
+            {
+                if (customer.salesRepEmployeeNumber.HasValue)
+                {
+                    customer.employee = context.Employees.Find(customer.salesRepEmployeeNumber);
+                }
+            }
+
+            context.Customers.AddRange(customers);
             context.SaveChanges();
         }
 
+
         public void AddEmployees()
         {
+            List<Employee> employeesBatch = new List<Employee>();
+
             using (TextFieldParser parser = new TextFieldParser(EMPLOYEES_FILE))
             {
                 parser.ReadLine();
@@ -211,40 +278,55 @@ namespace EntityFrameworkCodeFirst.DAO
                     employee.email = data[4];
                     employee.officeCode = data[5];
 
-                    if (data[6].Equals("NULL"))
+                    if (data[6] == "NULL")
                     {
                         employee.reportsTo = null;
                     }
                     else
                     {
-
                         employee.reportsTo = Convert.ToInt16(data[6]);
                     }
 
                     employee.jobTitle = data[7];
 
-                    AddEmployeesEntry(employee);
+                    employeesBatch.Add(employee);
+
+                    if (employeesBatch.Count >= BATCH_SIZE)
+                    {
+                        AddEmployeesBatch(employeesBatch);
+                        employeesBatch.Clear();
+                    }
                 }
 
+                if (employeesBatch.Count > 0)
+                {
+                    AddEmployeesBatch(employeesBatch);
+                }
             }
-
         }
 
-        public void AddEmployeesEntry(Employee employee)
+        public void AddEmployeesBatch(List<Employee> employees)
         {
-            employee.offices = context.Offices.Find(employee.officeCode);
-            employee.ReportsToRef = context.Employees.Find(employee.reportsTo);
-            context.Employees.Add(employee);
+            foreach (var employee in employees)
+            {
+                employee.offices = context.Offices.Find(employee.officeCode);
+                employee.ReportsToRef = context.Employees.Find(employee.reportsTo);
+            }
+
+            context.Employees.AddRange(employees);
             context.SaveChanges();
         }
 
-        
+
+
 
         public void AddOrderDetails()
         {
+            List<OrderDetail> orderDetailsBatch = new List<OrderDetail>();
+
             using (TextFieldParser parser = new TextFieldParser(ORDERDETAILS_FILE))
             {
-                parser.ReadLine();
+                parser.ReadLine(); 
                 parser.TextFieldType = FieldType.Delimited;
                 parser.SetDelimiters(",");
                 parser.HasFieldsEnclosedInQuotes = true;
@@ -259,24 +341,41 @@ namespace EntityFrameworkCodeFirst.DAO
                     orderDetail.priceEach = Convert.ToDouble(data[3]);
                     orderDetail.orderLineNumber = Convert.ToInt16(data[4]);
 
-                    AddOrderDetailsEntry(orderDetail);
+                    orderDetailsBatch.Add(orderDetail);
+
+                    if (orderDetailsBatch.Count >= BATCH_SIZE)
+                    {
+                        AddOrderDetailsBatch(orderDetailsBatch);
+                        orderDetailsBatch.Clear();
+                    }
+                }
+
+                if (orderDetailsBatch.Count > 0)
+                {
+                    AddOrderDetailsBatch(orderDetailsBatch);
                 }
             }
         }
 
-        public void AddOrderDetailsEntry(OrderDetail orderDetail)
+        public void AddOrderDetailsBatch(List<OrderDetail> orderDetails)
         {
-            orderDetail.order = context.Orders.Find(orderDetail.orderNumber);
-            orderDetail.product = context.Products.Find(orderDetail.productCode);
-            context.OrderDetails.Add(orderDetail);
+            foreach (var orderDetail in orderDetails)
+            {
+                orderDetail.order = context.Orders.Find(orderDetail.orderNumber);
+                orderDetail.product = context.Products.Find(orderDetail.productCode);
+            }
+
+            context.OrderDetails.AddRange(orderDetails);
             context.SaveChanges();
         }
 
         public void AddOrders()
         {
+            List<Order> ordersBatch = new List<Order>();
+
             using (TextFieldParser parser = new TextFieldParser(ORDERS_FILE))
             {
-                parser.ReadLine();
+                parser.ReadLine(); // Skip header
                 parser.TextFieldType = FieldType.Delimited;
                 parser.SetDelimiters(",");
                 parser.HasFieldsEnclosedInQuotes = true;
@@ -288,34 +387,42 @@ namespace EntityFrameworkCodeFirst.DAO
                     order.orderNumber = Convert.ToInt16(data[0]);
                     order.orderDate = Convert.ToDateTime(data[1]);
                     order.requiredDate = Convert.ToDateTime(data[2]);
-                    //Afegir lo mateix de null en el apartat de coments tambe
-                    if (data[3].Equals("NULL"))
-                    {
-                        order.shippedDate = null;
-                    }
-                    else
-                    {
-                        order.shippedDate = Convert.ToDateTime(data[3]);
-                    }
+                    order.shippedDate = data[3] == "NULL" ? (DateTime?)null : Convert.ToDateTime(data[3]);
                     order.status = data[4];
                     order.comments = data[5];
                     order.customerNumber = Convert.ToInt16(data[6]);
 
-                    AddOrdersEntry(order);
+                    ordersBatch.Add(order);
 
+                    if (ordersBatch.Count >= BATCH_SIZE)
+                    {
+                        AddOrdersBatch(ordersBatch);
+                        ordersBatch.Clear();
+                    }
+                }
+
+                if (ordersBatch.Count > 0)
+                {
+                    AddOrdersBatch(ordersBatch);
                 }
             }
         }
 
-        public void AddOrdersEntry(Order order)
+        public void AddOrdersBatch(List<Order> orders)
         {
-            order.customer = context.Customers.Find(order.customerNumber);
-            context.Orders.Add(order);
+            foreach (Order order in orders)
+            {
+                order.customer = context.Customers.Find(order.customerNumber);
+            }
+
+            context.Orders.AddRange(orders);
             context.SaveChanges();
         }
 
         public void AddPayments()
         {
+            List<Payment> paymentsBatch = new List<Payment>();
+
             using (TextFieldParser parser = new TextFieldParser(PAYMENTS_FILE))
             {
                 parser.ReadLine();
@@ -332,16 +439,30 @@ namespace EntityFrameworkCodeFirst.DAO
                     payment.paymentDate = Convert.ToDateTime(data[2]);
                     payment.amount = Convert.ToDouble(data[3]);
 
-                    AddPaymentsEntry(payment);
+                    paymentsBatch.Add(payment);
+
+                    if (paymentsBatch.Count >= BATCH_SIZE)
+                    {
+                        AddPaymentsBatch(paymentsBatch);
+                        paymentsBatch.Clear();
+                    }
+                }
+
+                if (paymentsBatch.Count > 0)
+                {
+                    AddPaymentsBatch(paymentsBatch);
                 }
             }
-
         }
 
-        public void AddPaymentsEntry(Payment payment)
+        public void AddPaymentsBatch(List<Payment> payments)
         {
-            payment.customer = context.Customers.Find(payment.customerNumber);
-            context.Payment.Add(payment);
+            foreach (Payment payment in payments)
+            {
+                payment.customer = context.Customers.Find(payment.customerNumber);
+            }
+
+            context.Payment.AddRange(payments);
             context.SaveChanges();
         }
 
@@ -637,6 +758,46 @@ namespace EntityFrameworkCodeFirst.DAO
                 .ToList();
 
             return countriesFiltred;
+        }
+
+        public void AddOrderDetailsEntry(OrderDetail orderDetail)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddProductLineEntry(ProductLine productLine)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddProductsEntry(Product product)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddOfficesEntry(Office office)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddEmployeesEntry(Employee employee)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddCustomersEntry(Customer customer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddPaymentsEntry(Payment payment)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddOrdersEntry(Order order)
+        {
+            throw new NotImplementedException();
         }
     }
 }
