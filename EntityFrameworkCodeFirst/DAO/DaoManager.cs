@@ -192,7 +192,10 @@ namespace EntityFrameworkCodeFirst.DAO
                     office.phone = data[2];
                     office.addressLine1 = data[3];
                     office.addressLine2 = data[4];
-                    office.state = data[5];
+
+                    if (data[5] != "NULL") office.state = data[5];
+                    else office.state = null;
+
                     office.country = data[6];
                     office.postalCode = data[7];
                     office.territory = data[8];
@@ -248,14 +251,8 @@ namespace EntityFrameworkCodeFirst.DAO
                     employee.email = data[4];
                     employee.officeCode = data[5];
 
-                    if (data[6] == "NULL")
-                    {
-                        employee.reportsTo = null;
-                    }
-                    else
-                    {
-                        employee.reportsTo = Convert.ToInt16(data[6]);
-                    }
+                    if (data[6] == "NULL") employee.reportsTo = null;
+                    else employee.reportsTo = Convert.ToInt16(data[6]);
 
                     employee.jobTitle = data[7];
 
@@ -315,20 +312,20 @@ namespace EntityFrameworkCodeFirst.DAO
                     customer.contactFirstName = data[3];
                     customer.phone = data[4];
                     customer.addressLine1 = data[5];
-                    customer.addressLine2 = data[6];
+
+                    if (data[6] != "NULL") customer.addressLine2 = data[6];
+                    else customer.addressLine2 = null;
+
                     customer.city = data[7];
-                    customer.state = data[8];
+
+                    if (data[8] != "NULL") customer.state = data[8];
+                    else customer.state = null;
+
                     customer.postalCode = data[9];
                     customer.country = data[10];
 
-                    if (data[11] == "NULL")
-                    {
-                        customer.salesRepEmployeeNumber = null;
-                    }
-                    else
-                    {
-                        customer.salesRepEmployeeNumber = Convert.ToInt16(data[11]);
-                    }
+                    if (data[11] == "NULL")customer.salesRepEmployeeNumber = null;
+                    else customer.salesRepEmployeeNumber = Convert.ToInt16(data[11]);
 
                     customer.creditLimit = Convert.ToDecimal(data[12]);
 
@@ -442,9 +439,15 @@ namespace EntityFrameworkCodeFirst.DAO
                     order.orderNumber = Convert.ToInt16(data[0]);
                     order.orderDate = Convert.ToDateTime(data[1]);
                     order.requiredDate = Convert.ToDateTime(data[2]);
-                    order.shippedDate = data[3] == "NULL" ? (DateTime?)null : Convert.ToDateTime(data[3]);
+
+                    if (data[3] == "NULL") order.shippedDate = null;
+                    else order.shippedDate = Convert.ToDateTime(data[3]);
+
                     order.status = data[4];
-                    order.comments = data[5];
+
+                    if (data[5] != "NULL") order.comments = data[5];
+                    else order.comments = null;
+
                     order.customerNumber = Convert.ToInt16(data[6]);
 
                     ordersBatch.Add(order);
