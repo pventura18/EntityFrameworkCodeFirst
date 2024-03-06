@@ -44,14 +44,21 @@ namespace EntityFrameworkCodeFirst.DAO
         /// </summary>
         public void ImportCsvFiles()
         {
-            AddProductLine();
-            AddProducts();
-            AddOffices();
-            AddEmployees();
-            AddCustomers();
-            AddPayments();
-            AddOrders();
-            AddOrderDetails();
+            try
+            {
+                AddProductLine();
+                AddProducts();
+                AddOffices();
+                AddEmployees();
+                AddCustomers();
+                AddPayments();
+                AddOrders();
+                AddOrderDetails();
+            } catch (Exception e)
+            {
+                Console.WriteLine("Error al fer les importacions!");
+            }
+            
         }
 
         /// <summary>
@@ -879,6 +886,13 @@ namespace EntityFrameworkCodeFirst.DAO
             return countriesFiltred;
         }
 
+
+
+        
+        #endregion
+
+        #region SpecialPrice (Part 4)
+
         /// <summary>
         /// Method to get the customers
         /// </summary>
@@ -893,9 +907,6 @@ namespace EntityFrameworkCodeFirst.DAO
         /// </summary>
         /// <returns></returns>
         /// 
-        #endregion
-
-        #region SpecialPrice (Part 4)
         public List<Product> GetProducts()
         {
             return context.Products.ToList();
@@ -909,13 +920,20 @@ namespace EntityFrameworkCodeFirst.DAO
         /// <param name="price"></param>
         public void AddSpecialPrice(Customer customer, Product product, decimal price)
         {
-            SpecialPriceList specialPriceList = new SpecialPriceList();
-            specialPriceList.customerId = customer.customerNumber;
-            specialPriceList.productCode = product.productCode;
-            specialPriceList.price = price;
+            try
+            {
+                SpecialPriceList specialPriceList = new SpecialPriceList();
+                specialPriceList.customerId = customer.customerNumber;
+                specialPriceList.productCode = product.productCode;
+                specialPriceList.price = price;
 
-            context.SpecialPriceList.Add(specialPriceList);
-            context.SaveChanges();
+                context.SpecialPriceList.Add(specialPriceList);
+                context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error al afegir un preu especial!");
+            }
         }
         #endregion
     }
