@@ -28,7 +28,7 @@ namespace EntityFrameworkCodeFirst.Windows
             InitializeComponent();
             DaoFactory daoFactory = new DaoFactory();
             manager = daoFactory.GetDaoManager(context);
-            //manager.ImportCsvFiles();
+           // manager.ImportCsvFiles();
            
 
 
@@ -69,6 +69,13 @@ namespace EntityFrameworkCodeFirst.Windows
         {
             WNDDetailsOrder wndDetailsOrder = new WNDDetailsOrder(manager);
             wndDetailsOrder.ShowDialog();
+        }
+
+        private void btnShippedStatus_Click(object sender, RoutedEventArgs e)
+        {
+            WNDShippedOrders wndShippedOrders = new WNDShippedOrders(manager);
+            wndShippedOrders.ShowDialog();
+
         }
     }
 }

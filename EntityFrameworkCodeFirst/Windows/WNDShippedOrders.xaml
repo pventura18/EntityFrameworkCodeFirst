@@ -13,8 +13,8 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
             <Label Content=" Orders Details: " HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" FontSize="15" FontWeight="Bold"/>
-            <ComboBox Width="150" Height="20" HorizontalAlignment="Center"></ComboBox>
-            <Button Content="Search" Width="100" Height="20" HorizontalAlignment="Right" VerticalAlignment="Center" Click="Button_Click" Margin="100,0,0,0"/>
+            <ComboBox Width="150" Height="20" Name="cbOrderDetails" HorizontalAlignment="Center"></ComboBox>
+            <Button Content="Search" Width="100" Height="20" HorizontalAlignment="Right" VerticalAlignment="Center" Name="btnSearch" Click="btnSearch_Click"  Margin="100,0,0,0"/>
         </StackPanel>
         
 
@@ -23,7 +23,7 @@
         <ListView Grid.Row="1" x:Name="lvOrderShipped" HorizontalAlignment="Center">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="orderNumber" Width="50" DisplayMemberBinding="{Binding orderNumber}"/>
+                    <GridViewColumn Header="orderNumber" Width="200" DisplayMemberBinding="{Binding orderNumber}"/>
                     <GridViewColumn Header="orderDate" Width="200" DisplayMemberBinding="{Binding orderDate}"/>
                     <GridViewColumn Header="requiredDate" Width="200" DisplayMemberBinding="{Binding requiredDate}"/>
                     <GridViewColumn Header="shippedDate" Width="200" DisplayMemberBinding="{Binding shippedDate}"/>

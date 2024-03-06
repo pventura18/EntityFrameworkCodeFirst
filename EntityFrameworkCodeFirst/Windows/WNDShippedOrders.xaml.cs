@@ -19,9 +19,14 @@ namespace EntityFrameworkCodeFirst.Windows
     /// </summary>
     public partial class WNDShippedOrders : Window
     {
-        public WNDShippedOrders()
+        public WNDShippedOrders(DAO.IDAO manager)
         {
             InitializeComponent();
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
