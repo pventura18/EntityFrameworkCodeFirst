@@ -531,5 +531,112 @@ namespace EntityFrameworkCodeFirst.DAO
             context.SpecialPriceList.Add(specialPriceList);
             context.SaveChanges();
         }
+
+        public IEnumerable GetCustomerPayments()
+        {
+            var PaymentsPerCustomer = context.Customers
+            .Join(context.Payment,
+                  c => c.customerNumber,
+                  p => p.customerNumber,
+                  (c, p) => new { Customer = c, Payment = p })
+            .GroupBy(cp => new { cp.Customer.customerNumber, cp.Customer.customerName })
+            .Select(g => new
+            {
+                CustomerNumber = g.Key.customerNumber,
+                CustomerName = g.Key.customerName,
+                TotalPayments = g.Count()
+            })
+            .ToList();
+
+            return PaymentsPerCustomer;
+        }
+
+        public IEnumerable GetJobTittles()
+        {
+            var jobTittles = context.Employees.Select(e => e.jobTitle)
+                .Distinct()
+                .ToList();
+
+
+            return jobTittles;
+        }
+
+        public IEnumerable GetEmployees()
+        {
+            List<Employee> employees = context.Employees.ToList();
+            return employees;
+        }
+
+        public IEnumerable GetEmployesByJobTittle(string jobTittle)
+        {
+            var employeesByJobTittle = context.Employees
+                .Where(e => e.jobTitle == jobTittle)
+                .ToList();
+
+            return employeesByJobTittle;
+        }
+
+        public IEnumerable GetEmployeesByAscendingNumber()
+        {
+            var employeesByAscendingNumber = context.Employees
+                .OrderBy(e => e.employeeNumber)
+                .ToList();
+
+            return employeesByAscendingNumber;
+        }
+
+        public IEnumerable GetEmployeesByDescendingNumber()
+        {
+            var employeesByDescendingNumber = context.Employees
+                .OrderByDescending(e => e.employeeNumber)
+                .ToList();
+
+            return employeesByDescendingNumber;
+        }
+
+        public IEnumerable GetEmployeesEntities()
+        {
+            var employeeWithOffices= context.Employees
+                .Include(e => e.offices)
+                .ToList()
+                .Select(e => new
+              {
+                    employeeNumber = e.employeeNumber,
+                    employeeName = $"{e.firstName} {e.lastName}",
+                    employeeExtension = e.extension,
+                    employeeEmail = e.email,
+                    employeeOfficeCode = e.officeCode,
+                    employeeReportsTo = e.reportsTo,
+                    employeeJobTitle = e.jobTitle,
+                    officeCity = e.offices.city,
+                    officeLocation = $"{e.offices.addressLine1}, {e.offices.city}, {e.offices.country}"
+                });
+               
+             return employeeWithOffices;
+
+
+
+
+        }
+
+        public List<string> GetCountry()
+        {
+            var countries = context.Offices.Select(e => e.country)
+               .Distinct()
+               .ToList();
+
+
+            return countries;
+
+        }
+
+        public IEnumerable GetOfficesByCountries(string country)
+        {
+            var countriesFiltred = context.Offices
+                .Where(e => e.country == country)
+                .ToList();
+
+            return countriesFiltred;
+        }
     }
 }

@@ -1,0 +1,44 @@
+﻿<Window x:Class="EntityFrameworkCodeFirst.Windows.WNDEmployeesQuery"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EntityFrameworkCodeFirst.Windows"
+        mc:Ignorable="d"
+        Title="WNDEmployeesQuery" Height="700" Width="800" Background="LightCoral">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical">
+            <Label Content="Get all the employees" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" FontSize="12" FontWeight="Bold"/>
+            <Button Content="GetAll" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" FontSize="12" FontWeight="Bold" Name="btnGettAll" Click="btnGettAll_Click" />
+            <Label Content="Get employees by job Tittle" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" FontSize="12" FontWeight="Bold"/>
+            <ComboBox Name="cbJobTittle" Width="120" Height="20" HorizontalAlignment="Center" SelectionChanged="cbJobTittle_SelectionChanged" ></ComboBox>
+            <Label Content="Order Ascending By  Employee Number" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" FontSize="12" FontWeight="Bold"/>
+            <Button Content="Order " HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" FontSize="12" FontWeight="Bold" Name="btnOrderByEmployeeNumber" Click="btnOrderByEmployeeNumber_Click"/>
+            <Label Content="Order Descending By  Employee Number" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" FontSize="12" FontWeight="Bold"/>
+            <Button Content="Order " HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" FontSize="12" FontWeight="Bold" Name="btnOrderByDescendingEmployeeNumber" Click="btnOrderByDescendingEmployeeNumber_Click"/>
+        </StackPanel>
+
+        <ListView Grid.Row="1" x:Name="lvEmployees" HorizontalAlignment="Center" Margin="30">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="employeeNumber" Width="200" DisplayMemberBinding="{Binding employeeNumber}"/>
+                    <GridViewColumn Header="lastName" Width="200" DisplayMemberBinding="{Binding lastName}"/>
+                    <GridViewColumn Header="firstName" Width="200" DisplayMemberBinding="{Binding firstName}"/>
+                    <GridViewColumn Header="extension" Width="200" DisplayMemberBinding="{Binding extension}"/>
+                    <GridViewColumn Header="email" Width="200" DisplayMemberBinding="{Binding email}"/>
+                    <GridViewColumn Header="officeCode" Width="200" DisplayMemberBinding="{Binding officeCode}"/>
+                    <GridViewColumn Header="reportsTo" Width="200" DisplayMemberBinding="{Binding reportsTo}"/>
+                    <GridViewColumn Header="jobTitle" Width="200" DisplayMemberBinding="{Binding jobTitle}"/>
+
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+
+    </Grid>
+</Window>

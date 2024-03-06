@@ -1,5 +1,4 @@
 ﻿using EntityFrameworkCodeFirst.DAO;
-using EntityFrameworkCodeFirst.Migrations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,24 +16,21 @@ using System.Windows.Shapes;
 namespace EntityFrameworkCodeFirst.Windows
 {
     /// <summary>
-    /// Interaction logic for WNDOfficeEmployees.xaml
+    /// Interaction logic for WNDOfficeCountry.xaml
     /// </summary>
-    public partial class WNDOfficeEmployees : Window
+    public partial class WNDOfficeCountry : Window
     {
         IDAO manager;
-        public WNDOfficeEmployees(IDAO manager)
+        public WNDOfficeCountry(IDAO manager)
         {
             InitializeComponent();
-            this.manager = manager;
-            cbOffices.ItemsSource = manager.GetOffices();
-            lvEmployees.SelectedIndex = 0;
-
-
+            this.manager = manager; 
+            cmbOfficeCountry.ItemsSource = manager.GetCountry();
         }
 
-        private void cbOffices_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cmbOfficeCountry_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            lvEmployees.ItemsSource = manager.GetEmployeesByOffice((string)cbOffices.SelectedValue);
+            lvOfficeCountry.ItemsSource = manager.GetOfficesByCountries((string)cmbOfficeCountry.SelectedValue);
 
         }
     }
