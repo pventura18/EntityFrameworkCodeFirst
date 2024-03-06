@@ -35,7 +35,7 @@ namespace EntityFrameworkCodeFirst.DAO
         IEnumerable GetEmployesByJobTittle(string jobTittle); 
         IEnumerable GetEmployeesByAscendingNumber();
         IEnumerable GetEmployeesByDescendingNumber();
-        IEnumerable GetEmployeesEntities();
+        IEnumerable GetEmployeesJoinOffices();
         List<Customer> GetCustomers();
         List<Product> GetProducts();
         List<String> GetCountry();

@@ -14,6 +14,7 @@ namespace EntityFrameworkCodeFirst.DAO
 {
     public class DaoManager : IDAO
     {
+        #region constants
         private string EMPLOYEES_FILE = "EMPLOYEES.csv";
         private string CUSTOMERS_FILE = "CUSTOMERS.csv";
         private string OFFICES_FILE = "OFFICES.csv";
@@ -24,13 +25,23 @@ namespace EntityFrameworkCodeFirst.DAO
         private string PRODUCTS_FILE = "PRODUCTS.csv";
         private int BATCH_SIZE = 1000;
 
+        #endregion
+
         private MODEL.BusinessDBContext context = null;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="context"></param>
         public DaoManager(MODEL.BusinessDBContext context)
         {
             this.context = context;
         }
 
+        #region Imports(Part 2)
+        /// <summary>
+        /// Method to make the import of all the csv files
+        /// </summary>
         public void ImportCsvFiles()
         {
             AddProductLine();
@@ -43,6 +54,9 @@ namespace EntityFrameworkCodeFirst.DAO
             AddOrderDetails();
         }
 
+        /// <summary>
+        /// Method to add the product lines
+        /// </summary>
         public void AddProductLine()
         {
             List<ProductLine> productLinesBatch = new List<ProductLine>();
@@ -79,13 +93,19 @@ namespace EntityFrameworkCodeFirst.DAO
             }
         }
 
+        /// <summary>
+        /// Method to add the product lines in batch
+        /// </summary>
+        /// <param name="productLines"></param>
         private void AddProductLinesBatch(List<ProductLine> productLines)
         {
             context.ProductLines.AddRange(productLines);
             context.SaveChanges();
         }
 
-
+        /// <summary>
+        /// Method to add the products
+        /// </summary>
         public void AddProducts()
         {
             List<Product> productsBatch = new List<Product>();
@@ -127,6 +147,10 @@ namespace EntityFrameworkCodeFirst.DAO
             }
         }
 
+        /// <summary>
+        /// Method to add the products in batch
+        /// </summary>
+        /// <param name="products"></param>
         private void AddProductsBatch(List<Product> products)
         {
             foreach (Product product in products)
@@ -138,7 +162,9 @@ namespace EntityFrameworkCodeFirst.DAO
             context.SaveChanges();
         }
 
-
+        /// <summary>
+        /// Method to add the offices
+        /// </summary>
         public void AddOffices()
         {
             List<Office> officesBatch = new List<Office>();
@@ -180,12 +206,19 @@ namespace EntityFrameworkCodeFirst.DAO
             }
         }
 
+        /// <summary>
+        /// Method to add the offices in batch
+        /// </summary>
+        /// <param name="offices"></param>
         private void AddOfficesBatch(List<Office> offices)
         {
             context.Offices.AddRange(offices);
             context.SaveChanges();
         }
 
+        /// <summary>
+        /// Method to add the employees
+        /// </summary>
         public void AddEmployees()
         {
             List<Employee> employeesBatch = new List<Employee>();
@@ -235,6 +268,10 @@ namespace EntityFrameworkCodeFirst.DAO
             }
         }
 
+        /// <summary>
+        /// Method to add the employees in batch
+        /// </summary>
+        /// <param name="employees"></param>
         private void AddEmployeesBatch(List<Employee> employees)
         {
             foreach (var employee in employees)
@@ -247,6 +284,9 @@ namespace EntityFrameworkCodeFirst.DAO
             context.SaveChanges();
         }
 
+        /// <summary>
+        /// Method to add the customers
+        /// </summary>
         public void AddCustomers()
         {
             List<Customer> customersBatch = new List<Customer>();
@@ -301,6 +341,10 @@ namespace EntityFrameworkCodeFirst.DAO
             }
         }
 
+        /// <summary>
+        /// Method to add the customers in batch
+        /// </summary>
+        /// <param name="customers"></param>
         private void AddCustomersBatch(List<Customer> customers)
         {
 
@@ -316,6 +360,9 @@ namespace EntityFrameworkCodeFirst.DAO
             context.SaveChanges();
         }
 
+        /// <summary>
+        /// Method to add the payments
+        /// </summary>
         public void AddPayments()
         {
             List<Payment> paymentsBatch = new List<Payment>();
@@ -352,6 +399,10 @@ namespace EntityFrameworkCodeFirst.DAO
             }
         }
 
+        /// <summary>
+        /// Method to add the payments in batch
+        /// </summary>
+        /// <param name="payments"></param>
         private void AddPaymentsBatch(List<Payment> payments)
         {
             foreach (Payment payment in payments)
@@ -363,6 +414,9 @@ namespace EntityFrameworkCodeFirst.DAO
             context.SaveChanges();
         }
 
+        /// <summary>
+        /// Method to add the orders
+        /// </summary>
         public void AddOrders()
         {
             List<Order> ordersBatch = new List<Order>();
@@ -402,6 +456,10 @@ namespace EntityFrameworkCodeFirst.DAO
             }
         }
 
+        /// <summary>
+        /// Method to add the orders in batch
+        /// </summary>
+        /// <param name="orders"></param>
         private void AddOrdersBatch(List<Order> orders)
         {
             foreach (Order order in orders)
@@ -413,6 +471,9 @@ namespace EntityFrameworkCodeFirst.DAO
             context.SaveChanges();
         }
 
+        /// <summary>
+        /// Method to add the order details
+        /// </summary>
         public void AddOrderDetails()
         {
             List<OrderDetail> orderDetailsBatch = new List<OrderDetail>();
@@ -450,6 +511,10 @@ namespace EntityFrameworkCodeFirst.DAO
             }
         }
 
+        /// <summary>
+        /// Method to add the order details in batch
+        /// </summary>
+        /// <param name="orderDetails"></param>
         private void AddOrderDetailsBatch(List<OrderDetail> orderDetails)
         {
             foreach (var orderDetail in orderDetails)
@@ -462,6 +527,14 @@ namespace EntityFrameworkCodeFirst.DAO
             context.SaveChanges();
         }
 
+        #endregion
+
+        #region Queries(Part 3)
+        /// <summary>
+        /// Method to get the customers filtered by an initial
+        /// </summary>
+        /// <param name="inicial"></param>
+        /// <returns></returns>
         public IEnumerable GetCustomers(char inicial)
         {
             IQueryable<Customer> query = context.Customers;
@@ -475,6 +548,10 @@ namespace EntityFrameworkCodeFirst.DAO
                         .ToList();
         }
 
+        /// <summary>
+        /// Method to get the customers and what they have spent
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable GetSpentCustomers()
         {
             var query = context.Customers
@@ -494,6 +571,11 @@ namespace EntityFrameworkCodeFirst.DAO
             return query.ToList();
         }
 
+        /// <summary>
+        /// Method to get the customer, the employee that has attended the customer
+        /// and location
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable GetCustomerEmployeeLocation()
         {
             return context.Orders
@@ -511,6 +593,12 @@ namespace EntityFrameworkCodeFirst.DAO
             .ToList();
         }
 
+        /// <summary>
+        /// Method to get the products sorted by a determinated field ascending or descending
+        /// </summary>
+        /// <param name="productField"></param>
+        /// <param name="ascending"></param>
+        /// <returns></returns>
         public IEnumerable GetProducts(ProductFields productField, bool ascending)
         {
             IQueryable<Product> query = context.Products;
@@ -549,6 +637,10 @@ namespace EntityFrameworkCodeFirst.DAO
             return query.ToList();
         }
 
+        /// <summary>
+        /// Method to get the price of the orders
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable GetPriceOfOrders()
         {
             return context.OrderDetails
@@ -562,6 +654,11 @@ namespace EntityFrameworkCodeFirst.DAO
                 .ToList();
         }
 
+        /// <summary>
+        /// Method to get the details of an order
+        /// </summary>
+        /// <param name="orderNumber"></param>
+        /// <returns></returns>
         public IEnumerable  GetDetailsOrder(int orderNumber)
         {
             return context.OrderDetails
@@ -580,12 +677,20 @@ namespace EntityFrameworkCodeFirst.DAO
             .ToList<object>();
         }
 
+        /// <summary>
+        /// Method to get the orders numbers
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable GetOrdersNumbers()
         {
             return context.OrderDetails.Select(od => od.orderNumber).Distinct().ToList();
         }
 
-
+        /// <summary>
+        /// Method to get the orders filtered by their status
+        /// </summary>
+        /// <param name="status"></param>
+        /// <returns></returns>
         public IEnumerable GetShippedOrders(string status)
         {
             var ordersWithSelectedStatus = context.Orders
@@ -593,10 +698,13 @@ namespace EntityFrameworkCodeFirst.DAO
                 .OrderBy(o => o.orderDate)
                 .ToList();
             return ordersWithSelectedStatus;
-
-
         }
 
+        /// <summary>
+        /// Method to get the employees by office
+        /// </summary>
+        /// <param name="office"></param>
+        /// <returns></returns>
         public IEnumerable GetEmployeesByOffice(string office)
         {
             var employeeOffice = context.Offices
@@ -622,33 +730,20 @@ namespace EntityFrameworkCodeFirst.DAO
             
         }
 
+        /// <summary>
+        /// Method to get the offices
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable GetOffices()
         {
             var officesNames= context.Offices.Select(o => o.city).ToList(); 
             return officesNames;
         }
-        
-        public List<Customer> GetCustomers()
-        {
-            return context.Customers.ToList();
-        }
 
-        public List<Product> GetProducts()
-        {
-            return context.Products.ToList();
-        }
-
-        public void AddSpecialPrice(Customer customer, Product product, decimal price)
-        {
-            SpecialPriceList specialPriceList = new SpecialPriceList();
-            specialPriceList.customerId = customer.customerNumber;
-            specialPriceList.productCode = product.productCode;
-            specialPriceList.price = price;
-
-            context.SpecialPriceList.Add(specialPriceList);
-            context.SaveChanges();
-        }
-
+        /// <summary>
+        /// Method to get the customer payments made
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable GetCustomerPayments()
         {
             var PaymentsPerCustomer = context.Customers
@@ -668,6 +763,10 @@ namespace EntityFrameworkCodeFirst.DAO
             return PaymentsPerCustomer;
         }
 
+        /// <summary>
+        /// Method to get the job tittles
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable GetJobTittles()
         {
             var jobTittles = context.Employees.Select(e => e.jobTitle)
@@ -678,12 +777,21 @@ namespace EntityFrameworkCodeFirst.DAO
             return jobTittles;
         }
 
+        /// <summary>
+        /// Method to get the employees
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable GetEmployees()
         {
             List<Employee> employees = context.Employees.ToList();
             return employees;
         }
 
+        /// <summary>
+        /// Method to get the employees by job tittle
+        /// </summary>
+        /// <param name="jobTittle"></param>
+        /// <returns></returns>
         public IEnumerable GetEmployesByJobTittle(string jobTittle)
         {
             var employeesByJobTittle = context.Employees
@@ -693,6 +801,10 @@ namespace EntityFrameworkCodeFirst.DAO
             return employeesByJobTittle;
         }
 
+        /// <summary>
+        /// Method to get the employees by ascending employee number
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable GetEmployeesByAscendingNumber()
         {
             var employeesByAscendingNumber = context.Employees
@@ -702,6 +814,10 @@ namespace EntityFrameworkCodeFirst.DAO
             return employeesByAscendingNumber;
         }
 
+        /// <summary>
+        /// Method to get the employees by descending employee number
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable GetEmployeesByDescendingNumber()
         {
             var employeesByDescendingNumber = context.Employees
@@ -711,7 +827,11 @@ namespace EntityFrameworkCodeFirst.DAO
             return employeesByDescendingNumber;
         }
 
-        public IEnumerable GetEmployeesEntities()
+        /// <summary>
+        /// Method to get the employees related to their offices
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable GetEmployeesJoinOffices()
         {
             var employeeWithOffices= context.Employees
                 .Include(e => e.offices)
@@ -732,16 +852,24 @@ namespace EntityFrameworkCodeFirst.DAO
              return employeeWithOffices;
         }
 
+        /// <summary>
+        /// Method to get the countries
+        /// </summary>
+        /// <returns></returns>
         public List<string> GetCountry()
         {
             var countries = context.Offices.Select(e => e.country)
                .Distinct()
                .ToList();
 
-
             return countries;
         }
 
+        /// <summary>
+        /// Method to get the offices filtered by countries
+        /// </summary>
+        /// <param name="country"></param>
+        /// <returns></returns>
         public IEnumerable GetOfficesByCountries(string country)
         {
             var countriesFiltred = context.Offices
@@ -750,5 +878,45 @@ namespace EntityFrameworkCodeFirst.DAO
 
             return countriesFiltred;
         }
+
+        /// <summary>
+        /// Method to get the customers
+        /// </summary>
+        /// <returns></returns>
+        public List<Customer> GetCustomers()
+        {
+            return context.Customers.ToList();
+        }
+
+        /// <summary>
+        /// Method to get the products
+        /// </summary>
+        /// <returns></returns>
+        /// 
+        #endregion
+
+        #region SpecialPrice (Part 4)
+        public List<Product> GetProducts()
+        {
+            return context.Products.ToList();
+        }
+
+        /// <summary>
+        /// Method to add a special price for a customer and product
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <param name="product"></param>
+        /// <param name="price"></param>
+        public void AddSpecialPrice(Customer customer, Product product, decimal price)
+        {
+            SpecialPriceList specialPriceList = new SpecialPriceList();
+            specialPriceList.customerId = customer.customerNumber;
+            specialPriceList.productCode = product.productCode;
+            specialPriceList.price = price;
+
+            context.SpecialPriceList.Add(specialPriceList);
+            context.SaveChanges();
+        }
+        #endregion
     }
 }

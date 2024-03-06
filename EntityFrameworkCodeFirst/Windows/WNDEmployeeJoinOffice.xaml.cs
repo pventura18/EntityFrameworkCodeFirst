@@ -26,7 +26,7 @@ namespace EntityFrameworkCodeFirst.Windows
             InitializeComponent();
             this.manager = manager;
 
-            lvEmployeesOffices.ItemsSource = manager.GetEmployeesEntities();
+            lvEmployeesOffices.ItemsSource = manager.GetEmployeesJoinOffices();
 
 
         }
