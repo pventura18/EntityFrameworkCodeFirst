@@ -79,7 +79,7 @@ namespace EntityFrameworkCodeFirst.DAO
             }
         }
 
-        public void AddProductLinesBatch(List<ProductLine> productLines)
+        private void AddProductLinesBatch(List<ProductLine> productLines)
         {
             context.ProductLines.AddRange(productLines);
             context.SaveChanges();
@@ -127,7 +127,7 @@ namespace EntityFrameworkCodeFirst.DAO
             }
         }
 
-        public void AddProductsBatch(List<Product> products)
+        private void AddProductsBatch(List<Product> products)
         {
             foreach (Product product in products)
             {
@@ -180,9 +180,70 @@ namespace EntityFrameworkCodeFirst.DAO
             }
         }
 
-        public void AddOfficesBatch(List<Office> offices)
+        private void AddOfficesBatch(List<Office> offices)
         {
             context.Offices.AddRange(offices);
+            context.SaveChanges();
+        }
+
+        public void AddEmployees()
+        {
+            List<Employee> employeesBatch = new List<Employee>();
+
+            using (TextFieldParser parser = new TextFieldParser(EMPLOYEES_FILE))
+            {
+                parser.ReadLine();
+                parser.TextFieldType = FieldType.Delimited;
+                parser.SetDelimiters(",");
+                parser.HasFieldsEnclosedInQuotes = true;
+
+                while (!parser.EndOfData)
+                {
+                    string[] data = parser.ReadFields();
+                    Employee employee = new Employee();
+                    employee.employeeNumber = Convert.ToInt16(data[0]);
+                    employee.lastName = data[1];
+                    employee.firstName = data[2];
+                    employee.extension = data[3];
+                    employee.email = data[4];
+                    employee.officeCode = data[5];
+
+                    if (data[6] == "NULL")
+                    {
+                        employee.reportsTo = null;
+                    }
+                    else
+                    {
+                        employee.reportsTo = Convert.ToInt16(data[6]);
+                    }
+
+                    employee.jobTitle = data[7];
+
+                    employeesBatch.Add(employee);
+
+                    if (employeesBatch.Count >= BATCH_SIZE)
+                    {
+                        AddEmployeesBatch(employeesBatch);
+                        employeesBatch.Clear();
+                    }
+                }
+
+                if (employeesBatch.Count > 0)
+                {
+                    AddEmployeesBatch(employeesBatch);
+                }
+            }
+        }
+
+        private void AddEmployeesBatch(List<Employee> employees)
+        {
+            foreach (var employee in employees)
+            {
+                employee.offices = context.Offices.Find(employee.officeCode);
+                employee.ReportsToRef = context.Employees.Find(employee.reportsTo);
+            }
+
+            context.Employees.AddRange(employees);
             context.SaveChanges();
         }
 
@@ -240,7 +301,7 @@ namespace EntityFrameworkCodeFirst.DAO
             }
         }
 
-        public void AddCustomersBatch(List<Customer> customers)
+        private void AddCustomersBatch(List<Customer> customers)
         {
 
             foreach (Customer customer in customers)
@@ -255,12 +316,11 @@ namespace EntityFrameworkCodeFirst.DAO
             context.SaveChanges();
         }
 
-
-        public void AddEmployees()
+        public void AddPayments()
         {
-            List<Employee> employeesBatch = new List<Employee>();
+            List<Payment> paymentsBatch = new List<Payment>();
 
-            using (TextFieldParser parser = new TextFieldParser(EMPLOYEES_FILE))
+            using (TextFieldParser parser = new TextFieldParser(PAYMENTS_FILE))
             {
                 parser.ReadLine();
                 parser.TextFieldType = FieldType.Delimited;
@@ -270,102 +330,36 @@ namespace EntityFrameworkCodeFirst.DAO
                 while (!parser.EndOfData)
                 {
                     string[] data = parser.ReadFields();
-                    Employee employee = new Employee();
-                    employee.employeeNumber = Convert.ToInt16(data[0]);
-                    employee.lastName = data[1];
-                    employee.firstName = data[2];
-                    employee.extension = data[3];
-                    employee.email = data[4];
-                    employee.officeCode = data[5];
+                    Payment payment = new Payment();
+                    payment.customerNumber = Convert.ToInt16(data[0]);
+                    payment.checkNumber = data[1];
+                    payment.paymentDate = Convert.ToDateTime(data[2]);
+                    payment.amount = Convert.ToDouble(data[3]);
 
-                    if (data[6] == "NULL")
+                    paymentsBatch.Add(payment);
+
+                    if (paymentsBatch.Count >= BATCH_SIZE)
                     {
-                        employee.reportsTo = null;
-                    }
-                    else
-                    {
-                        employee.reportsTo = Convert.ToInt16(data[6]);
-                    }
-
-                    employee.jobTitle = data[7];
-
-                    employeesBatch.Add(employee);
-
-                    if (employeesBatch.Count >= BATCH_SIZE)
-                    {
-                        AddEmployeesBatch(employeesBatch);
-                        employeesBatch.Clear();
+                        AddPaymentsBatch(paymentsBatch);
+                        paymentsBatch.Clear();
                     }
                 }
 
-                if (employeesBatch.Count > 0)
+                if (paymentsBatch.Count > 0)
                 {
-                    AddEmployeesBatch(employeesBatch);
+                    AddPaymentsBatch(paymentsBatch);
                 }
             }
         }
 
-        public void AddEmployeesBatch(List<Employee> employees)
+        private void AddPaymentsBatch(List<Payment> payments)
         {
-            foreach (var employee in employees)
+            foreach (Payment payment in payments)
             {
-                employee.offices = context.Offices.Find(employee.officeCode);
-                employee.ReportsToRef = context.Employees.Find(employee.reportsTo);
+                payment.customer = context.Customers.Find(payment.customerNumber);
             }
 
-            context.Employees.AddRange(employees);
-            context.SaveChanges();
-        }
-
-
-
-
-        public void AddOrderDetails()
-        {
-            List<OrderDetail> orderDetailsBatch = new List<OrderDetail>();
-
-            using (TextFieldParser parser = new TextFieldParser(ORDERDETAILS_FILE))
-            {
-                parser.ReadLine(); 
-                parser.TextFieldType = FieldType.Delimited;
-                parser.SetDelimiters(",");
-                parser.HasFieldsEnclosedInQuotes = true;
-
-                while (!parser.EndOfData)
-                {
-                    string[] data = parser.ReadFields();
-                    OrderDetail orderDetail = new OrderDetail();
-                    orderDetail.orderNumber = Convert.ToInt16(data[0]);
-                    orderDetail.productCode = data[1];
-                    orderDetail.quantityOrdered = Convert.ToInt16(data[2]);
-                    orderDetail.priceEach = Convert.ToDouble(data[3]);
-                    orderDetail.orderLineNumber = Convert.ToInt16(data[4]);
-
-                    orderDetailsBatch.Add(orderDetail);
-
-                    if (orderDetailsBatch.Count >= BATCH_SIZE)
-                    {
-                        AddOrderDetailsBatch(orderDetailsBatch);
-                        orderDetailsBatch.Clear();
-                    }
-                }
-
-                if (orderDetailsBatch.Count > 0)
-                {
-                    AddOrderDetailsBatch(orderDetailsBatch);
-                }
-            }
-        }
-
-        public void AddOrderDetailsBatch(List<OrderDetail> orderDetails)
-        {
-            foreach (var orderDetail in orderDetails)
-            {
-                orderDetail.order = context.Orders.Find(orderDetail.orderNumber);
-                orderDetail.product = context.Products.Find(orderDetail.productCode);
-            }
-
-            context.OrderDetails.AddRange(orderDetails);
+            context.Payment.AddRange(payments);
             context.SaveChanges();
         }
 
@@ -408,7 +402,7 @@ namespace EntityFrameworkCodeFirst.DAO
             }
         }
 
-        public void AddOrdersBatch(List<Order> orders)
+        private void AddOrdersBatch(List<Order> orders)
         {
             foreach (Order order in orders)
             {
@@ -419,11 +413,11 @@ namespace EntityFrameworkCodeFirst.DAO
             context.SaveChanges();
         }
 
-        public void AddPayments()
+        public void AddOrderDetails()
         {
-            List<Payment> paymentsBatch = new List<Payment>();
+            List<OrderDetail> orderDetailsBatch = new List<OrderDetail>();
 
-            using (TextFieldParser parser = new TextFieldParser(PAYMENTS_FILE))
+            using (TextFieldParser parser = new TextFieldParser(ORDERDETAILS_FILE))
             {
                 parser.ReadLine();
                 parser.TextFieldType = FieldType.Delimited;
@@ -433,36 +427,38 @@ namespace EntityFrameworkCodeFirst.DAO
                 while (!parser.EndOfData)
                 {
                     string[] data = parser.ReadFields();
-                    Payment payment = new Payment();
-                    payment.customerNumber = Convert.ToInt16(data[0]);
-                    payment.checkNumber = data[1];
-                    payment.paymentDate = Convert.ToDateTime(data[2]);
-                    payment.amount = Convert.ToDouble(data[3]);
+                    OrderDetail orderDetail = new OrderDetail();
+                    orderDetail.orderNumber = Convert.ToInt16(data[0]);
+                    orderDetail.productCode = data[1];
+                    orderDetail.quantityOrdered = Convert.ToInt16(data[2]);
+                    orderDetail.priceEach = Convert.ToDouble(data[3]);
+                    orderDetail.orderLineNumber = Convert.ToInt16(data[4]);
 
-                    paymentsBatch.Add(payment);
+                    orderDetailsBatch.Add(orderDetail);
 
-                    if (paymentsBatch.Count >= BATCH_SIZE)
+                    if (orderDetailsBatch.Count >= BATCH_SIZE)
                     {
-                        AddPaymentsBatch(paymentsBatch);
-                        paymentsBatch.Clear();
+                        AddOrderDetailsBatch(orderDetailsBatch);
+                        orderDetailsBatch.Clear();
                     }
                 }
 
-                if (paymentsBatch.Count > 0)
+                if (orderDetailsBatch.Count > 0)
                 {
-                    AddPaymentsBatch(paymentsBatch);
+                    AddOrderDetailsBatch(orderDetailsBatch);
                 }
             }
         }
 
-        public void AddPaymentsBatch(List<Payment> payments)
+        private void AddOrderDetailsBatch(List<OrderDetail> orderDetails)
         {
-            foreach (Payment payment in payments)
+            foreach (var orderDetail in orderDetails)
             {
-                payment.customer = context.Customers.Find(payment.customerNumber);
+                orderDetail.order = context.Orders.Find(orderDetail.orderNumber);
+                orderDetail.product = context.Products.Find(orderDetail.productCode);
             }
 
-            context.Payment.AddRange(payments);
+            context.OrderDetails.AddRange(orderDetails);
             context.SaveChanges();
         }
 
@@ -734,10 +730,6 @@ namespace EntityFrameworkCodeFirst.DAO
                 });
                
              return employeeWithOffices;
-
-
-
-
         }
 
         public List<string> GetCountry()
@@ -758,46 +750,6 @@ namespace EntityFrameworkCodeFirst.DAO
                 .ToList();
 
             return countriesFiltred;
-        }
-
-        public void AddOrderDetailsEntry(OrderDetail orderDetail)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddProductLineEntry(ProductLine productLine)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddProductsEntry(Product product)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddOfficesEntry(Office office)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddEmployeesEntry(Employee employee)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddCustomersEntry(Customer customer)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddPaymentsEntry(Payment payment)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddOrdersEntry(Order order)
-        {
-            throw new NotImplementedException();
         }
     }
 }

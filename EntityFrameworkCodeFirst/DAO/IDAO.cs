@@ -18,15 +18,6 @@ namespace EntityFrameworkCodeFirst.DAO
         void AddOrders();
         void AddOrderDetails();
 
-        void AddProductLineEntry(MODEL.ProductLine productLine);
-        void AddProductsEntry(MODEL.Product product);
-        void AddOfficesEntry(MODEL.Office office);
-        void AddEmployeesEntry(MODEL.Employee employee);
-        void AddCustomersEntry(MODEL.Customer customer);
-        void AddPaymentsEntry(MODEL.Payment payment);
-        void AddOrdersEntry(MODEL.Order order);
-        void AddOrderDetailsEntry(MODEL.OrderDetail orderDetail);
-
         void ImportCsvFiles();
 
         IEnumerable GetCustomers(char inicial);
