@@ -1,4 +1,4 @@
-﻿using EntityFrameworkCodeFirst.MODEL;
+using EntityFrameworkCodeFirst.MODEL;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,7 +10,6 @@ namespace EntityFrameworkCodeFirst.DAO
 {
     public interface IDAO
     {
-        void AddProductLine();
         void AddProducts();
         void AddOffices();
         void AddEmployees();
@@ -41,5 +40,8 @@ namespace EntityFrameworkCodeFirst.DAO
 
         IEnumerable GetEmployeesByOffice(string? v);
         IEnumerable GetOffices();
+        List<Customer> GetCustomers();
+        List<Product> GetProducts();
+        void AddSpecialPrice(Customer customer, Product product, decimal price);
     }
 }

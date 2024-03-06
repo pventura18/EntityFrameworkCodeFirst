@@ -1,4 +1,4 @@
-﻿using EntityFrameworkCodeFirst.MODEL;
+using EntityFrameworkCodeFirst.MODEL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic.FileIO;
 using System;
@@ -468,6 +468,7 @@ namespace EntityFrameworkCodeFirst.DAO
             return context.OrderDetails.Select(od => od.orderNumber).Distinct().ToList();
         }
 
+
         public IEnumerable GetShippedOrders(string status)
         {
             var ordersWithSelectedStatus = context.Orders
@@ -508,7 +509,27 @@ namespace EntityFrameworkCodeFirst.DAO
         {
             var officesNames= context.Offices.Select(o => o.city).ToList(); 
             return officesNames;
-            
+        }
+        
+        public List<Customer> GetCustomers()
+        {
+            return context.Customers.ToList();
+        }
+
+        public List<Product> GetProducts()
+        {
+            return context.Products.ToList();
+        }
+
+        public void AddSpecialPrice(Customer customer, Product product, decimal price)
+        {
+            SpecialPriceList specialPriceList = new SpecialPriceList();
+            specialPriceList.customerId = customer.customerNumber;
+            specialPriceList.productCode = product.productCode;
+            specialPriceList.price = price;
+
+            context.SpecialPriceList.Add(specialPriceList);
+            context.SaveChanges();
         }
     }
 }
