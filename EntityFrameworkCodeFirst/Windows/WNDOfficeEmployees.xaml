@@ -20,14 +20,14 @@
         <ListView Grid.Row="1" x:Name="lvEmployees" HorizontalAlignment="Center">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="employeeNumber" Width="200" DisplayMemberBinding="{Binding employeeNumber}"/>
-                    <GridViewColumn Header="lastName" Width="200" DisplayMemberBinding="{Binding emloyeeLastName}"/>
-                    <GridViewColumn Header="firstName" Width="200" DisplayMemberBinding="{Binding employeeName}"/>
-                    <GridViewColumn Header="extension" Width="200" DisplayMemberBinding="{Binding employeeExtension}"/>
-                    <GridViewColumn Header="email" Width="200" DisplayMemberBinding="{Binding employeeEmail}"/>
-                    <GridViewColumn Header="officeCode" Width="200" DisplayMemberBinding="{Binding employeeOfficeCode}"/>
-                    <GridViewColumn Header="reportsTo" Width="200" DisplayMemberBinding="{Binding employeeReportsTo}"/>
-                    <GridViewColumn Header="jobTitle" Width="200" DisplayMemberBinding="{Binding employeeJobTitle}"/>
+                    <GridViewColumn Header="EmployeeNumber" Width="200" DisplayMemberBinding="{Binding employeeNumber}"/>
+                    <GridViewColumn Header="Last Name" Width="200" DisplayMemberBinding="{Binding emloyeeLastName}"/>
+                    <GridViewColumn Header="First Name" Width="200" DisplayMemberBinding="{Binding employeeName}"/>
+                    <GridViewColumn Header="Extension" Width="200" DisplayMemberBinding="{Binding employeeExtension}"/>
+                    <GridViewColumn Header="Email" Width="200" DisplayMemberBinding="{Binding employeeEmail}"/>
+                    <GridViewColumn Header="Office Code" Width="200" DisplayMemberBinding="{Binding employeeOfficeCode}"/>
+                    <GridViewColumn Header="Reports To" Width="200" DisplayMemberBinding="{Binding employeeReportsTo}"/>
+                    <GridViewColumn Header="Job Title" Width="200" DisplayMemberBinding="{Binding employeeJobTitle}"/>
 
                 </GridView>
             </ListView.View>

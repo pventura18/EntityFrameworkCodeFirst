@@ -18,15 +18,15 @@
         <ListView Grid.Row="1" x:Name="lvOfficeCountry" HorizontalAlignment="Center">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="officeCode" Width="200" DisplayMemberBinding="{Binding officeCode}"/>
-                    <GridViewColumn Header="city" Width="200" DisplayMemberBinding="{Binding city}"/>
-                    <GridViewColumn Header="phone" Width="200" DisplayMemberBinding="{Binding phone}"/>
-                    <GridViewColumn Header="adressLine1" Width="200" DisplayMemberBinding="{Binding addressLine1}"/>
-                    <GridViewColumn Header="adressLine2" Width="200" DisplayMemberBinding="{Binding addressLine2}"/>
-                    <GridViewColumn Header="state" Width="200" DisplayMemberBinding="{Binding state}"/>
-                    <GridViewColumn Header="country" Width="200" DisplayMemberBinding="{Binding country}"/>
-                    <GridViewColumn Header="postalCode" Width="200" DisplayMemberBinding="{Binding postalCode}"/>
-                    <GridViewColumn Header="territory" Width="200" DisplayMemberBinding="{Binding territory}"/>
+                    <GridViewColumn Header="Office Code" Width="200" DisplayMemberBinding="{Binding officeCode}"/>
+                    <GridViewColumn Header="City" Width="200" DisplayMemberBinding="{Binding city}"/>
+                    <GridViewColumn Header="Phone" Width="200" DisplayMemberBinding="{Binding phone}"/>
+                    <GridViewColumn Header="Adress Line 1" Width="200" DisplayMemberBinding="{Binding addressLine1}"/>
+                    <GridViewColumn Header="Adress Line 2" Width="200" DisplayMemberBinding="{Binding addressLine2}"/>
+                    <GridViewColumn Header="State" Width="200" DisplayMemberBinding="{Binding state}"/>
+                    <GridViewColumn Header="Country" Width="200" DisplayMemberBinding="{Binding country}"/>
+                    <GridViewColumn Header="Postal Code" Width="200" DisplayMemberBinding="{Binding postalCode}"/>
+                    <GridViewColumn Header="Territory" Width="200" DisplayMemberBinding="{Binding territory}"/>
                 </GridView>
             </ListView.View>
         </ListView>

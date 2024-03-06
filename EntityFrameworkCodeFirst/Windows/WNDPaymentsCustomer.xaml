@@ -20,9 +20,9 @@
         <ListView Grid.Row="1" x:Name="lvPaymentsCustomers" HorizontalAlignment="Center">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="CustomerNumber" Width="200" DisplayMemberBinding="{Binding CustomerNumber}"/>
-                    <GridViewColumn Header="CustomerName" Width="200" DisplayMemberBinding="{Binding CustomerName}"/>
-                    <GridViewColumn Header="TotalPayments" Width="200" DisplayMemberBinding="{Binding TotalPayments}"/>
+                    <GridViewColumn Header="Customer Number" Width="200" DisplayMemberBinding="{Binding CustomerNumber}"/>
+                    <GridViewColumn Header="Customer Name" Width="200" DisplayMemberBinding="{Binding CustomerName}"/>
+                    <GridViewColumn Header="Total Payments" Width="200" DisplayMemberBinding="{Binding TotalPayments}"/>
                   
                 </GridView>
             </ListView.View>

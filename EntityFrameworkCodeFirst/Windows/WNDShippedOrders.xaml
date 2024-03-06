@@ -23,13 +23,13 @@
         <ListView Grid.Row="1" x:Name="lvOrderShipped" HorizontalAlignment="Center">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="orderNumber" Width="200" DisplayMemberBinding="{Binding orderNumber}"/>
-                    <GridViewColumn Header="orderDate" Width="200" DisplayMemberBinding="{Binding orderDate}"/>
-                    <GridViewColumn Header="requiredDate" Width="200" DisplayMemberBinding="{Binding requiredDate}"/>
-                    <GridViewColumn Header="shippedDate" Width="200" DisplayMemberBinding="{Binding shippedDate}"/>
-                    <GridViewColumn Header="status" Width="200" DisplayMemberBinding="{Binding status}"/>
-                    <GridViewColumn Header="comments" Width="200" DisplayMemberBinding="{Binding comments }"/>
-                    <GridViewColumn Header="customerNumber" Width="200" DisplayMemberBinding="{Binding customerNumber}"/>
+                    <GridViewColumn Header="Order Number" Width="200" DisplayMemberBinding="{Binding orderNumber}"/>
+                    <GridViewColumn Header="Order Date" Width="200" DisplayMemberBinding="{Binding orderDate}"/>
+                    <GridViewColumn Header="Required Date" Width="200" DisplayMemberBinding="{Binding requiredDate}"/>
+                    <GridViewColumn Header="Shipped Date" Width="200" DisplayMemberBinding="{Binding shippedDate}"/>
+                    <GridViewColumn Header="Status" Width="200" DisplayMemberBinding="{Binding status}"/>
+                    <GridViewColumn Header="Comments" Width="200" DisplayMemberBinding="{Binding comments }"/>
+                    <GridViewColumn Header="Customer Number" Width="200" DisplayMemberBinding="{Binding customerNumber}"/>
                    
                 </GridView>
             </ListView.View>
