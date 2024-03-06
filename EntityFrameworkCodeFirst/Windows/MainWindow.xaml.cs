@@ -28,7 +28,10 @@ namespace EntityFrameworkCodeFirst.Windows
             InitializeComponent();
             DaoFactory daoFactory = new DaoFactory();
             manager = daoFactory.GetDaoManager(context);
-            manager.ImportCsvFiles();
+            //manager.ImportCsvFiles();
+           
+
+
         }
 
         private void btnCustomers_Click(object sender, RoutedEventArgs e)
