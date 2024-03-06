@@ -28,6 +28,8 @@
     <Compile Remove="Migrations\20240228235815_CustomerFix.Designer.cs" />
     <Compile Remove="Migrations\20240229001022_OrderDetails.cs" />
     <Compile Remove="Migrations\20240229001022_OrderDetails.Designer.cs" />
+    <Compile Remove="Migrations\20240306222016_Final-Migration.cs" />
+    <Compile Remove="Migrations\20240306222016_Final-Migration.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
