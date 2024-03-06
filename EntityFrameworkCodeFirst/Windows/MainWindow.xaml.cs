@@ -1,4 +1,4 @@
-﻿using EntityFrameworkCodeFirst.DAO;
+using EntityFrameworkCodeFirst.DAO;
 using EntityFrameworkCodeFirst.MODEL;
 using System;
 using System.Collections.Generic;
@@ -29,6 +29,7 @@ namespace EntityFrameworkCodeFirst.Windows
             InitializeComponent();
             DaoFactory daoFactory = new DaoFactory();
             manager = daoFactory.GetDaoManager(context);
+
             //manager.ImportCsvFiles();
             List<Customer> customers = manager.GetCustomers();
             List<Product> products = manager.GetProducts();
@@ -86,6 +87,19 @@ namespace EntityFrameworkCodeFirst.Windows
         {
             WNDDetailsOrder wndDetailsOrder = new WNDDetailsOrder(manager);
             wndDetailsOrder.ShowDialog();
+        }
+
+        private void btnShippedStatus_Click(object sender, RoutedEventArgs e)
+        {
+            WNDShippedOrders wndShippedOrders = new WNDShippedOrders(manager);
+            wndShippedOrders.ShowDialog();
+
+        }
+
+        private void btnemployeesOffice_Click(object sender, RoutedEventArgs e)
+        {
+            WNDOfficeEmployees wndOfficeEmployees = new WNDOfficeEmployees(manager);
+            wndOfficeEmployees.ShowDialog();
         }
     }
 }

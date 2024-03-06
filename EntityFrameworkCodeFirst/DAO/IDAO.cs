@@ -1,4 +1,4 @@
-﻿using EntityFrameworkCodeFirst.MODEL;
+using EntityFrameworkCodeFirst.MODEL;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -36,6 +36,10 @@ namespace EntityFrameworkCodeFirst.DAO
         IEnumerable GetPriceOfOrders();
         IEnumerable GetDetailsOrder(int orderNumber);
         IEnumerable GetOrdersNumbers();
+        IEnumerable GetShippedOrders(string status);
+
+        IEnumerable GetEmployeesByOffice(string? v);
+        IEnumerable GetOffices();
         List<Customer> GetCustomers();
         List<Product> GetProducts();
         void AddSpecialPrice(Customer customer, Product product, decimal price);
