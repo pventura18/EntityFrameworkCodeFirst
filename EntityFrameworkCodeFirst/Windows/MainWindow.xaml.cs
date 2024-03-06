@@ -31,19 +31,19 @@ namespace EntityFrameworkCodeFirst.Windows
             manager = daoFactory.GetDaoManager(context);
 
             //manager.ImportCsvFiles();
-            List<Customer> customers = manager.GetCustomers();
-            List<Product> products = manager.GetProducts();
+            //List<Customer> customers = manager.GetCustomers();
+            //List<Product> products = manager.GetProducts();
+            
+            //for(int i = 0; i < 10; i++)
+            //{
+            //    Random r = new Random();
+            //    int indexCustomer = r.Next(customers.Count);
+            //    int indexProduct1 = r.Next(products.Count);
+            //    int indexProduct2 = r.Next(products.Count);
 
-            for(int i = 0; i < 10; i++)
-            {
-                Random r = new Random();
-                int indexCustomer = r.Next(customers.Count);
-                int indexProduct1 = r.Next(products.Count);
-                int indexProduct2 = r.Next(products.Count);
-
-                manager.AddSpecialPrice(customers[indexCustomer], products[indexProduct1], GetRandomPrice());
-                manager.AddSpecialPrice(customers[indexCustomer], products[indexProduct2], GetRandomPrice());
-            }
+            //    manager.AddSpecialPrice(customers[indexCustomer], products[indexProduct1], GetRandomPrice());
+            //    manager.AddSpecialPrice(customers[indexCustomer], products[indexProduct2], GetRandomPrice());
+            //}
         }
 
         private static decimal GetRandomPrice()
@@ -100,6 +100,35 @@ namespace EntityFrameworkCodeFirst.Windows
         {
             WNDOfficeEmployees wndOfficeEmployees = new WNDOfficeEmployees(manager);
             wndOfficeEmployees.ShowDialog();
+        }
+
+        private void btnPaymentsCustomers_Click(object sender, RoutedEventArgs e)
+        {
+           WNDPaymentsCustomer wNDPaymentsCustomer = new WNDPaymentsCustomer(manager);
+            wNDPaymentsCustomer.ShowDialog();   
+
+
+        }
+
+        private void btnEmployeeQuery_Click(object sender, RoutedEventArgs e)
+        {
+            WNDEmployeesQuery wndEmployeesQuery = new WNDEmployeesQuery(manager);
+            wndEmployeesQuery.ShowDialog();
+
+        }
+
+        private void btnCountryOffice_Click(object sender, RoutedEventArgs e)
+        {
+            WNDOfficeCountry wndOfficeCountry = new WNDOfficeCountry(manager);
+            wndOfficeCountry.ShowDialog();
+
+        }
+
+        private void btnEmployeeOficeRelated_Click(object sender, RoutedEventArgs e)
+        {
+            WNDCustomerEmployesEntities wndEmployeeOfficeRelated = new WNDCustomerEmployesEntities(manager);
+            wndEmployeeOfficeRelated.ShowDialog();
+
         }
     }
 }
