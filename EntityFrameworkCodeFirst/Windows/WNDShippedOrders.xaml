@@ -11,11 +11,15 @@
             <RowDefinition/>
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal">
-            <Label Content=" Orders Details: " HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" FontSize="15" FontWeight="Bold"/>
-            <ComboBox Width="150" Height="20" Name="cbOrderDetails" HorizontalAlignment="Center"></ComboBox>
-            <Button Content="Search" Width="100" Height="20" HorizontalAlignment="Right" VerticalAlignment="Center" Name="btnSearch" Click="btnSearch_Click"  Margin="100,0,0,0"/>
-        </StackPanel>
+        <DockPanel>
+            <TextBlock Text="Orders filtered by status" DockPanel.Dock="Top" Margin="10,10" FontSize="20"/>
+            <StackPanel Orientation="Horizontal">
+                <Label Content=" Orders Details: " HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" FontSize="15" FontWeight="Bold"/>
+                <ComboBox Width="150" Height="20" Name="cbOrderDetails" HorizontalAlignment="Center"></ComboBox>
+                <Button Content="Search" Width="100" Height="20" HorizontalAlignment="Right" VerticalAlignment="Center" Name="btnSearch" Click="btnSearch_Click"  Margin="100,0,0,0"/>
+            </StackPanel>
+        </DockPanel>
+       
         
 
 

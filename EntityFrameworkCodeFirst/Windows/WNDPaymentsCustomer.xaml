@@ -13,7 +13,7 @@
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
-            <Label Content="Payments X Customers: " HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" FontSize="15" FontWeight="Bold"/>
+            <Label Content="Payments for Customers: " HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" FontSize="15" FontWeight="Bold"/>
             
         </StackPanel>
 

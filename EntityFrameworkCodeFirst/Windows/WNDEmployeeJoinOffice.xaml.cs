@@ -16,17 +16,17 @@ using System.Windows.Shapes;
 namespace EntityFrameworkCodeFirst.Windows
 {
     /// <summary>
-    /// Interaction logic for WNDCustomerEmployesEntities.xaml
+    /// Interaction logic for WNDEmployeeJoinOffice.xaml
     /// </summary>
-    public partial class WNDCustomerEmployesEntities : Window
+    public partial class WNDEmployeeJoinOffice : Window
     {
         IDAO manager;
-        public WNDCustomerEmployesEntities(IDAO manager)
+        public WNDEmployeeJoinOffice(IDAO manager)
         {
             InitializeComponent();
             this.manager = manager;
 
-            lvEmployeesOffices.ItemsSource = manager.GetEmployeesEntities();
+            lvEmployeesOffices.ItemsSource = manager.GetEmployeesJoinOffices();
 
 
         }

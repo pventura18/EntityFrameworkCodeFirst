@@ -12,10 +12,13 @@
             <RowDefinition/>
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal">
-            <Label Content=" Offices: " HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" FontSize="15" FontWeight="Bold"/>
-            <ComboBox Width="150" Height="20" Name="cbOffices" HorizontalAlignment="Center" SelectionChanged="cbOffices_SelectionChanged"></ComboBox>
-        </StackPanel>
+        <DockPanel>
+            <TextBlock Text="Employees by office" DockPanel.Dock="Top" Margin="10,10" FontSize="20"/>
+            <StackPanel Orientation="Horizontal">
+                <Label Content=" Offices: " HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" FontSize="15" FontWeight="Bold"/>
+                <ComboBox Width="150" Height="20" Name="cbOffices" HorizontalAlignment="Center" SelectionChanged="cbOffices_SelectionChanged"></ComboBox>
+            </StackPanel>
+        </DockPanel>
 
         <ListView Grid.Row="1" x:Name="lvEmployees" HorizontalAlignment="Center">
             <ListView.View>

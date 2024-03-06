@@ -9,19 +9,22 @@
     <Grid>
 
         <Grid.RowDefinitions>
-            <RowDefinition/>
             <RowDefinition Height="2*"/>
+            <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Vertical">
-            <Label Content="Get all the employees" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" FontSize="12" FontWeight="Bold"/>
-            <Button Content="GetAll" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" FontSize="12" FontWeight="Bold" Name="btnGettAll" Click="btnGettAll_Click" />
-            <Label Content="Get employees by job Tittle" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" FontSize="12" FontWeight="Bold"/>
-            <ComboBox Name="cbJobTittle" Width="120" Height="20" HorizontalAlignment="Center" SelectionChanged="cbJobTittle_SelectionChanged" ></ComboBox>
-            <Label Content="Order Ascending By  Employee Number" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" FontSize="12" FontWeight="Bold"/>
-            <Button Content="Order " HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" FontSize="12" FontWeight="Bold" Name="btnOrderByEmployeeNumber" Click="btnOrderByEmployeeNumber_Click"/>
-            <Label Content="Order Descending By  Employee Number" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" FontSize="12" FontWeight="Bold"/>
-            <Button Content="Order " HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" FontSize="12" FontWeight="Bold" Name="btnOrderByDescendingEmployeeNumber" Click="btnOrderByDescendingEmployeeNumber_Click"/>
-        </StackPanel>
+        <DockPanel>
+            <TextBlock Text="Employees by job title and sorting by employee number" DockPanel.Dock="Top" Margin="10,10" FontSize="20"/>
+            <StackPanel Orientation="Vertical">
+                <Label Content="Get all the employees" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" FontSize="12" FontWeight="Bold"/>
+                <Button Content="GetAll" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" FontSize="12" FontWeight="Bold" Name="btnGettAll" Click="btnGettAll_Click" />
+                <Label Content="Get employees by job Tittle" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" FontSize="12" FontWeight="Bold"/>
+                <ComboBox Name="cbJobTittle" Width="120" Height="20" HorizontalAlignment="Center" SelectionChanged="cbJobTittle_SelectionChanged" ></ComboBox>
+                <Label Content="Order Ascending By  Employee Number" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" FontSize="12" FontWeight="Bold"/>
+                <Button Content="Order " HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" FontSize="12" FontWeight="Bold" Name="btnOrderByEmployeeNumber" Click="btnOrderByEmployeeNumber_Click"/>
+                <Label Content="Order Descending By  Employee Number" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" FontSize="12" FontWeight="Bold"/>
+                <Button Content="Order " HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" FontSize="12" FontWeight="Bold" Name="btnOrderByDescendingEmployeeNumber" Click="btnOrderByDescendingEmployeeNumber_Click"/>
+            </StackPanel>
+        </DockPanel>
 
         <ListView Grid.Row="1" x:Name="lvEmployees" HorizontalAlignment="Center" Margin="30">
             <ListView.View>

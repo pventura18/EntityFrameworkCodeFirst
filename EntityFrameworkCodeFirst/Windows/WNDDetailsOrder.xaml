@@ -9,6 +9,7 @@
     <Grid Background="DarkSlateGray">
         
         <DockPanel Background="Beige" Margin="10,10,10,10">
+            <TextBlock Text="Details of each order" DockPanel.Dock="Top" Margin="10,10" FontSize="20"/>
             <DockPanel DockPanel.Dock="Top">
                 <Button Content="Search / Filter" Name="btnFilter"  Click="btnFilter_Click"  DockPanel.Dock="Right" Margin="10"/>
                 <ComboBox Name="cbOrders" Margin="10,5,10,5" DockPanel.Dock="Right"/>

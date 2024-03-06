@@ -17,16 +17,6 @@ namespace EntityFrameworkCodeFirst.DAO
         void AddPayments();
         void AddOrders();
         void AddOrderDetails();
-
-        void AddProductLineEntry(MODEL.ProductLine productLine);
-        void AddProductsEntry(MODEL.Product product);
-        void AddOfficesEntry(MODEL.Office office);
-        void AddEmployeesEntry(MODEL.Employee employee);
-        void AddCustomersEntry(MODEL.Customer customer);
-        void AddPaymentsEntry(MODEL.Payment payment);
-        void AddOrdersEntry(MODEL.Order order);
-        void AddOrderDetailsEntry(MODEL.OrderDetail orderDetail);
-
         void ImportCsvFiles();
 
         IEnumerable GetCustomers(char inicial);
@@ -37,27 +27,19 @@ namespace EntityFrameworkCodeFirst.DAO
         IEnumerable GetDetailsOrder(int orderNumber);
         IEnumerable GetOrdersNumbers();
         IEnumerable GetShippedOrders(string status);
-
-        IEnumerable GetEmployeesByOffice(string? v);
+        IEnumerable GetEmployeesByOffice(string office);
         IEnumerable GetOffices();
-
         IEnumerable GetJobTittles();
-
         IEnumerable GetEmployees();
-
         IEnumerable GetEmployesByJobTittle(string jobTittle); 
-
         IEnumerable GetEmployeesByAscendingNumber();
         IEnumerable GetEmployeesByDescendingNumber();
-        IEnumerable GetEmployeesEntities();
+        IEnumerable GetEmployeesJoinOffices();
+        List<String> GetCountry();
+        IEnumerable GetOfficesByCountries(string country);
+        IEnumerable GetCustomerPayments();
         List<Customer> GetCustomers();
         List<Product> GetProducts();
-
-        List<String> GetCountry();
-
-        IEnumerable GetOfficesByCountries(string country);
-       
-        IEnumerable GetCustomerPayments();
         void AddSpecialPrice(Customer customer, Product product, decimal price);
     }
 }

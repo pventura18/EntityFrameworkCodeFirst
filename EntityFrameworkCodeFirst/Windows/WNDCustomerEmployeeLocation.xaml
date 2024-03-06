@@ -8,6 +8,7 @@
         Title="WNDCustomerEmployeeLocation" Height="450" Width="800">
     <Grid Background="DarkSlateGray">
         <DockPanel Background="Beige" Margin="10,10,10,10">
+            <TextBlock Text="Customers with the employee that attended and ubication" DockPanel.Dock="Top" Margin="10,10" FontSize="20"/>
             <ListView x:Name="lvCustomerEmployeeLocation" Margin="20">
                 <ListView.View>
                     <GridView>
