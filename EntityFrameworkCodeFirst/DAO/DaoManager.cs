@@ -74,10 +74,11 @@ namespace EntityFrameworkCodeFirst.DAO
                 parser.TextFieldType = FieldType.Delimited;
                 parser.SetDelimiters(",");
                 parser.HasFieldsEnclosedInQuotes = true;
+                string[] data = parser.ReadFields();
 
-                while (!parser.EndOfData)
+                while (data != null)
                 {
-                    string[] data = parser.ReadFields();
+                    
                     ProductLine productLine = new ProductLine();
                     productLine.productLine = data[0];
                     productLine.textDescription = data[1];
@@ -91,6 +92,7 @@ namespace EntityFrameworkCodeFirst.DAO
                         AddProductLinesBatch(productLinesBatch);
                         productLinesBatch.Clear();
                     }
+                    data = parser.ReadFields();
                 }
 
                 if (productLinesBatch.Count > 0)
@@ -123,10 +125,10 @@ namespace EntityFrameworkCodeFirst.DAO
                 parser.TextFieldType = FieldType.Delimited;
                 parser.SetDelimiters(",");
                 parser.HasFieldsEnclosedInQuotes = true;
+                string[] data = parser.ReadFields();
 
-                while (!parser.EndOfData)
+                while (data != null)
                 {
-                    string[] data = parser.ReadFields();
                     Product product = new Product();
                     product.productCode = data[0];
                     product.productName = data[1];
@@ -145,6 +147,7 @@ namespace EntityFrameworkCodeFirst.DAO
                         AddProductsBatch(productsBatch);
                         productsBatch.Clear();
                     }
+                    data = parser.ReadFields();
                 }
 
                 if (productsBatch.Count > 0)
@@ -183,9 +186,10 @@ namespace EntityFrameworkCodeFirst.DAO
                 parser.SetDelimiters(",");
                 parser.HasFieldsEnclosedInQuotes = true;
 
-                while (!parser.EndOfData)
+                string[] data = parser.ReadFields();
+                while (data != null)
                 {
-                    string[] data = parser.ReadFields();
+
                     Office office = new Office();
                     office.officeCode = data[0];
                     office.city = data[1];
@@ -207,6 +211,7 @@ namespace EntityFrameworkCodeFirst.DAO
                         AddOfficesBatch(officesBatch);
                         officesBatch.Clear();
                     }
+                    data = parser.ReadFields();
                 }
 
                 if (officesBatch.Count > 0)
@@ -240,9 +245,10 @@ namespace EntityFrameworkCodeFirst.DAO
                 parser.SetDelimiters(",");
                 parser.HasFieldsEnclosedInQuotes = true;
 
-                while (!parser.EndOfData)
+                string[] data = parser.ReadFields();
+                while (data != null)
                 {
-                    string[] data = parser.ReadFields();
+                   
                     Employee employee = new Employee();
                     employee.employeeNumber = Convert.ToInt16(data[0]);
                     employee.lastName = data[1];
@@ -263,6 +269,7 @@ namespace EntityFrameworkCodeFirst.DAO
                         AddEmployeesBatch(employeesBatch);
                         employeesBatch.Clear();
                     }
+                    data = parser.ReadFields();
                 }
 
                 if (employeesBatch.Count > 0)
@@ -302,9 +309,10 @@ namespace EntityFrameworkCodeFirst.DAO
                 parser.SetDelimiters(",");
                 parser.HasFieldsEnclosedInQuotes = true;
 
-                while (!parser.EndOfData)
+                string[] data = parser.ReadFields();
+                while (data != null)
                 {
-                    string[] data = parser.ReadFields();
+                    
                     Customer customer = new Customer();
                     customer.customerNumber = Convert.ToInt16(data[0]);
                     customer.customerName = data[1];
@@ -336,6 +344,7 @@ namespace EntityFrameworkCodeFirst.DAO
                         AddCustomersBatch(customersBatch);
                         customersBatch.Clear();
                     }
+                    data = parser.ReadFields();
                 }
 
                 if (customersBatch.Count > 0)
@@ -378,9 +387,10 @@ namespace EntityFrameworkCodeFirst.DAO
                 parser.SetDelimiters(",");
                 parser.HasFieldsEnclosedInQuotes = true;
 
-                while (!parser.EndOfData)
+                string[] data = parser.ReadFields();
+                while (data != null)
                 {
-                    string[] data = parser.ReadFields();
+                    
                     Payment payment = new Payment();
                     payment.customerNumber = Convert.ToInt16(data[0]);
                     payment.checkNumber = data[1];
@@ -394,6 +404,7 @@ namespace EntityFrameworkCodeFirst.DAO
                         AddPaymentsBatch(paymentsBatch);
                         paymentsBatch.Clear();
                     }
+                    data = parser.ReadFields();
                 }
 
                 if (paymentsBatch.Count > 0)
@@ -432,9 +443,10 @@ namespace EntityFrameworkCodeFirst.DAO
                 parser.SetDelimiters(",");
                 parser.HasFieldsEnclosedInQuotes = true;
 
-                while (!parser.EndOfData)
+                string[] data = parser.ReadFields();
+                while (data != null)
                 {
-                    string[] data = parser.ReadFields();
+                    
                     Order order = new Order();
                     order.orderNumber = Convert.ToInt16(data[0]);
                     order.orderDate = Convert.ToDateTime(data[1]);
@@ -457,6 +469,7 @@ namespace EntityFrameworkCodeFirst.DAO
                         AddOrdersBatch(ordersBatch);
                         ordersBatch.Clear();
                     }
+                    data = parser.ReadFields();
                 }
 
                 if (ordersBatch.Count > 0)
@@ -495,9 +508,10 @@ namespace EntityFrameworkCodeFirst.DAO
                 parser.SetDelimiters(",");
                 parser.HasFieldsEnclosedInQuotes = true;
 
-                while (!parser.EndOfData)
+                string[] data = parser.ReadFields();
+                while (data != null)
                 {
-                    string[] data = parser.ReadFields();
+                    
                     OrderDetail orderDetail = new OrderDetail();
                     orderDetail.orderNumber = Convert.ToInt16(data[0]);
                     orderDetail.productCode = data[1];
@@ -512,6 +526,7 @@ namespace EntityFrameworkCodeFirst.DAO
                         AddOrderDetailsBatch(orderDetailsBatch);
                         orderDetailsBatch.Clear();
                     }
+                    data = parser.ReadFields();
                 }
 
                 if (orderDetailsBatch.Count > 0)
